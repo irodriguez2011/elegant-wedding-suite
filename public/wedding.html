@@ -147,21 +147,6 @@
         transition: transform 8s ease;
       }
       .hero-photo:hover img { transform: scale(1.04); }
-      /* Gold scalloped lace trim hugging the photo */
-      .hero-lace {
-        position: absolute; inset: 0; pointer-events: none; z-index: 3;
-        border-radius: 14px;
-        background:
-          /* scallop top */
-          radial-gradient(circle at 8px 0, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-x top left / 16px 8px,
-          /* scallop bottom */
-          radial-gradient(circle at 8px 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-x bottom left / 16px 8px,
-          /* scallop left */
-          radial-gradient(circle at 0 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-y top left / 8px 16px,
-          /* scallop right */
-          radial-gradient(circle at 8px 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-y top right / 8px 16px;
-        box-shadow: inset 0 0 0 1px rgba(201,168,76,0.55);
-      }
 
       .hero-countdown-card {
         position: relative; z-index: 2;
