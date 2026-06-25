@@ -1,31 +1,18 @@
-## Plan: Editorial offset hero with countdown card
+## Hero layout fix + photo frame refinement
 
-Update the hero section in `public/wedding.html` to match the selected design.
+**File:** `public/wedding.html`
 
-### Layout
-- Two-column hero. Left column: the existing couple's photo (`/krissie-and-corey.jpeg`) at ~70% width, 16:10 aspect, with a thin lilac `#e4bbed` offset frame behind it (top-left, -4px) and a soft drop shadow.
-- Right column: a white countdown "card" at ~35% width that overlaps the photo by roughly 80–130px on desktop. Subtle border (`#729cc4` at 10% opacity) and shadow.
-- On mobile, the columns stack and the card no longer overlaps.
+### 1. Stop the countdown card from covering the bride (desktop)
+- Remove the overlapping/absolute positioning on the countdown card at desktop widths.
+- Make the hero a single stacked column at ALL breakpoints: photo on top, countdown card centered below — matching the current tablet/mobile behavior shown in the screenshot.
+- Constrain max-width (~1100px) and center the stack so it sits nicely on wide screens.
+- Keep the existing reveal animations (photo fade-up, card slide-up).
 
-### Card contents (top to bottom)
-1. Script headline "The countdown is on!" in Great Vibes, soft blue `#729cc4`.
-2. Live countdown numerals in Cinzel serif, `DAYS : HOURS : MINS : SECS`, with colon separators in `#729cc4`.
-3. Tiny uppercase Cinzel labels in `#729cc4` aligned under each number.
-4. Thin lilac divider, then small uppercase line: `JUNE 19, 2027 · QUEENS, NEW YORK`.
+### 2. Photo frame: lace trim + soft blue corner glow
+- **Outer glow:** wrap the photo in a container with four soft radial gradients in the corners using the site blue (`#729cc4`) fading to transparent — creates a faded blue halo bleeding into the gradient background.
+- **Lace trim:** add a thin scalloped gold SVG border (same lace style/gold tone as the envelope flap trim) hugging the photo edges, sitting just inside the existing lilac offset frame.
+- **Corners:** keep gently rounded corners (~14px) on the photo itself; lace follows the rounded shape.
+- Preserve existing lilac offset border + deep-blue drop shadow underneath the lace layer.
 
-### Countdown logic
-- Reuse the existing countdown JS already in `public/wedding.html`, retargeted to `2027-06-19T00:00:00`. Update all four units (days / hours / minutes / seconds) on a 1-second tick. Remove the older "359 days to go!" / "OUR BEST DAY · Krissie & Cory" block since the new card replaces it.
-
-### Typography & color
-- Add Great Vibes via the existing Google Fonts `<link>` in the head (Cinzel is already loaded).
-- Use existing palette tokens: blue `#729cc4`, lilac `#e4bbed`, beige `#f7efde`, white card.
-
-### Motion
-- Photo: gentle 1.2s fade-up + slight scale on first view (reuse existing IntersectionObserver `from-up` / `from-scale`).
-- Card: slides in from the right with a slight delay so it lands on top of the photo.
-- Numerals: subtle opacity flicker when each second updates (CSS transition on the seconds span).
-
-### Files touched
-- `public/wedding.html` — hero markup, hero CSS block, countdown script target date, fonts link.
-
-No other sections, no color-system or backend changes.
+### 3. No other changes
+- Countdown contents, fonts, colors, RSVP button, and all other sections stay exactly as they are.
