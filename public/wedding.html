@@ -620,21 +620,6 @@
       100% { transform: translate(20px, -110vh) scale(1.2); opacity: 0; }
     }
 
-    /* Filigree corners (SVG) */
-    .corner {
-      position: absolute; width: 110px; height: 110px; color: var(--gold);
-      opacity: 0.85; z-index: 4; pointer-events: none;
-    }
-    .corner.tl { top: 24px; left: 24px; }
-    .corner.tr { top: 24px; right: 24px; transform: scaleX(-1); }
-    .corner.bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
-    .corner.br { bottom: 24px; right: 24px; transform: scale(-1, -1); }
-    @media (max-width: 600px) {
-      .corner { width: 68px; height: 68px; top: 14px; left: 14px; }
-      .corner.tr { right: 14px; left: auto; }
-      .corner.bl { bottom: 14px; left: 14px; top: auto; }
-      .corner.br { bottom: 14px; right: 14px; left: auto; top: auto; }
-    }
 
     /* Envelope */
     .stage-env { cursor: pointer; }
