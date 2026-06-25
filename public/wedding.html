@@ -145,6 +145,18 @@
       .hero-photo img {
         width: 100%; height: 100%; object-fit: cover; display: block;
         transition: transform 8s ease;
+        -webkit-mask-image:
+          radial-gradient(ellipse 55% 55% at 0% 0%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 100% 0%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 0% 100%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 100% 100%, transparent 0%, #000 65%);
+        -webkit-mask-composite: source-in;
+        mask-image:
+          radial-gradient(ellipse 55% 55% at 0% 0%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 100% 0%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 0% 100%, transparent 0%, #000 65%),
+          radial-gradient(ellipse 55% 55% at 100% 100%, transparent 0%, #000 65%);
+        mask-composite: intersect;
       }
       .hero-photo:hover img { transform: scale(1.04); }
 

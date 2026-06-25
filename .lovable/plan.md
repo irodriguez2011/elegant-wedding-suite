@@ -1,18 +1,25 @@
-## Hero layout fix + photo frame refinement
+Plan: Add soft corner fades to the hero photo
 
-**File:** `public/wedding.html`
+1. **Goal**: Soften only the corners of the hero couple photo so they blur into the surrounding page, while keeping the top/bottom/side edges crisp and the main subject untouched.
 
-### 1. Stop the countdown card from covering the bride (desktop)
-- Remove the overlapping/absolute positioning on the countdown card at desktop widths.
-- Make the hero a single stacked column at ALL breakpoints: photo on top, countdown card centered below — matching the current tablet/mobile behavior shown in the screenshot.
-- Constrain max-width (~1100px) and center the stack so it sits nicely on wide screens.
-- Keep the existing reveal animations (photo fade-up, card slide-up).
+2. **Approach**:
+    - Apply a CSS mask to the inner hero image using a radial gradient at each corner. Each corner gradient fades from transparent at the extreme corner to opaque a short distance inward (only ~10–15% of the image width/height).
+    - The center and straight edges remain fully visible, so it is not a heavy vignette.
+    - Add the same mask to `mask-image` with a `-webkit-` prefix for Safari.
 
-### 2. Photo frame: lace trim + soft blue corner glow
-- **Outer glow:** wrap the photo in a container with four soft radial gradients in the corners using the site blue (`#729cc4`) fading to transparent — creates a faded blue halo bleeding into the gradient background.
-- **Lace trim:** add a thin scalloped gold SVG border (same lace style/gold tone as the envelope flap trim) hugging the photo edges, sitting just inside the existing lilac offset frame.
-- **Corners:** keep gently rounded corners (~14px) on the photo itself; lace follows the rounded shape.
-- Preserve existing lilac offset border + deep-blue drop shadow underneath the lace layer.
+3. **Implementation**:
+    - Edit `public/wedding.html` hero styles (`.hero-photo img`).
+    - Add a mask rule using a layered radial-gradient at the four corners, e.g.:
+      ```
+      mask-image:
+        radial-gradient(circle at 0 0, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
+        radial-gradient(circle at 100% 0, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
+        radial-gradient(circle at 0 100%, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
+        radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%);
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+      ```
+    - Keep the existing rounded corners (14px), blue glow halo, and thin lilac offset frame.
+    - Adjust the radius/percentage so the fade is subtle and elegant, not a strong vignette.
 
-### 3. No other changes
-- Countdown contents, fonts, colors, RSVP button, and all other sections stay exactly as they are.
+4. **Validation**: Refresh the preview and confirm the four corners of the hero photo fade softly into the page while the middle and edges of the photo remain sharp and clear.
