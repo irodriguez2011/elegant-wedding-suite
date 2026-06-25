@@ -726,13 +726,27 @@
       50%      { box-shadow: 0 14px 28px rgba(0,0,0,0.55), 0 0 32px rgba(230,201,138,0.35), inset 0 3px 8px rgba(255,255,255,0.65), inset 0 -14px 24px rgba(101,76,34,0.35), inset 0 0 30px rgba(139,108,54,0.25); }
     }
 
+    .env-label {
+      position: absolute; top: 14%; left: 0; right: 0; text-align: center; z-index: 5;
+      font-family: 'Cinzel', serif;
+      font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--walnut-soft);
+    }
+    .env-names {
+      position: absolute; top: 20%; left: 0; right: 0; text-align: center; z-index: 5;
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(2.6rem, 8vw, 4.2rem); color: var(--walnut);
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    }
+    .env-names span { color: var(--gold); margin: 0 0.12em; font-size: 0.8em; }
     .env-hint {
       position: absolute; bottom: 2.4rem; left: 0; right: 0; text-align: center; z-index: 5;
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-light);
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--walnut-soft);
       animation: hintPulse 2s ease-in-out infinite;
     }
-    @keyframes hintPulse { 0%, 100% { opacity: 0.4; letter-spacing: 0.35em; } 50% { opacity: 1; letter-spacing: 0.45em; } }
+    @keyframes hintPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 
     /* Opening sequence */
     .stage-env.opening .env-flap-full { transform: rotateX(180deg); }
