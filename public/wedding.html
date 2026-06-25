@@ -641,35 +641,48 @@
     .env-flap-full {
       position:absolute; top:0; left:0; width:100%; height:62%;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
-      background-color: var(--wine);
+      background-color: #f9f5eb;
       background-image:
-        radial-gradient(45% 60% at 30% 12%, rgba(230,201,138,0.18), transparent 70%),
-        radial-gradient(50% 60% at 75% 30%, rgba(0,0,0,0.30), transparent 70%),
-        linear-gradient(180deg, var(--wine-glow), var(--wine) 55%, var(--wine-deep));
+        radial-gradient(45% 60% at 30% 12%, rgba(255,255,255,0.85), transparent 70%),
+        radial-gradient(50% 60% at 75% 30%, rgba(201,168,76,0.10), transparent 70%),
+        linear-gradient(180deg, #fdfbf5, #f5ecd9 55%, #efe4cf);
       transform-origin: top center;
       transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease;
       z-index: 3;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.55));
+      filter: drop-shadow(0 12px 18px rgba(58,42,31,0.20));
     }
-    /* velvet nap on the flap too */
+    /* Lace trim along the flap's diagonal edges */
     .env-flap-full::before {
-      content:""; position:absolute; inset:0; opacity:0.35;
+      content:""; position:absolute; inset:0; opacity:0.85;
       clip-path: inherit;
-      background-image:
-        repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 4px),
-        repeating-linear-gradient(28deg,  rgba(0,0,0,0.08) 0 3px, transparent 3px 7px);
-      mix-blend-mode: overlay;
+      background:
+        linear-gradient(135deg, transparent calc(50% - 6px), rgba(255,255,255,0.95) calc(50% - 5px), rgba(255,255,255,0.95) calc(50% + 5px), transparent calc(50% + 6px)) no-repeat,
+        linear-gradient(45deg,  transparent calc(50% - 6px), rgba(255,255,255,0.95) calc(50% - 5px), rgba(255,255,255,0.95) calc(50% + 5px), transparent calc(50% + 6px)) no-repeat;
+      background-size: 100% 100%;
     }
-    /* Gold trim along the flap's diagonal edge */
+    /* Scalloped lace edge detail */
     .env-flap-full::after {
       content:""; position:absolute; inset:0;
       background:
-        linear-gradient(135deg, transparent calc(50% - 1px), var(--gold) 50%, transparent calc(50% + 1px)) no-repeat,
-        linear-gradient(45deg,  transparent calc(50% - 1px), var(--gold) 50%, transparent calc(50% + 1px)) no-repeat;
+        linear-gradient(135deg, transparent calc(50% - 1px), rgba(201,168,76,0.35) 50%, transparent calc(50% + 1px)) no-repeat,
+        linear-gradient(45deg,  transparent calc(50% - 1px), rgba(201,168,76,0.35) 50%, transparent calc(50% + 1px)) no-repeat;
       background-size: 100% 100%;
-      opacity: 0.6;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
+      opacity: 0.7;
     }
+    /* Lace scallops on the diagonal edges */
+    .env-lace {
+      position: absolute; top:0; left:0; width:100%; height:62%; z-index: 4;
+      pointer-events: none;
+    }
+    .env-lace::before, .env-lace::after {
+      content:""; position:absolute; top:0; width:50%; height:100%;
+      background-image: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.95) 35%, transparent 37%);
+      background-size: 14px 14px;
+      background-repeat: repeat-y;
+    }
+    .env-lace::before { left:0; transform: skewX(26deg); transform-origin: top left; }
+    .env-lace::after  { right:0; transform: skewX(-26deg); transform-origin: top right; }
 
     /* Wax seal */
     .seal-big {
