@@ -581,27 +581,27 @@
       align-items: center; justify-content: center; transition: opacity 1s ease;
     }
 
-    /* Deep burgundy velvet backdrop */
+    /* Cream paper envelope backdrop */
     .velvet {
-      background-color: var(--wine-deep);
+      background-color: var(--ivory-2);
       background-image:
-        radial-gradient(48% 38% at 22% 22%, rgba(230,201,138,0.18), transparent 70%),
-        radial-gradient(52% 44% at 78% 76%, rgba(0,0,0,0.45), transparent 70%),
-        radial-gradient(40% 30% at 70% 14%, rgba(255,255,255,0.05), transparent 70%),
-        radial-gradient(56% 46% at 28% 88%, rgba(0,0,0,0.40), transparent 70%),
-        linear-gradient(135deg, #2d557d, #1f3a5a 50%, #0e2138);
+        radial-gradient(48% 38% at 22% 22%, rgba(255,255,255,0.85), transparent 70%),
+        radial-gradient(52% 44% at 78% 76%, rgba(201,168,76,0.08), transparent 70%),
+        radial-gradient(40% 30% at 70% 14%, rgba(255,255,255,0.55), transparent 70%),
+        radial-gradient(56% 46% at 28% 88%, rgba(114,156,196,0.06), transparent 70%),
+        linear-gradient(135deg, #faf6ec, #f5ecd9 50%, #efe4cf);
     }
-    /* Velvet "nap" + sheen */
+    /* Paper texture */
     .velvet::before {
-      content:""; position:absolute; inset:0; pointer-events:none; opacity:0.45;
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:0.35;
       background-image:
-        repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 4px),
-        repeating-linear-gradient(28deg,  rgba(0,0,0,0.08) 0 3px, transparent 3px 7px);
-      mix-blend-mode: overlay;
+        repeating-linear-gradient(115deg, rgba(58,42,31,0.04) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(28deg,  rgba(58,42,31,0.03) 0 1px, transparent 1px 6px);
+      mix-blend-mode: multiply;
     }
     .velvet::after {
       content:""; position:absolute; inset:0; pointer-events:none;
-      background: radial-gradient(circle at 50% 45%, transparent 38%, rgba(0,0,0,0.55) 100%);
+      background: radial-gradient(circle at 50% 45%, transparent 38%, rgba(58,42,31,0.10) 100%);
     }
 
     /* Drifting embers / gold particles inside the intro */
