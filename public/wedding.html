@@ -636,24 +636,15 @@
       z-index: 3;
       filter: drop-shadow(0 12px 18px rgba(58,42,31,0.20));
     }
-    /* Lace trim along the flap's diagonal edges */
-    .env-flap-full::before {
-      content:""; position:absolute; inset:0; opacity:0.85;
-      clip-path: inherit;
-      background:
-        linear-gradient(135deg, transparent calc(50% - 6px), rgba(255,255,255,0.95) calc(50% - 5px), rgba(255,255,255,0.95) calc(50% + 5px), transparent calc(50% + 6px)) no-repeat,
-        linear-gradient(45deg,  transparent calc(50% - 6px), rgba(255,255,255,0.95) calc(50% - 5px), rgba(255,255,255,0.95) calc(50% + 5px), transparent calc(50% + 6px)) no-repeat;
-      background-size: 100% 100%;
-    }
-    /* Scalloped lace edge detail */
+    /* Soft gold edge lines along the flap's diagonal edges */
     .env-flap-full::after {
-      content:""; position:absolute; inset:0;
+      content:""; position:absolute; inset:0; pointer-events:none;
       background:
-        linear-gradient(135deg, transparent calc(50% - 1px), rgba(201,168,76,0.35) 50%, transparent calc(50% + 1px)) no-repeat,
-        linear-gradient(45deg,  transparent calc(50% - 1px), rgba(201,168,76,0.35) 50%, transparent calc(50% + 1px)) no-repeat;
+        linear-gradient(135deg, transparent calc(50% - 1px), rgba(201,168,76,0.42) 50%, transparent calc(50% + 1px)) no-repeat,
+        linear-gradient(45deg,  transparent calc(50% - 1px), rgba(201,168,76,0.42) 50%, transparent calc(50% + 1px)) no-repeat;
       background-size: 100% 100%;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
-      opacity: 0.7;
+      opacity: 0.8;
     }
     /* SVG lace trim along the V-shaped flap edges */
     .env-lace {
