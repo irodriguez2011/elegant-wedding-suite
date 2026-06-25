@@ -1502,19 +1502,35 @@
         if (skip) skip.addEventListener('click', closeIntro);
       })();
 
-      // ── Live countdown ──
+      // ── Live countdown (D : H : M : S to June 19, 2027) ──
       (function () {
-        var el = document.getElementById('countdown');
-        if (!el) return;
-        var wedding = new Date('2027-06-19T00:00:00');
-        var now = new Date();
-        var oneDay = 1000 * 60 * 60 * 24;
-        var days = Math.ceil((wedding - now) / oneDay);
-        if (days > 1) el.innerHTML = '<strong>' + days + '</strong> days to go!';
-        else if (days === 1) el.innerHTML = '<strong>1</strong> day to go!';
-        else if (days === 0) el.innerHTML = "It's today! ✦";
-        else el.innerHTML = 'Happily married ✦';
+        var dEl = document.getElementById('cd-days');
+        var hEl = document.getElementById('cd-hours');
+        var mEl = document.getElementById('cd-mins');
+        var sEl = document.getElementById('cd-secs');
+        if (!dEl) return;
+        var wedding = new Date('2027-06-19T00:00:00').getTime();
+        var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+        function tick() {
+          var diff = wedding - Date.now();
+          if (diff <= 0) {
+            dEl.textContent = '00'; hEl.textContent = '00';
+            mEl.textContent = '00'; sEl.textContent = '00';
+            return;
+          }
+          var s = Math.floor(diff / 1000);
+          var days = Math.floor(s / 86400); s -= days * 86400;
+          var hours = Math.floor(s / 3600); s -= hours * 3600;
+          var mins = Math.floor(s / 60); var secs = s - mins * 60;
+          dEl.textContent = days;
+          hEl.textContent = pad(hours);
+          mEl.textContent = pad(mins);
+          sEl.textContent = pad(secs);
+        }
+        tick();
+        setInterval(tick, 1000);
       })();
+
 
       // ── Scroll reveal ──
       (function () {
