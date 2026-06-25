@@ -109,23 +109,36 @@
       .nav-links a:hover { color: var(--wine); }
       .nav-links a:hover::after { transform: scaleX(1); transform-origin: left center; }
 
-      /* ── EDITORIAL HERO (photo + countdown card) ── */
+      /* ── EDITORIAL HERO (stacked: photo + countdown card) ── */
       .hero-editorial {
-        max-width: 1240px; margin: 2.5rem auto 4rem;
+        max-width: 1100px; margin: 2.5rem auto 4rem;
         padding: 0 2rem; position: relative;
-        display: flex; align-items: center; gap: 0;
+        display: flex; flex-direction: column; align-items: center; gap: 0;
       }
       .hero-photo {
-        position: relative; width: 68%; flex-shrink: 0;
+        position: relative; width: 100%;
       }
+      /* Soft blue corner glow halo behind the photo */
+      .hero-photo::after {
+        content:""; position:absolute; inset: -40px;
+        background:
+          radial-gradient(closest-side at 0% 0%, rgba(114,156,196,0.55), transparent 70%),
+          radial-gradient(closest-side at 100% 0%, rgba(114,156,196,0.45), transparent 70%),
+          radial-gradient(closest-side at 0% 100%, rgba(114,156,196,0.5), transparent 70%),
+          radial-gradient(closest-side at 100% 100%, rgba(114,156,196,0.55), transparent 70%);
+        filter: blur(22px);
+        pointer-events: none; z-index: 0;
+      }
+      /* Thin lilac offset frame */
       .hero-photo::before {
-        content:""; position:absolute; inset: -14px -14px auto auto;
+        content:""; position:absolute;
         top: -14px; left: -14px; right: 14px; bottom: 14px;
-        border: 1px solid #e4bbed; pointer-events: none; z-index: 0;
+        border: 1px solid #e4bbed; pointer-events: none; z-index: 1;
       }
       .hero-photo .hero-frame {
-        position: relative; z-index: 1; overflow: hidden;
-        aspect-ratio: 16 / 10;
+        position: relative; z-index: 2; overflow: hidden;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
         box-shadow: 0 25px 60px rgba(40,55,90,0.22);
         background: rgba(114,156,196,0.08);
       }
@@ -134,12 +147,27 @@
         transition: transform 8s ease;
       }
       .hero-photo:hover img { transform: scale(1.04); }
+      /* Gold scalloped lace trim hugging the photo */
+      .hero-lace {
+        position: absolute; inset: 0; pointer-events: none; z-index: 3;
+        border-radius: 14px;
+        background:
+          /* scallop top */
+          radial-gradient(circle at 8px 0, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-x top left / 16px 8px,
+          /* scallop bottom */
+          radial-gradient(circle at 8px 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-x bottom left / 16px 8px,
+          /* scallop left */
+          radial-gradient(circle at 0 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-y top left / 8px 16px,
+          /* scallop right */
+          radial-gradient(circle at 8px 8px, transparent 5px, rgba(201,168,76,0.85) 5.5px, transparent 6.5px) repeat-y top right / 8px 16px;
+        box-shadow: inset 0 0 0 1px rgba(201,168,76,0.55);
+      }
 
       .hero-countdown-card {
         position: relative; z-index: 2;
-        width: 38%; margin-left: -8%;
+        width: min(640px, 92%); margin: 2.2rem auto 0;
         background: #ffffff;
-        padding: 2.4rem 2rem;
+        padding: 2.4rem 2.4rem;
         border: 1px solid rgba(114,156,196,0.18);
         box-shadow: 0 24px 50px rgba(40,55,90,0.18);
         text-align: center;
@@ -193,11 +221,11 @@
       .hero-cta:hover { color: #fff; }
       .hero-cta:hover::before { transform: scaleY(1); transform-origin: top center; }
 
-      @media (max-width: 900px) {
-        .hero-editorial { flex-direction: column; padding: 0 1.2rem; }
-        .hero-photo { width: 100%; }
-        .hero-countdown-card { width: 92%; margin: -2.5rem auto 0; }
+      @media (max-width: 700px) {
+        .hero-editorial { padding: 0 1.2rem; }
       }
+
+
 
       /* ── SECTIONS ── */
       section { padding: 5rem 2rem; position: relative; z-index: 2; }
@@ -936,17 +964,19 @@
 
     <!-- EDITORIAL HERO: photo + countdown card -->
     <div class="hero-editorial">
-      <div class="hero-photo reveal from-left">
+      <div class="hero-photo reveal from-scale">
         <div class="hero-frame">
           <img
             src="hero.png"
             alt="Krissie and Cory"
             onerror="this.onerror=null;this.src='krissie-and-corey.jpeg';"
           />
+          <div class="hero-lace" aria-hidden="true"></div>
         </div>
       </div>
 
-      <aside class="hero-countdown-card reveal from-right">
+      <aside class="hero-countdown-card reveal from-up">
+
         <h2 class="cd-headline">The countdown is on!</h2>
         <div class="cd-grid" id="countdown">
           <span class="cd-num" id="cd-days">—</span>
