@@ -934,30 +934,39 @@
       <div class="masthead-headline">Krissie &amp; Cory <em>say "I do"</em></div>
     </div>
 
-    <!-- HERO PHOTO -->
-    <div class="hero-photo">
-      <img
-        src="hero.png"
-        alt="Krissie and Cory"
-        onerror="this.style.display='none';this.parentNode.classList.add('hero-photo-empty');"
-      />
+    <!-- EDITORIAL HERO: photo + countdown card -->
+    <div class="hero-editorial">
+      <div class="hero-photo reveal from-left">
+        <div class="hero-frame">
+          <img
+            src="hero.png"
+            alt="Krissie and Cory"
+            onerror="this.onerror=null;this.src='krissie-and-corey.jpeg';"
+          />
+        </div>
+      </div>
+
+      <aside class="hero-countdown-card reveal from-right">
+        <h2 class="cd-headline">The countdown is on!</h2>
+        <div class="cd-grid" id="countdown">
+          <span class="cd-num" id="cd-days">—</span>
+          <span class="cd-sep">:</span>
+          <span class="cd-num" id="cd-hours">—</span>
+          <span class="cd-sep">:</span>
+          <span class="cd-num" id="cd-mins">—</span>
+          <span class="cd-sep">:</span>
+          <span class="cd-num" id="cd-secs">—</span>
+        </div>
+        <div class="cd-labels">
+          <span>DAYS</span><span>HOURS</span><span>MINS</span><span>SECS</span>
+        </div>
+        <div class="cd-footer">June 19, 2027 · Queens, New York</div>
+        <button class="hero-cta" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
+          RSVP Now
+        </button>
+      </aside>
     </div>
 
-    <!-- HERO TEXT -->
-    <div class="hero">
-      <div class="hero-tagline">Our <span class="script">Best</span> Day</div>
-      <div class="hero-names">
-        <em>Krissie</em>
-        <span class="hero-ampersand">&amp;</span>
-        <em>Cory</em>
-      </div>
-      <div class="hero-divider"></div>
-      <div class="hero-sub">June 19, 2027 · Queens, New York</div>
-      <div class="hero-countdown" id="countdown">Counting down…</div>
-      <button class="hero-cta" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
-        RSVP Now
-      </button>
-    </div>
 
     <!-- OUR STORY -->
     <section id="story" class="story">
