@@ -1,15 +1,32 @@
-## What you're seeing
+## Why no images show
 
-The "mesh" look on the gradient background and on the ivory hero panel is a deliberate paper-grain overlay applied to the whole page. It's two `repeating-linear-gradient` layers (at 115° and 28°) placed in a fixed full-screen pseudo-element with `mix-blend-mode: multiply`, so it tints everything beneath it — including the ivory hero panel — with a faint crosshatch.
+The files exist at `public/gallery/g1.jpg`, `g2.jpg`, `g3.jpg`, but each slide is `position:absolute; opacity:0` with only `.is-active` fading in. If the JS init fails (or the slide images haven't loaded yet at first paint) you see an empty walnut band. Replacing the carousel with a real side-by-side marquee removes the problem.
 
-Source: `public/wedding.html`, `body::before` (lines 70–77).
+## Plan — side-by-side auto-scrolling marquee
 
-A second, similar crosshatch lives on the envelope opener card (`.stage-card::before`, lines 906–912) — that one only shows inside the opening envelope, not on the main page.
+Replace the fade carousel (CSS lines 594–626, HTML lines 1145–1159, JS lines ~1740–1772) with an infinite horizontal marquee in `public/wedding.html`.
 
-## Plan
+1. **HTML** — swap the `.carousel-band` block for:
+   ```html
+   <div class="photo-marquee" aria-label="Krissie and Cory gallery">
+     <div class="photo-marquee-track">
+       <!-- original set -->
+       <img src="gallery/g1.jpg" alt="" />
+       <img src="gallery/g2.jpg" alt="" />
+       <img src="gallery/g3.jpg" alt="" />
+       <!-- duplicated set for seamless loop -->
+       <img src="gallery/g1.jpg" alt="" aria-hidden="true" />
+       <img src="gallery/g2.jpg" alt="" aria-hidden="true" />
+       <img src="gallery/g3.jpg" alt="" aria-hidden="true" />
+     </div>
+   </div>
+   ```
+2. **CSS** — replace the carousel block with a marquee:
+   - `.photo-marquee` fixed height (~420px desktop, 300px mobile), full-width, `overflow:hidden`, ivory background, soft top/bottom edge gradient.
+   - `.photo-marquee-track` `display:flex; gap:1.25rem; width:max-content;` with `animation: marqueeRight 45s linear infinite;` and `:hover { animation-play-state: paused; }`.
+   - `@keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }` — moves the strip visually to the right (track starts shifted left, slides back to 0, then loops).
+   - `.photo-marquee img` height 100%, width auto, `object-fit: cover`, rounded corners, subtle shadow.
+3. **JS** — remove the old carousel script (lines ~1740–1772). No JS needed; the marquee is pure CSS.
+4. **Leave everything else alone.**
 
-1. **Remove the page-wide crosshatch.** Delete the `body::before` rule (lines 70–77) so the gradient background renders cleanly with no grain. The ivory hero panel will instantly look smooth too, since the overlay was what was tinting it.
-2. **Leave the envelope `.stage-card::before` grain alone** — it adds a tasteful parchment feel inside the opener and isn't what you're noticing on the live page. If you'd prefer it removed too, say the word and I'll strip it in the same pass.
-3. **Leave the RSVP `.rsvp::after` grain alone** — it sits on the dark wine RSVP island and reads as velvet, not mesh. Same: I can remove it if you want a perfectly flat finish there.
-
-No other styles, colors, or layout change.
+The result: the three photos sit side by side at their natural aspect ratio, the strip drifts slowly rightward forever, pauses on hover, and if any single image fails to load the others still show.
