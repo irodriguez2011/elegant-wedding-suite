@@ -259,17 +259,19 @@
 
       @media (max-width: 1024px) {
         .hero-editorial { padding: 4rem 1.25rem 4.5rem; }
-        .hero-photo .hero-frame { aspect-ratio: 4 / 5; min-height: 0; }
+        .hero-photo .hero-frame { aspect-ratio: auto; min-height: 0; height: auto; }
+        .hero-photo img { height: auto; width: 100%; object-fit: contain; }
         .countdown-band { padding: 4rem 1.25rem; background-attachment: scroll; }
         .hero-countdown-card { padding: 2rem 1.6rem; width: 100%; max-width: 560px; }
       }
       @media (max-width: 700px) {
         .hero-editorial { padding: 2.5rem 1rem 3rem; }
-        .hero-photo .hero-frame { aspect-ratio: 4 / 5; min-height: 0; border-radius: 12px; }
-        .hero-photo img { object-position: center 25%; }
+        .hero-photo .hero-frame { aspect-ratio: auto; min-height: 0; height: auto; border-radius: 12px; }
+        .hero-photo img { height: auto; width: 100%; object-fit: contain; object-position: center; }
         .countdown-band { padding: 3rem 1rem; background-attachment: scroll; background-position: center center; }
         .hero-countdown-card { padding: 1.6rem 1.2rem; width: 100%; max-width: 100%; }
       }
+
 
 
 
