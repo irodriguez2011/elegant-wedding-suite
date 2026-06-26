@@ -1,31 +1,35 @@
-## Changes to `public/wedding.html`
+## Goal
 
-### 1. Save the uploaded venue photo
-Copy the attached image to `public/venue-bg.jpg` so it can be referenced as a CSS background.
+1. Fix the missing hero image (`hero.png` / `krissie-and-corey.jpeg`) so it shows reliably.
+2. Move the venue photo out of the narrow countdown card and into a full-bleed horizontal band that spans edge-to-edge behind the countdown, tinted to harmonize with the site palette.
 
-### 2. Countdown card — use the venue photo as background
-Keep the countdown card structure exactly as it is now, but swap its plain white background for the venue photo.
+## Changes (only `public/wedding.html`)
 
-- Set `.hero-countdown-card`:
-  - `background: url('venue-bg.jpg') center/cover no-repeat`
-  - Add a `::before` overlay with a soft white/ivory translucent wash (`rgba(255, 250, 240, 0.78)`) + subtle blur via `backdrop-filter` so the photo shows through but the text stays readable.
-  - Position card content above the overlay (`position: relative; z-index: 1` on inner content).
-- Keep current text colors (dark navy numerals, blue script headline) — they read well on the ivory wash.
-- Add a thin gold border (`1px solid rgba(201,168,76,0.4)`) to feel more elegant against the photo.
+### 1. Hero photo fix
+- The image element is fine, but the `.hero-photo-panel` may still be inheriting an opacity-0 state from leftover reveal CSS or animation timing. I'll:
+  - Explicitly set `opacity:1` on `.hero-photo-panel`, `.hero-photo`, `.hero-frame`, and `.hero-photo img` so nothing can hide them.
+  - Ensure no `reveal` class remains on these elements.
+  - Add a min-height to `.hero-frame` as a fallback so even if the image fails to load you still see the framed area.
 
-### 3. Hero photo — beige panel background (no gradient behind)
-Wrap the hero photo in a solid beige "panel" so the page gradient does not show behind it.
+### 2. Full-width venue band behind countdown
+Restructure the hero so the countdown sits inside a full-bleed section:
 
-- Add a containing div `.hero-photo-panel` around `.hero-photo` with:
-  - `background: var(--beige)` (`#f5ecd9` — the same beige used in nav, travel cards, detail items).
-  - Generous padding (e.g. `3rem 2.5rem`) so the beige forms a visible mat around the photo.
-  - Subtle 1px gold border + soft shadow to feel intentional.
-- Remove or reduce the warm gold corner glow (`.hero-photo::after`) since the beige mat replaces that role; keep the lilac offset frame.
+```text
+[ beige photo panel — contained 1200px ]
+[ ───────  full-width venue band  ─────── ]
+[          tinted venue.jpg bg            ]
+[      [ countdown card centered ]        ]
+[ ──────────────────────────────────────── ]
+```
 
-### 4. Keep everything else untouched
-- No changes to gradient body, masthead, other sections, fonts, animations.
-- Countdown logic and labels unchanged.
+- Wrap the countdown in a new `<section class="countdown-band">` placed OUTSIDE `.hero-editorial` (so it can break out to 100vw).
+- `.countdown-band`: `width:100%`, `position:relative`, generous vertical padding (`5rem 1.5rem`), `background-image:url('venue-bg.jpg')` with `background-size:cover; background-position:center`, and CSS `filter`/overlay to harmonize with the lilac/blue/beige palette (saturation ~0.55, slight hue shift, sepia ~0.15).
+- Add a `::before` overlay with a soft ivory + lilac + blue radial wash (~`rgba(247,239,222,0.55)` base) so the venue is still visible but text stays legible.
+- `.hero-countdown-card` becomes a translucent centered card (`max-width:640px`, `background: rgba(255,255,255,0.55)` with `backdrop-filter: blur(6px)`) sitting on the band — no longer carrying the venue background itself.
+- Remove the old `::after`/`::before` venue layers from `.hero-countdown-card`.
 
-### Result
-- Countdown card sits on the venue photo with an ivory wash — elegant, readable, matches wedding theme.
-- Hero photo floats inside a beige panel that ties into the nav/travel/detail beige, breaking the gradient cleanly behind it.
+### 3. Reveal observer
+Update the observer selector list so the new `.countdown-band` fades in cleanly and the photo panel is not stuck invisible.
+
+## Out of scope
+No changes to colors elsewhere, no other sections, no JS countdown logic changes.
