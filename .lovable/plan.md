@@ -1,38 +1,15 @@
+## What you're seeing
+
+The "mesh" look on the gradient background and on the ivory hero panel is a deliberate paper-grain overlay applied to the whole page. It's two `repeating-linear-gradient` layers (at 115° and 28°) placed in a fixed full-screen pseudo-element with `mix-blend-mode: multiply`, so it tints everything beneath it — including the ivory hero panel — with a faint crosshatch.
+
+Source: `public/wedding.html`, `body::before` (lines 70–77).
+
+A second, similar crosshatch lives on the envelope opener card (`.stage-card::before`, lines 906–912) — that one only shows inside the opening envelope, not on the main page.
+
 ## Plan
 
-Move the venue photo behind the hero image, drop the beige mat, and give the countdown a solid beige-ivory block.
+1. **Remove the page-wide crosshatch.** Delete the `body::before` rule (lines 70–77) so the gradient background renders cleanly with no grain. The ivory hero panel will instantly look smooth too, since the overlay was what was tinting it.
+2. **Leave the envelope `.stage-card::before` grain alone** — it adds a tasteful parchment feel inside the opener and isn't what you're noticing on the live page. If you'd prefer it removed too, say the word and I'll strip it in the same pass.
+3. **Leave the RSVP `.rsvp::after` grain alone** — it sits on the dark wine RSVP island and reads as velvet, not mesh. Same: I can remove it if you want a perfectly flat finish there.
 
-### What will change
-
-1. **Hero background becomes the venue photo**
-   - Move `venue-bg.jpg` from the `.countdown-band` to the `.hero-editorial` wrapper.
-   - Make the venue image span the full hero section width with `background-size: cover` and center positioning.
-   - Keep the existing color harmonization (saturate/hue-rotate/sepia) so the photo still meshes with the palette.
-   - **Lessen the beige overlay** over the venue photo: replace the heavy multi-layer beige wash with a very subtle lightening layer, so the venue is clearly visible but still cohesive.
-
-2. **Remove the beige `.hero-photo-panel` div**
-   - Delete the beige mat wrapper and its inner decorative border.
-   - Keep the couple photo (`hero.png` / `krissie-and-corey.jpeg`) as the foreground element.
-
-3. **Add depth to the couple photo**
-   - Frame the photo with a `box-shadow` drop shadow (soft, in the blue/grey range) so it lifts off the venue background.
-   - Keep the rounded corners and subtle warm-white-gold corner glow already in place.
-
-4. **Countdown becomes a solid beige-ivory block**
-   - Strip the venue image and beige overlay out of `.countdown-band`.
-   - Set `.countdown-band` to a solid `var(--beige)` / `var(--ivory-2)` background that matches the nav and other sections.
-   - Keep the countdown card translucent with its current backdrop blur and gold border so the new solid background shows through elegantly.
-
-5. **Responsive check**
-   - Ensure the hero photo still scales well on tablet/mobile, and the venue background never looks cropped or washed out.
-
-### File to edit
-
-- `public/wedding.html` only (CSS around `.hero-editorial`, `.hero-photo-panel`, `.countdown-band`, `.hero-countdown-card`, and the matching HTML structure).
-
-### Out of scope
-
-- No color palette changes.
-- No font changes.
-- No countdown logic changes.
-- No other sections touched.
+No other styles, colors, or layout change.

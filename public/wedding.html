@@ -67,14 +67,6 @@
         overflow-x: hidden;
       }
 
-      /* Subtle paper grain over the whole page */
-      body::before {
-        content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-        background-image:
-          repeating-linear-gradient(115deg, rgba(58,42,80,0.022) 0 1px, transparent 1px 4px),
-          repeating-linear-gradient(28deg,  rgba(58,42,80,0.018)  0 1px, transparent 1px 6px);
-        mix-blend-mode: multiply;
-      }
 
       /* All sections transparent so gradient flows seamlessly; per-section solids reintroduce islands */
       section { background: transparent; }
