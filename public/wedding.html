@@ -1669,17 +1669,23 @@
         stageEnv.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
         });
-        // Mobile/iOS: tapping the seal or flap children sometimes doesn't bubble
-        // a click to the parent reliably. Bind directly to interactive children.
+        // Mobile/iOS hardening: bind tap handlers on the seal, flap, and stage
+        // using both pointerup and touchend so a tap is never missed regardless
+        // of which child element receives the touch.
         var sealEl = stageEnv.querySelector('.seal-big');
         var flapEl = stageEnv.querySelector('.env-flap-full');
-        function tapHandler(e) { e.preventDefault(); e.stopPropagation(); openEnvelope(); }
-        [sealEl, flapEl].forEach(function (el) {
+        function tapHandler(e) {
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+          openEnvelope();
+        }
+        [sealEl, flapEl, stageEnv].forEach(function (el) {
           if (!el) return;
           el.style.cursor = 'pointer';
-          el.addEventListener('click', tapHandler);
+          el.addEventListener('pointerup', tapHandler);
           el.addEventListener('touchend', tapHandler, { passive: false });
         });
+
         var enterBtn = document.getElementById('enterSite');
         if (enterBtn) enterBtn.addEventListener('click', closeIntro);
         var skip = document.getElementById('envSkip');
