@@ -154,23 +154,35 @@
         width: 100vw;
         left: 50%; right: 50%;
         margin-left: -50vw; margin-right: -50vw;
-        padding: 5rem 1.5rem;
+        padding: 5.5rem 1.5rem;
+        min-height: 430px;
         overflow: hidden;
         isolation: isolate;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--beige);
+        background-image:
+          linear-gradient(rgba(247,239,222,0.28), rgba(247,239,222,0.34)),
+          radial-gradient(ellipse at 20% 18%, rgba(228,187,237,0.22), transparent 58%),
+          radial-gradient(ellipse at 82% 78%, rgba(114,156,196,0.2), transparent 62%),
+          url('venue-bg.jpg');
+        background-size: cover, cover, cover, cover;
+        background-position: center, center, center, center;
+        background-repeat: no-repeat;
+        background-blend-mode: normal, soft-light, soft-light, normal;
       }
       .countdown-band::after {
-        content:""; position:absolute; inset:0; z-index:-2;
-        background-image: url('venue-bg.jpg');
-        background-size: cover;
-        background-position: center;
-        filter: saturate(0.55) hue-rotate(-12deg) brightness(1.05) contrast(0.92) sepia(0.15);
+        content:""; position:absolute; inset:0; z-index:0;
+        background: inherit;
+        filter: saturate(0.62) hue-rotate(-8deg) brightness(1.04) contrast(0.9) sepia(0.12);
+        transform: scale(1.01);
       }
       .countdown-band::before {
-        content:""; position:absolute; inset:0; z-index:-1;
+        content:""; position:absolute; inset:0; z-index:1;
         background:
-          radial-gradient(ellipse at 25% 20%, rgba(228,187,237,0.35), transparent 60%),
-          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.32), transparent 60%),
-          rgba(247,239,222,0.55);
+          linear-gradient(90deg, rgba(247,239,222,0.34), rgba(255,255,255,0.1) 45%, rgba(247,239,222,0.28)),
+          radial-gradient(ellipse at 50% 55%, rgba(255,255,255,0.08), rgba(247,239,222,0.2) 70%);
       }
 
       .hero-countdown-card {
