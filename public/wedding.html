@@ -990,10 +990,26 @@
       @media (prefers-reduced-motion: reduce) {
         .intro-stage, .env-flap-full, .seal-big, #invite-intro, .embers span, .ambient-leaves span { transition: none; animation: none !important; }
       }
-      @media (max-width: 600px) {
-        .seal-big { width: 118px; height: 118px; }
+      /* Pause particles the moment the intro is dismissed so they stop burning frames */
+      #invite-intro.gone .embers span,
+      #invite-intro.gone .ambient-leaves span { animation-play-state: paused !important; }
+
+      /* Mobile perf: kill expensive filters/backdrops & infinite shadow pulses on small screens */
+      @media (max-width: 768px) {
+        .seal-big { width: 118px; height: 118px; animation: none !important; }
         .seal-mono { font-size: 2.4rem; }
         .card-l2 { font-size: clamp(2.6rem, 14vw, 3.6rem); }
+        .env-flap-full,
+        .env-lace,
+        .seal-big { filter: none !important; }
+        .env-flap-full,
+        .seal-big { will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .nav,
+        .hero-countdown-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+        .nav { background: rgba(249,246,240,0.96); }
+        .hero-countdown-card { background: rgba(255,255,255,0.82); }
+        .velvet::before { display: none; }
+        .embers span { box-shadow: 0 0 10px 2px rgba(255,250,235,0.45); }
       }
     </style>
     <noscript
