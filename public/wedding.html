@@ -146,25 +146,32 @@
       }
 
       .hero-countdown-card {
-        position: relative; z-index: 2;
+        position: relative; z-index: 2; isolation: isolate;
         width: min(640px, 92%); margin: 2.2rem auto 0;
-        background-image: url('venue-bg.jpg');
-        background-size: cover;
-        background-position: center;
         padding: 2.4rem 2.4rem;
         border: 1px solid rgba(201,168,76,0.45);
         box-shadow: 0 24px 50px rgba(40,55,90,0.22);
         text-align: center;
         overflow: hidden;
       }
+      /* Venue photo layer — tinted to mesh with site palette (beige/lilac/blue) */
+      .hero-countdown-card::after {
+        content:""; position:absolute; inset:0; z-index: -2;
+        background-image: url('venue-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: saturate(0.55) hue-rotate(-12deg) brightness(1.05) contrast(0.92) sepia(0.18);
+      }
+      /* Ivory + lilac wash overlay for readability and cohesion */
       .hero-countdown-card::before {
-        content:""; position:absolute; inset:0;
-        background: rgba(255,250,240,0.82);
+        content:""; position:absolute; inset:0; z-index: -1;
+        background:
+          radial-gradient(ellipse at 30% 20%, rgba(228,187,237,0.32), transparent 60%),
+          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.28), transparent 60%),
+          rgba(247,239,222,0.78);
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
-        z-index: 0;
       }
-      .hero-countdown-card > * { position: relative; z-index: 1; }
       .cd-headline {
         font-family: 'Pinyon Script', cursive;
         font-size: clamp(2rem, 3.2vw, 3rem);
