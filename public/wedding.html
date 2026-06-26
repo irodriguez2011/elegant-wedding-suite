@@ -1723,30 +1723,6 @@
           alert('Sorry, something went wrong sending your RSVP. Please try again.');
         }
       });
-
-      // ── CAROUSEL ──
-      (function(){
-        const root = document.getElementById('loveCarousel');
-        if (!root) return;
-        const slides = root.querySelectorAll('.carousel-slide');
-        const dots = root.querySelectorAll('.carousel-dot');
-        const prev = root.querySelector('.carousel-btn.prev');
-        const next = root.querySelector('.carousel-btn.next');
-        let i = 0, timer;
-        const go = (n) => {
-          i = (n + slides.length) % slides.length;
-          slides.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
-          dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
-        };
-        const start = () => { stop(); timer = setInterval(() => go(i + 1), 5500); };
-        const stop = () => { if (timer) clearInterval(timer); };
-        prev.addEventListener('click', () => { go(i - 1); start(); });
-        next.addEventListener('click', () => { go(i + 1); start(); });
-        dots.forEach((d, idx) => d.addEventListener('click', () => { go(idx); start(); }));
-        root.addEventListener('mouseenter', stop);
-        root.addEventListener('mouseleave', start);
-        start();
-      })();
     </script>
   </body>
 </html>
