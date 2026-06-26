@@ -725,7 +725,7 @@
       #invite-intro.gone { opacity: 0; pointer-events: none; }
       .intro-stage {
         position: absolute; inset: 0; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; transition: opacity 1s ease;
+        align-items: center; justify-content: center; transition: opacity 0.45s ease;
       }
 
       /* Blue velvet envelope backdrop */
@@ -909,11 +909,11 @@
       @keyframes hintPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 
       /* Opening sequence */
-      .stage-env.opening .env-flap-full { transform: rotateX(180deg); }
+      .stage-env.opening .env-flap-full { transform: rotateX(180deg); transition: transform 0.55s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease; }
       .stage-env.opening .seal-big {
         transform: translate(-50%, -50%) scale(1.6) rotate(28deg);
         opacity: 0;
-        animation: sealCrack 0.9s ease forwards;
+        animation: sealCrack 0.45s ease forwards;
       }
       @keyframes sealCrack {
         0%   { transform: translate(-50%, -50%) scale(1) rotate(0); opacity: 1; }
@@ -937,7 +937,7 @@
       }
       #invite-intro.step2 .stage-env { opacity: 0; pointer-events: none; }
       #invite-intro.step2 .stage-card { opacity: 1; pointer-events: auto; }
-      #invite-intro.step2 .stage-card .card-inner { animation: cardRise 1.2s 0.2s ease forwards; }
+      #invite-intro.step2 .stage-card .card-inner { animation: cardRise 0.6s ease forwards; }
       @keyframes cardRise {
         from { opacity: 0; transform: translateY(20px) scale(0.97); }
         to   { opacity: 1; transform: translateY(0)   scale(1); }
@@ -1663,7 +1663,7 @@
         function openEnvelope() {
           if (stageEnv.classList.contains('opening')) return;
           stageEnv.classList.add('opening');
-          setTimeout(toInvite, 1200);
+          setTimeout(toInvite, 450);
         }
         stageEnv.addEventListener('click', openEnvelope);
         stageEnv.addEventListener('keydown', function (e) {
