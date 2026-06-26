@@ -712,7 +712,7 @@
       }
       @keyframes drift {
         0%   { transform: translate(0, -5vh) rotate(0); opacity: 0; }
-        10%  { opacity: 0.6; }
+        4%   { opacity: 0.6; }
         90%  { opacity: 0.5; }
         100% { transform: translate(40px, 110vh) rotate(360deg); opacity: 0; }
       }
@@ -1639,7 +1639,10 @@
           s.style.left = (Math.random() * 100) + 'vw';
           s.style.setProperty('--startX', startX + 'px');
           s.style.setProperty('--driftX', driftX + 'px');
-          s.style.animationDelay = (Math.random() * 4) + 's';
+          // Seed the first several embers with negative delays so motion is
+          // visible immediately when the envelope screen renders.
+          var emberDelay = i < 6 ? -(Math.random() * 8) : (Math.random() * 1.5);
+          s.style.animationDelay = emberDelay + 's';
           s.style.animationDuration = (10 + Math.random() * 8) + 's, ' + (2 + Math.random() * 2) + 's';
           var size = 2 + Math.random() * 7;
           s.style.width = size + 'px';
@@ -1656,8 +1659,11 @@
         for (var i = 0; i < count; i++) {
           var s = document.createElement('span');
           s.style.left = (Math.random() * 100) + 'vw';
-          s.style.animationDelay = (Math.random() * 22) + 's';
-          s.style.animationDuration = (16 + Math.random() * 14) + 's';
+          // Seed the first few flecks mid-drift so something is on screen
+          // within a frame; stagger the rest over ~3s rather than ~22s.
+          var fleckDelay = i < 3 ? -(2 + Math.random() * 4) : (Math.random() * 3);
+          s.style.animationDelay = fleckDelay + 's';
+          s.style.animationDuration = (12 + Math.random() * 10) + 's';
           var size = 3 + Math.random() * 4;
           s.style.width = size + 'px';
           s.style.height = size + 'px';
