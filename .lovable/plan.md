@@ -1,25 +1,28 @@
-## Problem
+Add pressed-flower / dried-flower floral accents to the wedding site, sourced from Canva, and integrate them around the Wedding Party section and the "Krissie & Cory say I do" masthead.
 
-The ambient gold flecks (and the envelope embers) take a long time to first appear because:
+**Visual direction:**
+- Style: vintage pressed/dried florals (delicate petals, muted stems, soft shadows), with a heavier ivory/cream tone to match the site's cool ivory palette.
+- Colors: ivory, soft cream, muted lilac, dusty blue, and hints of sage/gold so the florals blend with the existing gradient.
+- Placement: corner sprays, small under-heading accent, and a divider sprig.
 
-1. Each fleck gets `animation-delay = Math.random() * 22s` — so on a fresh load most flecks are still waiting up to 22 seconds before they animate at all.
-2. The `drift` keyframes hold `opacity: 0` until 10% of the animation, and durations are 16–30s — that adds another 1.6–3s fade-in even after the delay fires.
-3. The envelope embers have a similar issue: `animationDelay = Math.random() * 4s` plus an `orbRise` that doesn't reach full opacity until ~10–20% of a 10–18s run.
+**Implementation steps:**
+1. **Search Canva** for pressed-flower wedding floral templates and elements using the Canva connector (`search-brand-templates`).
+2. **Generate/create** a small asset set in Canva:
+   - top-left corner floral spray
+   - top-right corner floral spray
+   - small horizontal divider/branch
+   - optional accent for the masthead
+3. **Export** the chosen assets as transparent PNGs from Canva (`export-design`).
+4. **Bring assets into the project** as local files under `public/` (or Lovable CDN assets if sizes warrant).
+5. **Update `public/wedding.html`:**
+   - Add corner floral images around the `Wedding Party` section (`#party`).
+   - Add a small pressed-flower divider under the section title.
+   - Add a subtle floral accent above or beside the `Krissie & Cory say "I do"` masthead.
+   - Wrap the party grid in a soft ivory feature panel so the florals read cleanly against the gradient.
+6. **Responsive check:** ensure the decorative images scale and never trigger horizontal overflow on mobile or tablet.
 
-Net effect: the screen looks empty for several seconds before any flecks show up, on both desktop and mobile.
-
-## Fix (scoped to `public/wedding.html`)
-
-1. **Stagger flecks from 0, not 22s.** Change the ambient-fleck spawner so `animationDelay` is `Math.random() * 3` (was `* 22`) and `animationDuration` is `12 + Math.random() * 10` (was `16 + 14`). Same look, but the first flecks appear within a frame and the rest stream in over ~3s instead of ~22s.
-2. **Seed a few flecks mid-animation.** For the first ~3 flecks, set `animationDelay` to a small negative value (e.g. `-(2 + Math.random()*4) + 's'`) so they start already partway through `drift` and are visible immediately on load — no blank first second.
-3. **Shorten the fade-in ramp in `@keyframes drift`.** Move the `opacity: 0.6` stop from `10%` to `4%` so flecks become visible almost as soon as their animation begins. Keep the rest of the keyframes unchanged.
-4. **Same treatment for envelope embers.** In the embers spawner, cut `animationDelay` to `Math.random() * 1.5` (was `* 4`) and seed the first 4–6 embers with a small negative delay so the velvet envelope screen has visible motion the instant it renders. Tighten `orbRise` so embers reach full opacity by ~6% instead of ~15% (small keyframe tweak).
-5. **Keep the mobile particle counts as-is** (8 flecks / 14 embers on small screens, 24 / 60 on desktop) — this is purely a timing fix, not a count change, so performance work from the previous turn is preserved.
-6. **Respect `prefers-reduced-motion`.** No change — the existing early-return in the spawner stays.
-
-## Verification
-
-- Desktop (1280×800) and mobile (375×812) via headless Chromium: load the page, screenshot at `t = 200ms` and `t = 1500ms`. Expect at least one visible fleck in the 200ms shot and several by 1500ms (today both shots are empty for ~3–5s).
-- Visually confirm on the live preview that the envelope screen has drifting embers immediately on appear, and the rest of the page has flecks within ~1s of load.
-
-No HTML structure, copy, or layout changes.
+**Acceptance criteria:**
+- Wedding Party section has visible pressed-flower corner accents and a divider.
+- Masthead area gains a subtle floral accent that feels elegant, not cluttered.
+- No horizontal overflow on mobile/tablet.
+- Florals use ivory-forward tones and match the existing blue/lilac/ivory palette.
