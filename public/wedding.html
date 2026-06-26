@@ -744,20 +744,20 @@
       }
 
 
-      /* Wax seal — soft light-gold embossed medallion */
+      /* Wax seal — champagne gold embossed medallion against blue velvet */
       .seal-big {
         position: absolute; top: 54%; left: 50%; transform: translate(-50%, -50%);
         width: 140px; height: 140px; border-radius: 50%; z-index: 4;
         background:
           radial-gradient(circle at 38% 30%, #fffdf6 0%, #faf3e0 22%, #f2e4c4 48%, #e6d2a6 78%, #d4b880 100%);
         box-shadow:
-          0 8px 18px rgba(58,42,31,0.22),
+          0 10px 24px rgba(26,58,90,0.35),
           0 2px 4px rgba(255,255,255,0.6) inset,
           0 -8px 16px rgba(176,142,80,0.18) inset,
           0 0 0 1px rgba(201,168,76,0.25) inset;
         display: flex; align-items: center; justify-content: center;
         transition: transform 0.9s cubic-bezier(0.6, -0.3, 0.6, 1.4), opacity 0.6s ease;
-        filter: drop-shadow(0 0 0.5px rgba(58,42,31,0.35));
+        filter: drop-shadow(0 0 0.5px rgba(26,58,90,0.35));
       }
       .seal-big::before {
         content:""; position:absolute; inset: 10px; border-radius: 50%;
@@ -770,7 +770,7 @@
       }
       .seal-mono {
         font-family: 'Pinyon Script', cursive;
-        font-size: 2.8rem; color: #9a7d3e;
+        font-size: 2.8rem; color: #8a7340;
         text-shadow: 0 1px 2px rgba(255,255,255,0.5), 0 1px 1px rgba(0,0,0,0.15);
         line-height: 1;
       }
@@ -779,9 +779,10 @@
         animation: sealPulse 3.6s ease-in-out infinite;
       }
       @keyframes sealPulse {
-        0%, 100% { box-shadow: 0 8px 18px rgba(58,42,31,0.22), 0 0 0 rgba(230,201,138,0), 0 2px 4px rgba(255,255,255,0.6) inset, 0 -8px 16px rgba(176,142,80,0.18) inset, 0 0 0 1px rgba(201,168,76,0.25) inset; }
-        50%      { box-shadow: 0 8px 18px rgba(58,42,31,0.22), 0 0 26px rgba(230,201,138,0.28), 0 2px 4px rgba(255,255,255,0.7) inset, 0 -8px 16px rgba(176,142,80,0.18) inset, 0 0 0 1px rgba(201,168,76,0.25) inset; }
+        0%, 100% { box-shadow: 0 10px 24px rgba(26,58,90,0.35), 0 0 0 rgba(230,201,138,0), 0 2px 4px rgba(255,255,255,0.6) inset, 0 -8px 16px rgba(176,142,80,0.18) inset, 0 0 0 1px rgba(201,168,76,0.25) inset; }
+        50%      { box-shadow: 0 10px 24px rgba(26,58,90,0.35), 0 0 32px rgba(230,201,138,0.35), 0 2px 4px rgba(255,255,255,0.7) inset, 0 -8px 16px rgba(176,142,80,0.18) inset, 0 0 0 1px rgba(201,168,76,0.25) inset; }
       }
+
       @keyframes sealCrack {
         0%   { transform: translate(-50%, -50%) scale(1) rotate(0); opacity: 1; }
         40%  { transform: translate(-50%, -50%) scale(1.15) rotate(-5deg); opacity: 1; }
