@@ -715,26 +715,27 @@
       .env-flap-full {
         position:absolute; top:0; left:0; width:100%; height:62%;
         clip-path: polygon(0 0, 100% 0, 50% 100%);
-        background-color: #f9f5eb;
+        background-color: #7aa4cc;
         background-image:
-          radial-gradient(45% 60% at 30% 12%, rgba(255,255,255,0.85), transparent 70%),
-          radial-gradient(50% 60% at 75% 30%, rgba(201,168,76,0.10), transparent 70%),
-          linear-gradient(180deg, #fdfbf5, #f5ecd9 55%, #efe4cf);
+          radial-gradient(45% 60% at 30% 12%, rgba(255,255,255,0.45), transparent 70%),
+          radial-gradient(50% 60% at 75% 30%, rgba(26,58,90,0.14), transparent 70%),
+          linear-gradient(180deg, #9cc2e2, #7aa4cc 55%, #5d86b0);
         transform-origin: top center;
         transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease;
         z-index: 3;
-        filter: drop-shadow(0 12px 18px rgba(58,42,31,0.20));
+        filter: drop-shadow(0 12px 18px rgba(26,58,90,0.30));
       }
-      /* Soft gold edge lines along the flap's diagonal edges */
+      /* Soft ivory edge lines along the flap's diagonal edges */
       .env-flap-full::after {
         content:""; position:absolute; inset:0; pointer-events:none;
         background:
-          linear-gradient(135deg, transparent calc(50% - 1px), rgba(201,168,76,0.42) 50%, transparent calc(50% + 1px)) no-repeat,
-          linear-gradient(45deg,  transparent calc(50% - 1px), rgba(201,168,76,0.42) 50%, transparent calc(50% + 1px)) no-repeat;
+          linear-gradient(135deg, transparent calc(50% - 1px), rgba(245,236,217,0.55) 50%, transparent calc(50% + 1px)) no-repeat,
+          linear-gradient(45deg,  transparent calc(50% - 1px), rgba(245,236,217,0.55) 50%, transparent calc(50% + 1px)) no-repeat;
         background-size: 100% 100%;
         clip-path: polygon(0 0, 100% 0, 50% 100%);
         opacity: 0.8;
       }
+
       /* SVG lace trim along the V-shaped flap edges */
       .env-lace {
         position: absolute; top:0; left:0; width:100%; height:100%; z-index: 4;
