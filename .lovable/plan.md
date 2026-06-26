@@ -1,28 +1,25 @@
-## Why mobile feels slow
+## Problem
 
-The intro animation timings are identical on every device, but phones do far more per-frame work than the desktop:
+The ambient gold flecks (and the envelope embers) take a long time to first appear because:
 
-1. **60 animated ember orbs + 24 ambient flecks** are spawned unconditionally. Each one runs two infinite animations (`orbRise` 10–18s and `orbPulse` 2–4s, the latter animating `filter: blur()` — one of the most expensive properties to animate on mobile GPUs).
-2. **Velvet backdrop uses layered radial gradients + a grain texture**, repainted every frame while the flap rotates.
-3. **`filter: drop-shadow(...)`** on `.env-flap-full`, `.env-lace`, and `.seal-big` forces an off-screen compositor pass on each frame of the open animation.
-4. **`box-shadow` is animated** in `sealPulse` (3.6s infinite) — animating shadows triggers full repaints, not GPU compositing.
-5. **`backdrop-filter: blur()`** is used elsewhere on the page (nav, countdown card); the lovable performance note explicitly calls this out as a mobile killer when layered over animated content.
+1. Each fleck gets `animation-delay = Math.random() * 22s` — so on a fresh load most flecks are still waiting up to 22 seconds before they animate at all.
+2. The `drift` keyframes hold `opacity: 0` until 10% of the animation, and durations are 16–30s — that adds another 1.6–3s fade-in even after the delay fires.
+3. The envelope embers have a similar issue: `animationDelay = Math.random() * 4s` plus an `orbRise` that doesn't reach full opacity until ~10–20% of a 10–18s run.
 
-Result: the flap/seal CSS transitions are short on paper (~0.5s) but the main thread is saturated, so frames drop and the visible reveal stretches out.
+Net effect: the screen looks empty for several seconds before any flecks show up, on both desktop and mobile.
 
-## Fix plan (scoped to `public/wedding.html`)
+## Fix (scoped to `public/wedding.html`)
 
-1. **Cut particle counts on small screens.** In the two IIFEs that spawn orbs/flecks, read `window.matchMedia('(max-width: 768px)').matches` (and `prefers-reduced-motion`) and use ~15 embers / 8 flecks on mobile instead of 60 / 24.
-2. **Stop animating `filter: blur()` in `orbPulse`.** Replace it with `opacity` or `transform: scale()` pulsing — same look, far cheaper.
-3. **Disable the `sealPulse` box-shadow animation on mobile** via a `@media (max-width: 768px)` rule (`animation: none` on `.seal-big`). Keep the static glow.
-4. **Drop `filter: drop-shadow(...)` on the flap, lace, and seal on mobile**; substitute a cheaper static `box-shadow` where a shadow is still wanted. The drop-shadow is the single most expensive property during the open animation.
-5. **Remove `backdrop-filter` on mobile** for the nav and any intro-adjacent surface, replacing with a solid/translucent background (per the project's documented mobile-perf guidance).
-6. **Add `will-change: transform` and `backface-visibility: hidden`** to `.env-flap-full` and `.seal-big` so the open transition stays on the compositor.
-7. **Pause the embers/leaves the moment `#invite-intro.gone` is set** (set `animation-play-state: paused` via a CSS rule) so they don't keep consuming frames after the card appears.
-
-No timing changes — the perceived speed-up comes entirely from freeing the main thread so the existing ~0.5s transitions actually run at 60fps.
+1. **Stagger flecks from 0, not 22s.** Change the ambient-fleck spawner so `animationDelay` is `Math.random() * 3` (was `* 22`) and `animationDuration` is `12 + Math.random() * 10` (was `16 + 14`). Same look, but the first flecks appear within a frame and the rest stream in over ~3s instead of ~22s.
+2. **Seed a few flecks mid-animation.** For the first ~3 flecks, set `animationDelay` to a small negative value (e.g. `-(2 + Math.random()*4) + 's'`) so they start already partway through `drift` and are visible immediately on load — no blank first second.
+3. **Shorten the fade-in ramp in `@keyframes drift`.** Move the `opacity: 0.6` stop from `10%` to `4%` so flecks become visible almost as soon as their animation begins. Keep the rest of the keyframes unchanged.
+4. **Same treatment for envelope embers.** In the embers spawner, cut `animationDelay` to `Math.random() * 1.5` (was `* 4`) and seed the first 4–6 embers with a small negative delay so the velvet envelope screen has visible motion the instant it renders. Tighten `orbRise` so embers reach full opacity by ~6% instead of ~15% (small keyframe tweak).
+5. **Keep the mobile particle counts as-is** (8 flecks / 14 embers on small screens, 24 / 60 on desktop) — this is purely a timing fix, not a count change, so performance work from the previous turn is preserved.
+6. **Respect `prefers-reduced-motion`.** No change — the existing early-return in the spawner stays.
 
 ## Verification
 
-- Build, then load the published preview on mobile viewport (375×812) via headless Chromium and time `tap on seal → `.step2` class present` with `performance.now()`. Expect <800ms wall time on a throttled 4× CPU profile.
-- Spot-check desktop visually to confirm the intro still looks the same.
+- Desktop (1280×800) and mobile (375×812) via headless Chromium: load the page, screenshot at `t = 200ms` and `t = 1500ms`. Expect at least one visible fleck in the 200ms shot and several by 1500ms (today both shots are empty for ~3–5s).
+- Visually confirm on the live preview that the envelope screen has drifting embers immediately on appear, and the rest of the page has flecks within ~1s of load.
+
+No HTML structure, copy, or layout changes.
