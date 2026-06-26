@@ -39,8 +39,9 @@
         --muted:        #4a4a5a;
       }
 
-      html { scroll-behavior: smooth; }
+      html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100vw; }
       section[id] { scroll-margin-top: 84px; }
+      img, video { max-width: 100%; }
 
       body {
         font-family: 'Jost', sans-serif;
@@ -65,6 +66,10 @@
         background-attachment: fixed;
         background-size: cover;
         overflow-x: hidden;
+        max-width: 100vw;
+      }
+      @media (max-width: 860px) {
+        body { background-attachment: scroll; }
       }
 
 
