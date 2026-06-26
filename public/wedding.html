@@ -734,7 +734,7 @@
       }
       @keyframes orbRise {
         0%   { transform: translate3d(var(--startX, 0), 0, 0) scale(0.35); opacity: 0; }
-        12%  { opacity: 0.75; }
+        6%   { opacity: 0.75; }
         45%  { opacity: 0.6; }
         85%  { opacity: 0.25; }
         100% { transform: translate3d(calc(var(--startX, 0) + var(--driftX, 20px)), -120vh, 0) scale(1.15); opacity: 0; }
@@ -1548,8 +1548,8 @@
           s.style.left = (Math.random() * 100) + 'vw';
           s.style.setProperty('--startX', startX + 'px');
           s.style.setProperty('--driftX', driftX + 'px');
-          s.style.animationDelay = (Math.random() * 18) + 's';
-          s.style.animationDuration = (14 + Math.random() * 12) + 's, ' + (3 + Math.random() * 3) + 's';
+          s.style.animationDelay = (Math.random() * 4) + 's';
+          s.style.animationDuration = (10 + Math.random() * 8) + 's, ' + (2 + Math.random() * 2) + 's';
           var size = 2 + Math.random() * 7;
           s.style.width = size + 'px';
           s.style.height = size + 'px';
