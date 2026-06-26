@@ -1,25 +1,21 @@
-Plan: Add soft corner fades to the hero photo
+## Goal
+Soften the hero photo’s corner blur and recolor the halo behind the photo to a warm, angelic white-gold glow.
 
-1. **Goal**: Soften only the corners of the hero couple photo so they blur into the surrounding page, while keeping the top/bottom/side edges crisp and the main subject untouched.
+## What will change
+- Reduce the corner-edge blur mask on the hero image so only a subtle corner fade remains, while keeping the main subject and straight edges crisp.
+- Shift the `.hero-photo::after` glow behind the photo from cool blue to a warm white-gold palette (ivory → soft gold) for a candlelit, angelic effect.
+- Keep the thin lilac offset frame and the existing photo size / layout unchanged.
 
-2. **Approach**:
-    - Apply a CSS mask to the inner hero image using a radial gradient at each corner. Each corner gradient fades from transparent at the extreme corner to opaque a short distance inward (only ~10–15% of the image width/height).
-    - The center and straight edges remain fully visible, so it is not a heavy vignette.
-    - Add the same mask to `mask-image` with a `-webkit-` prefix for Safari.
+## Technical details
+File: `public/wedding.html`
 
-3. **Implementation**:
-    - Edit `public/wedding.html` hero styles (`.hero-photo img`).
-    - Add a mask rule using a layered radial-gradient at the four corners, e.g.:
-      ```
-      mask-image:
-        radial-gradient(circle at 0 0, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
-        radial-gradient(circle at 100% 0, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
-        radial-gradient(circle at 0 100%, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%),
-        radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 0, rgba(0,0,0,1) 22%);
-      mask-composite: intersect;
-      -webkit-mask-composite: source-in;
-      ```
-    - Keep the existing rounded corners (14px), blue glow halo, and thin lilac offset frame.
-    - Adjust the radius/percentage so the fade is subtle and elegant, not a strong vignette.
+- `.hero-photo::after` glow:
+  - Replace `rgba(114,156,196, …)` corner gradients with layered warm white-gold tones (`#fff8ec`, `#fff2d9`, `#f5e6c9`) at a slightly lower opacity so the halo feels luminous rather than heavy.
+  - Lower `filter: blur(22px)` to around `18px` to tighten the halo.
+- `.hero-photo img` mask:
+  - Shrink the corner gradient coverage from `55% 55%` to about `36% 36%`.
+  - Move the fade midpoint from `65%` to `75%` so the blur is lighter and less invasive.
+- No JavaScript or HTML structure changes.
 
-4. **Validation**: Refresh the preview and confirm the four corners of the hero photo fade softly into the page while the middle and edges of the photo remain sharp and clear.
+## Validation
+- Refresh the preview and check the hero section: the couple should remain fully visible, only the extreme corners softly fade, and the glow behind the photo should read as a warm, soft gold halo rather than blue.
