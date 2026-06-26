@@ -109,7 +109,7 @@
       .nav-links a:hover { color: var(--wine); }
       .nav-links a:hover::after { transform: scaleX(1); transform-origin: left center; }
 
-      /* ── EDITORIAL HERO with full-bleed venue backdrop ── */
+      /* ── EDITORIAL HERO with solid beige background ── */
       .hero-editorial {
         position: relative;
         width: 100vw;
@@ -119,29 +119,7 @@
         overflow: hidden;
         isolation: isolate;
         display: flex; justify-content: center;
-        background-color: #e8d9c2;
-        background-image:
-          linear-gradient(rgba(247,239,222,0.32), rgba(247,239,222,0.32)),
-          radial-gradient(ellipse at 18% 22%, rgba(228,187,237,0.22), transparent 60%),
-          radial-gradient(ellipse at 82% 78%, rgba(114,156,196,0.22), transparent 62%),
-          url('venue-bg.jpg');
-        background-size: cover, cover, cover, cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-blend-mode: normal, soft-light, soft-light, normal;
-      }
-      .hero-editorial::before {
-        content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-        background: url('venue-bg.jpg') center/cover no-repeat;
-        filter: saturate(0.55) hue-rotate(-8deg) brightness(1.05) contrast(0.92) sepia(0.14);
-        opacity: 0.9;
-      }
-      .hero-editorial::after {
-        content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-        background:
-          radial-gradient(ellipse at 20% 20%, rgba(228,187,237,0.28), transparent 60%),
-          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.25), transparent 62%),
-          linear-gradient(180deg, rgba(247,239,222,0.18), rgba(247,239,222,0.30));
+        background: var(--beige);
       }
       .hero-photo {
         position: relative; z-index: 2;
@@ -156,16 +134,28 @@
         box-shadow:
           0 30px 70px rgba(40,55,90,0.35),
           0 10px 24px rgba(40,55,90,0.22),
-          inset 0 0 0 1px rgba(255,255,255,0.5);
+          inset 0 0 0 1px rgba(255,255,255,0.5),
+          0 0 60px rgba(247,239,222,0.55),
+          0 0 120px rgba(255,245,220,0.28);
       }
       .hero-photo img {
         width: 100%; height: 100%; object-fit: cover; display: block;
         opacity: 1 !important;
         transition: transform 8s ease;
+        -webkit-mask-image:
+          radial-gradient(circle at 0 0, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 100% 0, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 0 100%, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px);
+        mask-image:
+          radial-gradient(circle at 0 0, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 100% 0, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 0 100%, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px),
+          radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 0, rgba(0,0,0,0) 34px, rgba(0,0,0,1) 62px);
       }
       .hero-photo:hover img { transform: scale(1.04); }
 
-      /* ── COUNTDOWN BAND (solid beige) ── */
+      /* ── COUNTDOWN BAND with full-bleed venue backdrop ── */
       .countdown-band {
         position: relative;
         width: 100vw;
@@ -174,7 +164,29 @@
         padding: 5rem 1.5rem;
         overflow: hidden;
         display: flex; align-items: center; justify-content: center;
-        background: var(--beige);
+        background-color: var(--beige);
+        background-image:
+          linear-gradient(rgba(247,239,222,0.28), rgba(247,239,222,0.28)),
+          radial-gradient(ellipse at 18% 22%, rgba(228,187,237,0.22), transparent 60%),
+          radial-gradient(ellipse at 82% 78%, rgba(114,156,196,0.22), transparent 62%),
+          url('venue-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-blend-mode: normal, soft-light, soft-light, normal;
+      }
+      .countdown-band::before {
+        content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+        background: url('venue-bg.jpg') center/cover no-repeat;
+        filter: saturate(0.55) hue-rotate(-8deg) brightness(1.05) contrast(0.92) sepia(0.14);
+        opacity: 0.9;
+      }
+      .countdown-band::after {
+        content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+        background:
+          radial-gradient(ellipse at 20% 20%, rgba(228,187,237,0.28), transparent 60%),
+          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.25), transparent 62%),
+          linear-gradient(180deg, rgba(247,239,222,0.12), rgba(247,239,222,0.24));
       }
 
 
@@ -1625,7 +1637,7 @@
       // ── Scroll reveal ──
       (function () {
         var selectors = [
-          '.masthead-headline', '.hero-photo', '.hero-countdown-card',
+          '.masthead-headline',
           '.section-tag', '.section-title', '.section-divider',
           '.story-cols', '.story-quote-center', '.story-feature', '.story-ps',
           '.detail-item', '.style-card', '.agenda-item',
