@@ -1627,6 +1627,17 @@
         stageEnv.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
         });
+        // Mobile/iOS: tapping the seal or flap children sometimes doesn't bubble
+        // a click to the parent reliably. Bind directly to interactive children.
+        var sealEl = stageEnv.querySelector('.seal-big');
+        var flapEl = stageEnv.querySelector('.env-flap-full');
+        function tapHandler(e) { e.preventDefault(); e.stopPropagation(); openEnvelope(); }
+        [sealEl, flapEl].forEach(function (el) {
+          if (!el) return;
+          el.style.cursor = 'pointer';
+          el.addEventListener('click', tapHandler);
+          el.addEventListener('touchend', tapHandler, { passive: false });
+        });
         var enterBtn = document.getElementById('enterSite');
         if (enterBtn) enterBtn.addEventListener('click', closeIntro);
         var skip = document.getElementById('envSkip');
