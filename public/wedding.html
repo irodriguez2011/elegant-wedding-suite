@@ -802,7 +802,7 @@
 
 
       /* Envelope */
-      .stage-env { cursor: pointer; }
+      .stage-env { cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
       .env-flap-full {
         position:absolute; top:0; left:0; width:100%; height:62%;
         clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -815,7 +815,9 @@
         transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease;
         z-index: 3;
         filter: drop-shadow(0 12px 18px rgba(26,58,90,0.30));
+        cursor: pointer; touch-action: manipulation;
       }
+
       /* Soft ivory edge lines along the flap's diagonal edges */
       .env-flap-full::after {
         content:""; position:absolute; inset:0; pointer-events:none;
