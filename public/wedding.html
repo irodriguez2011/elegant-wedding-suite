@@ -155,9 +155,8 @@
       /* ── COUNTDOWN BAND with full-bleed venue backdrop ── */
       .countdown-band {
         position: relative;
-        width: 100vw;
-        left: 50%; right: 50%;
-        margin-left: -50vw; margin-right: -50vw;
+        width: 100%;
+        margin: 0;
         padding: 5rem 1.5rem;
         overflow: hidden;
         display: flex; align-items: center; justify-content: center;
@@ -170,6 +169,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        background-attachment: scroll;
         background-blend-mode: normal, soft-light, soft-light, normal;
       }
       .countdown-band::before {
