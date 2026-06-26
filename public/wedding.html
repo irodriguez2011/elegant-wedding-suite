@@ -693,20 +693,50 @@
       }
 
 
-      /* Drifting gold flecks inside the intro */
+      /* Drifting light orbs inside the intro */
       .embers { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2; }
       .embers span {
-        position: absolute; bottom: -10px; width: 4px; height: 4px;
-        background: var(--gold-light); border-radius: 50%;
-        box-shadow: 0 0 8px var(--gold-light), 0 0 14px rgba(230,201,138,0.4);
-        animation: rise 9s linear infinite;
+        position: absolute; bottom: -18px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
+        box-shadow:
+          0 0 12px 2px rgba(255,250,235,0.55),
+          0 0 26px 6px rgba(230,201,138,0.35),
+          0 0 44px 12px rgba(114,156,196,0.18);
+        animation: orbRise 18s ease-in-out infinite, orbPulse 4s ease-in-out infinite;
         opacity: 0;
+        will-change: transform, opacity;
       }
-      @keyframes rise {
-        0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
-        15%  { opacity: 0.6; }
-        80%  { opacity: 0.4; }
-        100% { transform: translate(20px, -110vh) scale(1.2); opacity: 0; }
+      .embers span.gold {
+        background: radial-gradient(circle, rgba(250,240,210,0.95) 0%, rgba(250,240,210,0) 70%);
+        box-shadow:
+          0 0 14px 3px rgba(250,240,210,0.6),
+          0 0 30px 8px rgba(230,201,138,0.4),
+          0 0 50px 14px rgba(176,142,80,0.15);
+      }
+      .embers span.ivory {
+        background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
+        box-shadow:
+          0 0 12px 2px rgba(255,255,255,0.7),
+          0 0 28px 7px rgba(255,255,255,0.3),
+          0 0 48px 13px rgba(114,156,196,0.14);
+      }
+      .embers span.blue {
+        background: radial-gradient(circle, rgba(200,225,245,0.95) 0%, rgba(200,225,245,0) 70%);
+        box-shadow:
+          0 0 14px 3px rgba(200,225,245,0.5),
+          0 0 32px 8px rgba(114,156,196,0.32),
+          0 0 52px 14px rgba(93,134,176,0.18);
+      }
+      @keyframes orbRise {
+        0%   { transform: translate3d(var(--startX, 0), 0, 0) scale(0.35); opacity: 0; }
+        12%  { opacity: 0.75; }
+        45%  { opacity: 0.6; }
+        85%  { opacity: 0.25; }
+        100% { transform: translate3d(calc(var(--startX, 0) + var(--driftX, 20px)), -120vh, 0) scale(1.15); opacity: 0; }
+      }
+      @keyframes orbPulse {
+        0%, 100% { filter: blur(0.5px); }
+        50%      { filter: blur(1.5px); }
       }
 
 
@@ -1499,17 +1529,24 @@
     </footer>
 
     <script>
-      // ── Spawn drifting embers inside the envelope intro ──
+      // ── Spawn drifting light orbs inside the envelope intro ──
       (function () {
         var embers = document.getElementById('embers');
         if (!embers) return;
-        var count = 28;
+        var count = 60;
+        var hues = ['gold', 'ivory', 'blue', ''];
         for (var i = 0; i < count; i++) {
           var s = document.createElement('span');
+          var hue = hues[Math.floor(Math.random() * hues.length)];
+          if (hue) s.classList.add(hue);
+          var startX = (Math.random() * 100 - 50); // -50vw to +50vw from left
+          var driftX = -40 + Math.random() * 80;   // final drift -40px to +40px
           s.style.left = (Math.random() * 100) + 'vw';
-          s.style.animationDelay = (Math.random() * 9) + 's';
-          s.style.animationDuration = (7 + Math.random() * 7) + 's';
-          var size = 2 + Math.random() * 4;
+          s.style.setProperty('--startX', startX + 'px');
+          s.style.setProperty('--driftX', driftX + 'px');
+          s.style.animationDelay = (Math.random() * 18) + 's';
+          s.style.animationDuration = (14 + Math.random() * 12) + 's, ' + (3 + Math.random() * 3) + 's';
+          var size = 2 + Math.random() * 7;
           s.style.width = size + 'px';
           s.style.height = size + 'px';
           embers.appendChild(s);
