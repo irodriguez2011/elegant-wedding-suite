@@ -257,6 +257,12 @@
       .hero-cta:hover { color: #fff; }
       .hero-cta:hover::before { transform: scaleY(1); transform-origin: top center; }
 
+      @media (max-width: 1024px) {
+        .hero-editorial { padding: 4rem 1.25rem 4.5rem; }
+        .hero-photo .hero-frame { aspect-ratio: 4 / 5; min-height: 0; }
+        .countdown-band { padding: 4rem 1.25rem; background-attachment: scroll; }
+        .hero-countdown-card { padding: 2rem 1.6rem; width: 100%; max-width: 560px; }
+      }
       @media (max-width: 700px) {
         .hero-editorial { padding: 2.5rem 1rem 3rem; }
         .hero-photo .hero-frame { aspect-ratio: 4 / 5; min-height: 0; border-radius: 12px; }
@@ -264,6 +270,7 @@
         .countdown-band { padding: 3rem 1rem; background-attachment: scroll; background-position: center center; }
         .hero-countdown-card { padding: 1.6rem 1.2rem; width: 100%; max-width: 100%; }
       }
+
 
 
 
