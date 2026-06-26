@@ -5,7 +5,10 @@ A wedding invitation website created for a friend to celebrate the marriage of *
 - **Date:** June 19, 2027
 - **Location:** Queens, New York
 
+> ⚠️ **Work in Progress** — This wedding website is still being developed and refined. Some details, images, copy, and links may change as the big day approaches.
+
 ---
+
 
 ## About This Project
 
