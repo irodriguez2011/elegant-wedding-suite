@@ -796,8 +796,8 @@
         100% { transform: translate3d(calc(var(--startX, 0) + var(--driftX, 20px)), -120vh, 0) scale(1.15); opacity: 0; }
       }
       @keyframes orbPulse {
-        0%, 100% { filter: blur(0.5px); }
-        50%      { filter: blur(1.5px); }
+        0%, 100% { opacity: 0.55; }
+        50%      { opacity: 0.85; }
       }
 
 
@@ -990,10 +990,26 @@
       @media (prefers-reduced-motion: reduce) {
         .intro-stage, .env-flap-full, .seal-big, #invite-intro, .embers span, .ambient-leaves span { transition: none; animation: none !important; }
       }
-      @media (max-width: 600px) {
-        .seal-big { width: 118px; height: 118px; }
+      /* Pause particles the moment the intro is dismissed so they stop burning frames */
+      #invite-intro.gone .embers span,
+      #invite-intro.gone .ambient-leaves span { animation-play-state: paused !important; }
+
+      /* Mobile perf: kill expensive filters/backdrops & infinite shadow pulses on small screens */
+      @media (max-width: 768px) {
+        .seal-big { width: 118px; height: 118px; animation: none !important; }
         .seal-mono { font-size: 2.4rem; }
         .card-l2 { font-size: clamp(2.6rem, 14vw, 3.6rem); }
+        .env-flap-full,
+        .env-lace,
+        .seal-big { filter: none !important; }
+        .env-flap-full,
+        .seal-big { will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .nav,
+        .hero-countdown-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+        .nav { background: rgba(249,246,240,0.96); }
+        .hero-countdown-card { background: rgba(255,255,255,0.82); }
+        .velvet::before { display: none; }
+        .embers span { box-shadow: 0 0 10px 2px rgba(255,250,235,0.45); }
       }
     </style>
     <noscript
@@ -1604,11 +1620,15 @@
     </footer>
 
     <script>
+      // Cheap perf flags shared by particle spawners
+      var __isSmall = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+      var __reduceMo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       // ── Spawn drifting light orbs inside the envelope intro ──
       (function () {
         var embers = document.getElementById('embers');
-        if (!embers) return;
-        var count = 60;
+        if (!embers || __reduceMo) return;
+        var count = __isSmall ? 14 : 60;
         var hues = ['gold', 'ivory', 'blue', ''];
         for (var i = 0; i < count; i++) {
           var s = document.createElement('span');
@@ -1631,8 +1651,8 @@
       // ── Ambient floating gold flecks across the page ──
       (function () {
         var wrap = document.getElementById('ambientLeaves');
-        if (!wrap) return;
-        var count = 24;
+        if (!wrap || __reduceMo) return;
+        var count = __isSmall ? 8 : 24;
         for (var i = 0; i < count; i++) {
           var s = document.createElement('span');
           s.style.left = (Math.random() * 100) + 'vw';
