@@ -1529,17 +1529,24 @@
     </footer>
 
     <script>
-      // ── Spawn drifting embers inside the envelope intro ──
+      // ── Spawn drifting light orbs inside the envelope intro ──
       (function () {
         var embers = document.getElementById('embers');
         if (!embers) return;
-        var count = 28;
+        var count = 60;
+        var hues = ['gold', 'ivory', 'blue', ''];
         for (var i = 0; i < count; i++) {
           var s = document.createElement('span');
+          var hue = hues[Math.floor(Math.random() * hues.length)];
+          if (hue) s.classList.add(hue);
+          var startX = (Math.random() * 100 - 50); // -50vw to +50vw from left
+          var driftX = -40 + Math.random() * 80;   // final drift -40px to +40px
           s.style.left = (Math.random() * 100) + 'vw';
-          s.style.animationDelay = (Math.random() * 9) + 's';
-          s.style.animationDuration = (7 + Math.random() * 7) + 's';
-          var size = 2 + Math.random() * 4;
+          s.style.setProperty('--startX', startX + 'px');
+          s.style.setProperty('--driftX', driftX + 'px');
+          s.style.animationDelay = (Math.random() * 18) + 's';
+          s.style.animationDuration = (14 + Math.random() * 12) + 's, ' + (3 + Math.random() * 3) + 's';
+          var size = 2 + Math.random() * 7;
           s.style.width = size + 'px';
           s.style.height = size + 'px';
           embers.appendChild(s);
