@@ -470,7 +470,62 @@
         color: var(--gold-deep); margin-top: 0.3rem;
       }
       .party-hint { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 1.8rem; font-style: italic; }
-      @media (max-width: 860px) { .party-grid { grid-template-columns: 1fr 1fr; } }
+
+      /* ── PRESSED FLORAL ACCENTS ── */
+      .party-panel {
+        max-width: 1100px; margin: 0 auto;
+        background: rgba(249, 247, 241, 0.78);
+        border: 1px solid rgba(201, 168, 76, 0.22);
+        border-radius: 18px;
+        padding: 4rem 2rem 3rem;
+        position: relative;
+        box-shadow: 0 28px 70px rgba(58, 16, 21, 0.08);
+        backdrop-filter: blur(4px);
+      }
+      .floral-corner {
+        position: absolute;
+        width: clamp(140px, 22vw, 260px);
+        height: auto;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.92;
+      }
+      .floral-corner.top-left {
+        top: -2.2rem; left: -2.2rem;
+        transform: rotate(-6deg);
+      }
+      .floral-corner.top-right {
+        top: -2.2rem; right: -2.2rem;
+        transform: scaleX(-1) rotate(-6deg);
+      }
+      .floral-divider {
+        display: block;
+        width: min(420px, 72vw);
+        height: auto;
+        margin: -0.8rem auto 2.4rem;
+        opacity: 0.9;
+      }
+      .floral-masthead {
+        display: block;
+        width: min(360px, 70vw);
+        height: auto;
+        margin: 0 auto -1.2rem;
+        opacity: 0.9;
+      }
+      @media (max-width: 860px) {
+        .party-grid { grid-template-columns: 1fr 1fr; }
+        .party-panel { padding: 3.2rem 1.2rem 2.4rem; }
+        .floral-corner { width: 110px; }
+        .floral-corner.top-left { top: -1.4rem; left: -1.2rem; }
+        .floral-corner.top-right { top: -1.4rem; right: -1.2rem; }
+        .floral-divider { margin-bottom: 1.8rem; }
+      }
+      @media (max-width: 640px) {
+        .floral-corner { width: 86px; }
+        .floral-corner.top-left { top: -1rem; left: -0.9rem; }
+        .floral-corner.top-right { top: -1rem; right: -0.9rem; }
+      }
+
 
       /* ── TIMELINE ── */
       .timeline-list { max-width: 640px; margin: 0 auto; }
@@ -1107,8 +1162,10 @@
 
     <!-- MASTHEAD -->
     <div class="masthead">
+      <img class="floral-masthead" src="floral-masthead.png" alt="Pressed floral accent" />
       <div class="masthead-headline">Krissie &amp; Cory <em>say "I do"</em></div>
     </div>
+
 
     <!-- EDITORIAL HERO: full-bleed venue backdrop + couple photo -->
     <div class="hero-editorial">
@@ -1369,69 +1426,74 @@
 
     <!-- WEDDING PARTY -->
     <section id="party" class="party">
-      <div class="section-tag">The ones who stood by us</div>
-      <div class="section-title">Wedding <em>Party</em></div>
-      <div class="section-divider"><span>❦</span></div>
-      <div class="party-grid">
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Isamar</div>
-            <div class="party-role">Maid of Honor</div>
+      <div class="party-panel">
+        <img class="floral-corner top-left" src="floral-corner.png" alt="Pressed floral corner" />
+        <img class="floral-corner top-right" src="floral-corner.png" alt="Pressed floral corner" />
+        <div class="section-tag">The ones who stood by us</div>
+        <div class="section-title">Wedding <em>Party</em></div>
+        <img class="floral-divider" src="floral-divider.png" alt="Pressed floral divider" />
+        <div class="party-grid">
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Isamar</div>
+              <div class="party-role">Maid of Honor</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Tori</div>
+              <div class="party-role">Bridesmaid</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Sophie</div>
+              <div class="party-role">Bridesmaid</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Ashley</div>
+              <div class="party-role">Bridesmaid</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Groomsman 1</div>
+              <div class="party-role">Groomsman</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Groomsman 2</div>
+              <div class="party-role">Groomsman</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Groomsman 3</div>
+              <div class="party-role">Groomsman</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo">📷</div>
+            <div class="party-info">
+              <div class="party-name">Groomsman 4</div>
+              <div class="party-role">Groomsman</div>
+            </div>
           </div>
         </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Tori</div>
-            <div class="party-role">Bridesmaid</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Sophie</div>
-            <div class="party-role">Bridesmaid</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Ashley</div>
-            <div class="party-role">Bridesmaid</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Groomsman 1</div>
-            <div class="party-role">Groomsman</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Groomsman 2</div>
-            <div class="party-role">Groomsman</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Groomsman 3</div>
-            <div class="party-role">Groomsman</div>
-          </div>
-        </div>
-        <div class="party-card">
-          <div class="party-photo">📷</div>
-          <div class="party-info">
-            <div class="party-name">Groomsman 4</div>
-            <div class="party-role">Groomsman</div>
-          </div>
-        </div>
+        <div class="party-hint">Hover (or tap) the cards to meet the crew.</div>
       </div>
-      <div class="party-hint">Hover (or tap) the cards to meet the crew.</div>
     </section>
+
 
     <!-- SCHEDULE -->
     <section id="schedule" class="timeline">
