@@ -668,28 +668,30 @@
         align-items: center; justify-content: center; transition: opacity 1s ease;
       }
 
-      /* Cream paper envelope backdrop */
+      /* Blue velvet envelope backdrop */
       .velvet {
-        background-color: var(--ivory-2);
+        background-color: #729cc4;
         background-image:
-          radial-gradient(48% 38% at 22% 22%, rgba(255,255,255,0.85), transparent 70%),
-          radial-gradient(52% 44% at 78% 76%, rgba(201,168,76,0.08), transparent 70%),
-          radial-gradient(40% 30% at 70% 14%, rgba(255,255,255,0.55), transparent 70%),
-          radial-gradient(56% 46% at 28% 88%, rgba(114,156,196,0.06), transparent 70%),
-          linear-gradient(135deg, #faf6ec, #f5ecd9 50%, #efe4cf);
+          radial-gradient(48% 42% at 22% 22%, rgba(255,255,255,0.55), transparent 70%),
+          radial-gradient(52% 48% at 78% 76%, rgba(26,58,90,0.18), transparent 70%),
+          radial-gradient(40% 34% at 70% 14%, rgba(255,255,255,0.38), transparent 70%),
+          radial-gradient(56% 50% at 28% 88%, rgba(31,58,90,0.12), transparent 70%),
+          linear-gradient(135deg, #8ab4d8, #729cc4 50%, #5d86b0);
       }
-      /* Paper texture */
+      /* Velvet texture / limewash grain */
       .velvet::before {
-        content:""; position:absolute; inset:0; pointer-events:none; opacity:0.35;
+        content:""; position:absolute; inset:0; pointer-events:none; opacity:0.28;
         background-image:
-          repeating-linear-gradient(115deg, rgba(58,42,31,0.04) 0 1px, transparent 1px 4px),
-          repeating-linear-gradient(28deg,  rgba(58,42,31,0.03) 0 1px, transparent 1px 6px);
-        mix-blend-mode: multiply;
+          repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 4px),
+          repeating-linear-gradient(28deg,  rgba(26,58,90,0.06) 0 1px, transparent 1px 6px),
+          radial-gradient(ellipse at 50% 50%, rgba(31,58,90,0.08), transparent 70%);
+        mix-blend-mode: soft-light;
       }
       .velvet::after {
         content:""; position:absolute; inset:0; pointer-events:none;
-        background: radial-gradient(circle at 50% 45%, transparent 38%, rgba(58,42,31,0.10) 100%);
+        background: radial-gradient(circle at 50% 45%, transparent 38%, rgba(26,58,90,0.22) 100%);
       }
+
 
       /* Drifting gold flecks inside the intro */
       .embers { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2; }
