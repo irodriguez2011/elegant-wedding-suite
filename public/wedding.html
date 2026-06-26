@@ -48,20 +48,21 @@
         font-weight: 300;
         color: var(--ink);
         background-color: var(--beige);
-        /* Long diagonal gradient: ivory → lilac → blue, with soft radial bloom */
+        /* Long diagonal gradient: ivory → soft blue (dominant) → lilac, with soft radial bloom */
         background-image:
-          radial-gradient(ellipse at 80% 10%, rgba(228,187,237,0.55) 0, transparent 55%),
-          radial-gradient(ellipse at 15% 38%, rgba(248,244,236,0.65) 0, transparent 55%),
-          radial-gradient(ellipse at 85% 65%, rgba(143,179,212,0.45) 0, transparent 55%),
+          radial-gradient(ellipse at 15% 10%, rgba(143,179,212,0.55) 0, transparent 55%),
+          radial-gradient(ellipse at 80% 30%, rgba(248,244,236,0.65) 0, transparent 55%),
+          radial-gradient(ellipse at 85% 85%, rgba(228,187,237,0.50) 0, transparent 55%),
           linear-gradient(
             160deg,
             #f9f7f1 0%,
-            #f3ebef 18%,
-            #ecc9ee 35%,
-            #d9c4ea 52%,
-            #b7c9e2 70%,
-            #8fb3d4 88%,
-            #729cc4 100%
+            #e8f0f7 12%,
+            #c8d9e9 25%,
+            #9fbad6 42%,
+            #729cc4 58%,
+            #8fb3d4 72%,
+            #c8d5e9 85%,
+            #e4bbed 100%
           );
         background-attachment: fixed;
         background-size: cover;
