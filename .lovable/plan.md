@@ -1,21 +1,27 @@
-## Goal
-Soften the hero photo’s corner blur and recolor the halo behind the photo to a warm, angelic white-gold glow.
+## Plan: Refine masthead typography and remove issue/date line
 
-## What will change
-- Reduce the corner-edge blur mask on the hero image so only a subtle corner fade remains, while keeping the main subject and straight edges crisp.
-- Shift the `.hero-photo::after` glow behind the photo from cool blue to a warm white-gold palette (ivory → soft gold) for a candlelit, angelic effect.
-- Keep the thin lilac offset frame and the existing photo size / layout unchanged.
+### 1. Define a font style guide for the wedding site
+Limit the page to a clear, wedding-appropriate hierarchy:
+- **Pinyon Script** — romantic script moments: masthead headline, envelope seal, footer names, and the countdown card headline.
+- **Cinzel** — formal labels and structure: navigation, section tags, buttons, countdown numerals.
+- **Cormorant Garamond** — elegant section titles and pull quotes.
+- **Jost** — body copy and paragraphs.
 
-## Technical details
-File: `public/wedding.html`
+This drops the now-redundant **Great Vibes** usage so we stay at four fonts total.
 
-- `.hero-photo::after` glow:
-  - Replace `rgba(114,156,196, …)` corner gradients with layered warm white-gold tones (`#fff8ec`, `#fff2d9`, `#f5e6c9`) at a slightly lower opacity so the halo feels luminous rather than heavy.
-  - Lower `filter: blur(22px)` to around `18px` to tighten the halo.
-- `.hero-photo img` mask:
-  - Shrink the corner gradient coverage from `55% 55%` to about `36% 36%`.
-  - Move the fade midpoint from `65%` to `75%` so the blur is lighter and less invasive.
-- No JavaScript or HTML structure changes.
+### 2. Change the masthead headline font
+Update `.masthead-headline` in `public/wedding.html` to use `Pinyon Script` with a larger size and a little extra letter-spacing so "Krissie & Cory say 'I do'" feels more elegant and romantic. Keep the existing color/structure.
 
-## Validation
-- Refresh the preview and check the hero section: the couple should remain fully visible, only the extreme corners softly fade, and the glow behind the photo should read as a warm, soft gold halo rather than blue.
+### 3. Remove the issue/date line
+Delete the `.masthead-top` block (lines ~964-968) containing `Issue No. 001`, `Queens, New York`, and `June 19, 2027`. The wedding date is already repeated in the countdown card footer and other sections, so the date is not lost.
+
+### 4. Consolidate the countdown headline into Pinyon Script
+The `.cd-headline` currently uses `Great Vibes`. Switch it to `Pinyon Script` so script moments share one font, then remove the unused `Great Vibes` import from the Google Fonts link.
+
+### 5. Validate the preview
+Refresh the preview and confirm the masthead reads cleanly, the headline feels elegant, and the issue/date line is gone without breaking the countdown or surrounding spacing.
+
+### Technical notes
+- File to edit: `public/wedding.html`.
+- No new fonts or npm packages are needed; we reuse the existing `Pinyon Script` load.
+- Only CSS and static HTML changes are required; no server logic or routes are affected.
