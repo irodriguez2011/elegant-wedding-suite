@@ -323,7 +323,24 @@
         display: flex; align-items: center; justify-content: center;
         padding: 4rem 2rem;
         background-color: var(--beige);
+        background-image: url('countdown-venue.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
       }
+      .countdown-split__panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(236, 230, 218, 0.55);
+        pointer-events: none;
+      }
+      .countdown-split__panel .hero-countdown-card {
+        position: relative;
+        z-index: 1;
+      }
+
 
       .countdown-split__panel .hero-countdown-card {
         width: min(520px, 100%);
