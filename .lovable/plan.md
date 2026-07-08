@@ -1,11 +1,15 @@
-Update the "COUNTDOWN + STAIRS SPLIT" section in `public/wedding.html` so the wedding venue photo fills the entire section and the bride-and-groom stair photo is removed.
+### Problem
+The `.countdown-split` section inherits the global `section { padding: 5rem 2rem; }` rule. That padding is what leaves the visible gradient strip on the left, right, and (most noticeably) below the venue photo before the RSVP section — so the photo never actually reaches the edges of the page and there is a large gap above RSVP.
 
-### What will change
-1. **HTML** — Remove the left `.countdown-split__photo` column (the arch frame with `countdown-photo.jpg`).
-2. **CSS layout** — Convert `.countdown-split` from a two-column grid to a single full-width section.
-3. **Background** — Remove the beige fallback color from `.countdown-split` and `.countdown-split__panel` so the venue photo is the only background visible.
-4. **Venue photo coverage** — Keep the `::before` pseudo-element on `.countdown-split__panel` but set `opacity: 1` and ensure `background-size: cover` fills the whole area with no gaps.
-5. **Countdown card** — Center the countdown card over the full-bleed venue photo; keep its semi-transparent backing so the text stays readable.
+The photo itself is already rendered with `background-size: cover`, so it does fill whatever box it is given. The fix is to give it the full section box, not to swap the image.
 
-### Files affected
-- `public/wedding.html`
+### Changes to `public/wedding.html`
+
+1. Override the global section padding just for the countdown split so the venue panel goes edge‑to‑edge horizontally and sits flush against the RSVP section vertically:
+   ```css
+   .countdown-split { padding: 0; margin: 0; }
+   ```
+2. Drop the venue photo opacity from `1` to `0.7` on `.countdown-split__panel::before`.
+3. Leave `background-size: cover` and `min-height: 520px` in place so the photo always fills the panel from left to right, and keep the countdown card centered on top.
+
+No other sections, no HTML structure, no image asset changes.
