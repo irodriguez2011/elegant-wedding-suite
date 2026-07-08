@@ -275,54 +275,15 @@
 
       /* ── COUNTDOWN + STAIRS SPLIT ── */
       .countdown-split {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: block;
         width: 100%;
         margin: 0;
-        background: var(--beige);
       }
-      .countdown-split__photo {
-        position: relative;
-        min-height: 520px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2.5rem 2rem;
-      }
-      .countdown-split__arch {
-        position: relative;
-        width: min(420px, 100%);
-        aspect-ratio: 4 / 5;
-      }
-      .countdown-split__arch-frame {
-        position: absolute;
-        inset: 6% 10% 4% 10%;
-        border-top-left-radius: 999px 999px;
-        border-top-right-radius: 999px 999px;
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 20px 40px -20px rgba(60, 45, 30, 0.35);
-      }
-      .countdown-split__arch-frame img {
-        width: 100%; height: 100%;
-        object-fit: cover; object-position: center;
-        display: block;
-      }
-      .countdown-split__arch-overlay {
-        position: absolute;
-        inset: 0;
-        width: 100%; height: 100%;
-        object-fit: contain;
-        pointer-events: none;
-        z-index: 2;
-      }
-      .countdown-split__photo--empty .countdown-split__arch-frame { background: #ece6da; }
       .countdown-split__panel {
         position: relative;
         display: flex; align-items: center; justify-content: center;
         padding: 4rem 2rem;
-        background-color: var(--beige);
+        min-height: 520px;
         overflow: hidden;
       }
       .countdown-split__panel::before {
@@ -333,7 +294,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.8;
+        opacity: 1;
         pointer-events: none;
       }
 
@@ -351,9 +312,7 @@
 
 
       @media (max-width: 900px) {
-        .countdown-split { grid-template-columns: 1fr; }
-        .countdown-split__photo { min-height: 420px; padding: 2rem 1rem; }
-        .countdown-split__panel { padding: 3rem 1.25rem; }
+        .countdown-split__panel { min-height: 420px; padding: 3rem 1.25rem; }
       }
 
 
