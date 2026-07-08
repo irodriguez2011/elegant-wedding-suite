@@ -273,6 +273,50 @@
         .hero-countdown-card { padding: 1.6rem 1.2rem; width: 100%; max-width: 100%; }
       }
 
+      /* ── COUNTDOWN + STAIRS SPLIT ── */
+      .countdown-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        margin: 0;
+        background: var(--beige);
+      }
+      .countdown-split__photo {
+        position: relative;
+        min-height: 520px;
+        overflow: hidden;
+      }
+      .countdown-split__photo img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center;
+        display: block;
+      }
+      .countdown-split__photo--empty { background: #ece6da; }
+      .countdown-split__panel {
+        position: relative;
+        display: flex; align-items: center; justify-content: center;
+        padding: 4rem 2rem;
+        overflow: hidden;
+        background-color: var(--beige);
+        background-image:
+          linear-gradient(rgba(249,246,240,0.35), rgba(249,246,240,0.35)),
+          radial-gradient(ellipse at 20% 20%, rgba(228,187,237,0.28), transparent 62%),
+          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.30), transparent 62%),
+          url('countdown-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .countdown-split__panel .hero-countdown-card {
+        width: min(520px, 100%);
+      }
+      @media (max-width: 900px) {
+        .countdown-split { grid-template-columns: 1fr; }
+        .countdown-split__photo { min-height: 360px; }
+        .countdown-split__panel { padding: 3rem 1.25rem; }
+      }
+
+
       /* ── FULL-BLEED HERO ── */
       .hero-full {
         position: relative;
@@ -1222,26 +1266,6 @@
     </div>
 
 
-    <!-- FULL-WIDTH VENUE BAND with countdown -->
-    <section class="countdown-band">
-      <aside class="hero-countdown-card">
-        <h2 class="cd-headline">The countdown is on!</h2>
-        <div class="cd-grid" id="countdown">
-          <span class="cd-num" id="cd-days">—</span>
-          <span class="cd-sep">:</span>
-          <span class="cd-num" id="cd-hours">—</span>
-          <span class="cd-sep">:</span>
-          <span class="cd-num" id="cd-mins">—</span>
-          <span class="cd-sep">:</span>
-          <span class="cd-num" id="cd-secs">—</span>
-        </div>
-        <div class="cd-labels"><span>DAYS</span><span>HOURS</span><span>MINS</span><span>SECS</span></div>
-        <div class="cd-footer">June 19, 2027 · Queens, New York</div>
-        <button class="hero-cta" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
-          RSVP Now
-        </button>
-      </aside>
-    </section>
 
     <!-- OUR STORY -->
     <section id="story" class="story">
@@ -1594,14 +1618,35 @@
       </div>
     </section>
 
-    <!-- IMAGE BAND -->
-    <div class="image-band" data-file="gallery2.jpg">
-      <img
-        src="gallery2.jpg"
-        alt=""
-        onerror="this.style.display='none';this.parentNode.classList.add('image-band-empty');"
-      />
-    </div>
+    <!-- COUNTDOWN + STAIRS SPLIT -->
+    <section class="countdown-split">
+      <div class="countdown-split__photo">
+        <img
+          src="gallery2.jpg"
+          alt="Krissie and Cory on the stairs"
+          onerror="this.style.display='none';this.parentNode.classList.add('countdown-split__photo--empty');"
+        />
+      </div>
+      <div class="countdown-split__panel">
+        <aside class="hero-countdown-card">
+          <h2 class="cd-headline">The countdown is on!</h2>
+          <div class="cd-grid" id="countdown">
+            <span class="cd-num" id="cd-days">—</span>
+            <span class="cd-sep">:</span>
+            <span class="cd-num" id="cd-hours">—</span>
+            <span class="cd-sep">:</span>
+            <span class="cd-num" id="cd-mins">—</span>
+            <span class="cd-sep">:</span>
+            <span class="cd-num" id="cd-secs">—</span>
+          </div>
+          <div class="cd-labels"><span>DAYS</span><span>HOURS</span><span>MINS</span><span>SECS</span></div>
+          <div class="cd-footer">June 19, 2027 · Queens, New York</div>
+          <button class="hero-cta" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
+            RSVP Now
+          </button>
+        </aside>
+      </div>
+    </section>
 
     <!-- RSVP -->
     <section id="rsvp" class="rsvp">
