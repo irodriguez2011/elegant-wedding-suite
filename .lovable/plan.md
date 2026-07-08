@@ -1,18 +1,11 @@
-## Fade venue photo and update location text
+Update the "COUNTDOWN + STAIRS SPLIT" section in `public/wedding.html` so the wedding venue photo fills the entire section and the bride-and-groom stair photo is removed.
 
-### 1. Decrease venue photo opacity behind the countdown
-In `public/wedding.html`, move the venue photo from `.countdown-split__panel`'s `background-image` to a `::before` pseudo-element so its `opacity` can be set independently. Set the pseudo-element opacity to `0.8` (80% visible, 20% faded). Keep the panel's beige fallback background so the area never looks empty.
+### What will change
+1. **HTML** — Remove the left `.countdown-split__photo` column (the arch frame with `countdown-photo.jpg`).
+2. **CSS layout** — Convert `.countdown-split` from a two-column grid to a single full-width section.
+3. **Background** — Remove the beige fallback color from `.countdown-split` and `.countdown-split__panel` so the venue photo is the only background visible.
+4. **Venue photo coverage** — Keep the `::before` pseudo-element on `.countdown-split__panel` but set `opacity: 1` and ensure `background-size: cover` fills the whole area with no gaps.
+5. **Countdown card** — Center the countdown card over the full-bleed venue photo; keep its semi-transparent backing so the text stays readable.
 
-### 2. Replace "Queens" with "Brooklyn"
-Update every text occurrence of "Queens" in `public/wedding.html` to "Brooklyn":
-- Hero card date: "June 19, 2027 · Queens, NY" → "Brooklyn, NY"
-- Details section: "Queens, New York" → "Brooklyn, New York"
-- Weekend agenda: "Meet the family at our favorite Queens spot." → "...Brooklyn spot."
-- Countdown footer: "June 19, 2027 · Queens, New York" → "Brooklyn, New York"
-- Footer: "The Allens · June 19, 2027 · Queens, New York" → "Brooklyn, New York"
-
-### Files touched
+### Files affected
 - `public/wedding.html`
-
-### Verification
-Preview the countdown section to confirm the venue photo is slightly faded and the countdown card text remains readable; spot-check that all "Queens" references now read "Brooklyn".
