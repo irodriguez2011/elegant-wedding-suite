@@ -329,18 +329,18 @@
         background-repeat: no-repeat;
         overflow: hidden;
       }
-      .countdown-split__panel::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(236, 230, 218, 0.55);
-        pointer-events: none;
-      }
       .countdown-split__panel .hero-countdown-card {
         position: relative;
         z-index: 1;
         width: min(520px, 100%);
+        background: rgba(249, 247, 241, 0.88);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-radius: 8px;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 20px 50px -20px rgba(30, 40, 60, 0.35);
       }
+
 
       @media (max-width: 900px) {
         .countdown-split { grid-template-columns: 1fr; }
@@ -1662,7 +1662,7 @@
               onerror="this.style.display='none';this.closest('.countdown-split__photo').classList.add('countdown-split__photo--empty');"
             />
           </div>
-          <img class="countdown-split__arch-overlay" src="wedding-arch.png" alt="" aria-hidden="true" />
+          
         </div>
       </div>
 
