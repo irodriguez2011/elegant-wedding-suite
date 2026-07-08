@@ -1,28 +1,27 @@
-Add pressed-flower / dried-flower floral accents to the wedding site, sourced from Canva, and integrate them around the Wedding Party section and the "Krissie & Cory say I do" masthead.
+## Goal
+Relocate the countdown from its current full-width band (near the top, before Our Story) down to where the `gallery2.jpg` image band currently sits (between Schedule and RSVP), and lay it out side-by-side with the stairs photo of the bride & groom. Also swap the image sitting behind the countdown card for a new one you'll provide.
 
-**Visual direction:**
-- Style: vintage pressed/dried florals (delicate petals, muted stems, soft shadows), with a heavier ivory/cream tone to match the site's cool ivory palette.
-- Colors: ivory, soft cream, muted lilac, dusty blue, and hints of sage/gold so the florals blend with the existing gradient.
-- Placement: corner sprays, small under-heading accent, and a divider sprig.
+## Changes to `public/wedding.html`
 
-**Implementation steps:**
-1. **Search Canva** for pressed-flower wedding floral templates and elements using the Canva connector (`search-brand-templates`).
-2. **Generate/create** a small asset set in Canva:
-   - top-left corner floral spray
-   - top-right corner floral spray
-   - small horizontal divider/branch
-   - optional accent for the masthead
-3. **Export** the chosen assets as transparent PNGs from Canva (`export-design`).
-4. **Bring assets into the project** as local files under `public/` (or Lovable CDN assets if sizes warrant).
-5. **Update `public/wedding.html`:**
-   - Add corner floral images around the `Wedding Party` section (`#party`).
-   - Add a small pressed-flower divider under the section title.
-   - Add a subtle floral accent above or beside the `Krissie & Cory say "I do"` masthead.
-   - Wrap the party grid in a soft ivory feature panel so the florals read cleanly against the gradient.
-6. **Responsive check:** ensure the decorative images scale and never trigger horizontal overflow on mobile or tablet.
+1. **Remove** the current `<section class="countdown-band">…</section>` block (lines ~1225–1244) from its position above Our Story. Keep all countdown markup/JS intact — just relocate.
 
-**Acceptance criteria:**
-- Wedding Party section has visible pressed-flower corner accents and a divider.
-- Masthead area gains a subtle floral accent that feels elegant, not cluttered.
-- No horizontal overflow on mobile/tablet.
-- Florals use ivory-forward tones and match the existing blue/lilac/ivory palette.
+2. **Replace** the existing `<div class="image-band" data-file="gallery2.jpg">…</div>` block (lines ~1597–1604, between Schedule and RSVP) with a new two-column section:
+   - **Left column:** the stairs photo (`gallery2.jpg` for now, swapped for the new image you send).
+   - **Right column:** the countdown card (`.hero-countdown-card` with its headline "The countdown is on!" and the `#countdown` grid).
+   - The right column gets a soft background image (the new one you provide via Canva/upload) with a light overlay so the countdown card reads clearly.
+
+3. **Responsive behavior:**
+   - Desktop/tablet ≥ 900px: two columns side-by-side, equal height, photo fills left, countdown fills right on top of its background image.
+   - Mobile < 900px: stacks vertically — photo on top, countdown block below — no horizontal overflow.
+
+4. **Styles:** add a small `.countdown-split` CSS block (grid, 1fr 1fr on desktop, 1fr on mobile, matching the existing lilac→blue gradient palette and section rhythm). Reuse existing `.hero-countdown-card` and `.cd-*` styles unchanged so the visual language stays consistent.
+
+## Image you'll provide
+Once you send the new background image (upload it here, or paste a Canva design link / `canva.link/...` shortlink), I'll drop it into `public/` and wire it as the right-column background. If you also want to change the stairs photo itself, send that too and I'll swap `gallery2.jpg`.
+
+## Verification
+Screenshot at desktop (1280 wide) and mobile (390 wide) after the change to confirm:
+- Countdown no longer appears above Our Story.
+- Stairs photo + countdown sit side-by-side on desktop, stacked on mobile.
+- No horizontal scroll on mobile.
+- Countdown timer still ticks (JS untouched).
