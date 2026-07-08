@@ -273,6 +273,50 @@
         .hero-countdown-card { padding: 1.6rem 1.2rem; width: 100%; max-width: 100%; }
       }
 
+      /* ── COUNTDOWN + STAIRS SPLIT ── */
+      .countdown-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        margin: 0;
+        background: var(--beige);
+      }
+      .countdown-split__photo {
+        position: relative;
+        min-height: 520px;
+        overflow: hidden;
+      }
+      .countdown-split__photo img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center;
+        display: block;
+      }
+      .countdown-split__photo--empty { background: #ece6da; }
+      .countdown-split__panel {
+        position: relative;
+        display: flex; align-items: center; justify-content: center;
+        padding: 4rem 2rem;
+        overflow: hidden;
+        background-color: var(--beige);
+        background-image:
+          linear-gradient(rgba(249,246,240,0.35), rgba(249,246,240,0.35)),
+          radial-gradient(ellipse at 20% 20%, rgba(228,187,237,0.28), transparent 62%),
+          radial-gradient(ellipse at 80% 80%, rgba(114,156,196,0.30), transparent 62%),
+          url('countdown-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .countdown-split__panel .hero-countdown-card {
+        width: min(520px, 100%);
+      }
+      @media (max-width: 900px) {
+        .countdown-split { grid-template-columns: 1fr; }
+        .countdown-split__photo { min-height: 360px; }
+        .countdown-split__panel { padding: 3rem 1.25rem; }
+      }
+
+
       /* ── FULL-BLEED HERO ── */
       .hero-full {
         position: relative;
