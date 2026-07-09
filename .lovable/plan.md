@@ -1,42 +1,23 @@
-### Problem
-The current page has a "Weekend Agenda" section that should be removed entirely, and a "Travel & Accommodations" section that should be replaced with a Frequently Asked Questions section. The nav still links to the removed/replaced sections, and the scroll-reveal script references the old selectors.
+Update the Day-of Schedule timeline in `public/wedding.html` with the new times and event labels provided.
 
-### Changes to `public/wedding.html`
+## Changes
 
-1. **Remove the Weekend Agenda section**
-   - Delete the entire `<section id="weekend" class="weekend">` block (the three-day agenda grid).
+Replace the existing 5 timeline items in `<section id="schedule" class="timeline">` with 6 new items:
 
-2. **Replace Travel & Accommodations with FAQ**
-   - Replace the `<section id="travel" class="travel">` block with a new `<section id="faq" class="faq">` block.
-   - Use the existing section heading pattern: `.section-tag`, `.section-title`, `.section-divider`.
-   - Heading: tag = "Need to know", title = "Frequently <em>Asked Questions</em>".
-   - Add the following FAQs as styled accordion items:
-     - What time should I arrive?
-     - Where should I park?
-     - Wedding Registry
-     - Will there be open bar?
-     - Are children allowed?
-     - Can I take photos during the event?
-   - Each item has a question button and an answer panel.
+| Time | Event |
+|------|-------|
+| 5:00 PM | Guest Arrival |
+| 5:30 PM | Ceremony |
+| 6:30 PM | Cocktail Hour |
+| 7:30 PM | Reception |
+| 8:30 PM | Dinner |
+| 11:00 PM | Guest Departure |
 
-3. **Add FAQ styles**
-   - `.faq-list` max-width 800px, centered.
-   - `.faq-item` with a subtle border/separator.
-   - `.faq-question` as a full-width button using the existing heading font (`Cinzel`) and accent color (`var(--gold-deep)`).
-   - `.faq-answer` with the body font, muted color, and smooth height animation.
-   - Add a small plus/minus or chevron indicator on the question.
-   - Responsive: single column on mobile.
+## Implementation notes
+- Keep the existing `.timeline-list` structure, `.t-time`, `.t-line`/`.t-dot`, `.t-title`, and `.t-desc` classes.
+- Update or remove the `.t-badge` labels to match the new events (e.g., remove location badges that no longer apply, or simplify them).
+- Keep the section heading and divider styling unchanged so it remains consistent with the rest of the page.
 
-4. **Update navigation**
-   - Remove the "Agenda" link (`href="#weekend"`).
-   - Replace the "Travel" link with "FAQ" (`href="#faq"`).
-
-5. **Update scroll-reveal selectors**
-   - Remove `.agenda-item` and `.travel-card` from the reveal list.
-   - Add `.faq-item` so the new FAQ items animate in on scroll.
-
-6. **Remove unused CSS**
-   - Delete the `.agenda-grid`, `.agenda-item`, `.agenda-icon`, `.agenda-day`, `.agenda-title`, `.agenda-text` rules.
-   - Delete the `.travel-grid`, `.travel-card`, `.travel-card-head`, `.travel-icon`, `.travel-card-title` rules.
-
-No other sections or page structure will change. The page flow will naturally close the gap where the agenda was and the new FAQ will sit in the same position as the old Travel section.
+## Verification
+- Open `/wedding.html` in the preview and scroll to the Day-of Schedule section.
+- Confirm all six new times and labels appear in order and the layout is intact on desktop and mobile.
