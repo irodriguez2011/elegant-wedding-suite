@@ -511,22 +511,43 @@
       }
       .swatch:hover { transform: scale(1.18) rotate(8deg); }
 
-      /* ── AGENDA ── */
-      .agenda-grid {
-        max-width: 920px; margin: 0 auto; display: grid;
-        grid-template-columns: repeat(3, 1fr); gap: 2.5rem; text-align: center;
+      /* ── FAQ ── */
+      .faq-list { max-width: 800px; margin: 0 auto; }
+      .faq-item {
+        border-bottom: 0.5px solid rgba(58,42,31,0.18);
+        transition: border-color 0.3s ease;
       }
-      .agenda-item { transition: transform 0.5s ease; }
-      .agenda-item:hover { transform: translateY(-4px); }
-      .agenda-icon { width: 62px; height: 62px; margin: 0 auto 1rem; color: var(--gold); }
-      .agenda-icon svg { width: 100%; height: 100%; }
-      .agenda-day {
-        font-family: 'Cinzel', serif; font-size: 0.7rem;
-        letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 0.5rem;
+      .faq-item:hover { border-bottom-color: rgba(201,168,76,0.55); }
+      .faq-question {
+        width: 100%; display: flex; justify-content: space-between; align-items: center;
+        gap: 1rem; padding: 1.35rem 0.2rem;
+        background: none; border: none; cursor: pointer; text-align: left;
+        font-family: 'Cinzel', serif; font-size: 0.78rem;
+        letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--walnut); transition: color 0.3s ease;
       }
-      .agenda-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--walnut); margin-bottom: 0.3rem; }
-      .agenda-text { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
-      @media (max-width: 860px) { .agenda-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+      .faq-question:hover { color: var(--gold-deep); }
+      .faq-question[aria-expanded="true"] { color: var(--gold-deep); }
+      .faq-icon {
+        flex: 0 0 auto; width: 22px; height: 22px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 300;
+        color: var(--gold-deep); transition: transform 0.3s ease;
+      }
+      .faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+      .faq-answer {
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+      }
+      .faq-answer p {
+        font-size: 0.9rem; line-height: 1.8; color: var(--muted);
+        padding: 0 0.2rem 1.4rem;
+      }
+      .faq-item.open .faq-answer { max-height: 220px; }
+      @media (max-width: 860px) {
+        .faq-question { font-size: 0.72rem; letter-spacing: 0.14em; padding: 1.2rem 0; }
+        .faq-answer p { font-size: 0.86rem; padding: 0 0 1.2rem; }
+      }
 
       /* ── WEDDING PARTY ── */
       .party-grid {
