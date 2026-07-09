@@ -1874,6 +1874,27 @@
         els.forEach(function (el) { observer.observe(el); });
       })();
 
+      // ── FAQ accordion ──
+      (function () {
+        var items = document.querySelectorAll('.faq-item');
+        items.forEach(function (item) {
+          var btn = item.querySelector('.faq-question');
+          if (!btn) return;
+          btn.addEventListener('click', function () {
+            var isOpen = item.classList.contains('open');
+            items.forEach(function (other) {
+              if (other !== item) {
+                other.classList.remove('open');
+                var otherBtn = other.querySelector('.faq-question');
+                if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+              }
+            });
+            item.classList.toggle('open', !isOpen);
+            btn.setAttribute('aria-expanded', String(!isOpen));
+          });
+        });
+      })();
+
       // ── Mobile menu ──
       function toggleMenu() {
         document.getElementById('hamburger').classList.toggle('open');
