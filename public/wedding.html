@@ -511,22 +511,43 @@
       }
       .swatch:hover { transform: scale(1.18) rotate(8deg); }
 
-      /* ── AGENDA ── */
-      .agenda-grid {
-        max-width: 920px; margin: 0 auto; display: grid;
-        grid-template-columns: repeat(3, 1fr); gap: 2.5rem; text-align: center;
+      /* ── FAQ ── */
+      .faq-list { max-width: 800px; margin: 0 auto; }
+      .faq-item {
+        border-bottom: 0.5px solid rgba(58,42,31,0.18);
+        transition: border-color 0.3s ease;
       }
-      .agenda-item { transition: transform 0.5s ease; }
-      .agenda-item:hover { transform: translateY(-4px); }
-      .agenda-icon { width: 62px; height: 62px; margin: 0 auto 1rem; color: var(--gold); }
-      .agenda-icon svg { width: 100%; height: 100%; }
-      .agenda-day {
-        font-family: 'Cinzel', serif; font-size: 0.7rem;
-        letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 0.5rem;
+      .faq-item:hover { border-bottom-color: rgba(201,168,76,0.55); }
+      .faq-question {
+        width: 100%; display: flex; justify-content: space-between; align-items: center;
+        gap: 1rem; padding: 1.35rem 0.2rem;
+        background: none; border: none; cursor: pointer; text-align: left;
+        font-family: 'Cinzel', serif; font-size: 0.78rem;
+        letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--walnut); transition: color 0.3s ease;
       }
-      .agenda-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--walnut); margin-bottom: 0.3rem; }
-      .agenda-text { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
-      @media (max-width: 860px) { .agenda-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+      .faq-question:hover { color: var(--gold-deep); }
+      .faq-question[aria-expanded="true"] { color: var(--gold-deep); }
+      .faq-icon {
+        flex: 0 0 auto; width: 22px; height: 22px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 300;
+        color: var(--gold-deep); transition: transform 0.3s ease;
+      }
+      .faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+      .faq-answer {
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+      }
+      .faq-answer p {
+        font-size: 0.9rem; line-height: 1.8; color: var(--muted);
+        padding: 0 0.2rem 1.4rem;
+      }
+      .faq-item.open .faq-answer { max-height: 220px; }
+      @media (max-width: 860px) {
+        .faq-question { font-size: 0.72rem; letter-spacing: 0.14em; padding: 1.2rem 0; }
+        .faq-answer p { font-size: 0.86rem; padding: 0 0 1.2rem; }
+      }
 
       /* ── WEDDING PARTY ── */
       .party-grid {
@@ -723,24 +744,6 @@
       }
       .reg-link:hover { background: transparent; color: var(--wine); }
 
-      /* ── TRAVEL ── */
-      .travel-grid { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
-      .travel-card {
-        background: rgba(249,246,240,0.6); border: 1px solid rgba(185,146,74,0.35);
-        padding: 1.9rem;
-        transition: border-color 0.4s, transform 0.5s;
-      }
-      .travel-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-      .travel-card-head { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
-      .travel-icon {
-        width: 40px; height: 40px; border-radius: 50%;
-        background: var(--parchment); display: flex; align-items: center; justify-content: center;
-        font-size: 1.1rem;
-      }
-      .travel-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--walnut); font-style: italic; }
-      .travel-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.5rem; }
-      .travel-card strong { font-weight: 500; color: var(--walnut); }
-
       /* ── IMAGE BAND ── */
       .image-band {
         width: 100%; height: 420px; background: var(--wine);
@@ -821,7 +824,6 @@
         .nav-links.open { display: flex; }
         .nav-links a { font-size: 0.72rem; padding: 0.85rem 0; border-bottom: 0.5px solid rgba(58,42,31,0.12); letter-spacing: 0.22em; }
         .details-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-        .travel-grid { grid-template-columns: 1fr; }
         .form-row { grid-template-columns: 1fr; }
         .image-band { height: 260px; }
       }
@@ -1242,12 +1244,11 @@
         <a href="#story" onclick="closeMenu()">Our Story</a>
         <a href="#details" onclick="closeMenu()">Details</a>
         <a href="#style" onclick="closeMenu()">Style</a>
-        <a href="#weekend" onclick="closeMenu()">Agenda</a>
         <a href="#party" onclick="closeMenu()">Party</a>
         <a href="#schedule" onclick="closeMenu()">Schedule</a>
         <a href="#rsvp" onclick="closeMenu()">RSVP</a>
         <a href="#honeymoon" onclick="closeMenu()">Honeymoon Fund</a>
-        <a href="#travel" onclick="closeMenu()">Travel</a>
+        <a href="#faq" onclick="closeMenu()">FAQ</a>
       </div>
     </nav>
 
@@ -1418,72 +1419,6 @@
         <div class="style-code">Cocktail Attire</div>
         <div class="style-note">
           We'd love to see our friends and family dressed up. The dress code is Cocktail. Ladies can wear knee-length, tea-length, or midi formal dresses. Gentlemen, a suit and tie are preferred, but if not, please bring out your best tie and dress pants. Please no jeans, t-shirts, slides, athletic wear, etc.
-        </div>
-      </div>
-    </section>
-
-    <!-- WEEKEND AGENDA -->
-    <section id="weekend" class="weekend">
-      <div class="section-tag">The whole weekend</div>
-      <div class="section-title">Weekend <em>Agenda</em></div>
-      <div class="section-divider"><span>❦</span></div>
-      <div class="agenda-grid">
-        <div class="agenda-item">
-          <div class="agenda-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M12 26 L32 12 L52 26 V52 H12 Z" />
-              <path d="M26 52 V36 H38 V52" />
-            </svg>
-          </div>
-          <div class="agenda-day">Friday</div>
-          <div class="agenda-title">Welcome Drinks</div>
-          <div class="agenda-text">Meet the family at our favorite Brooklyn spot.</div>
-        </div>
-        <div class="agenda-item">
-          <div class="agenda-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="32" cy="32" r="20" />
-              <path d="M32 12 V32 L46 40" />
-            </svg>
-          </div>
-          <div class="agenda-day">Saturday</div>
-          <div class="agenda-title">The Wedding Day</div>
-          <div class="agenda-text">Ceremony, cocktails, dinner, and dancing under the stars.</div>
-        </div>
-        <div class="agenda-item">
-          <div class="agenda-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M14 36 H44 V46 Q44 50 40 50 H18 Q14 50 14 46 Z" />
-              <path d="M44 38 H50 Q54 38 54 42 Q54 46 50 46 H44" />
-              <path d="M22 32 V22" />
-              <path d="M30 32 V20" />
-              <path d="M38 32 V22" />
-            </svg>
-          </div>
-          <div class="agenda-day">Sunday</div>
-          <div class="agenda-title">Farewell Brunch</div>
-          <div class="agenda-text">Coffee &amp; goodbyes before everyone heads home.</div>
         </div>
       </div>
     </section>
@@ -1703,52 +1638,65 @@
       </div>
     </section>
 
-    <!-- TRAVEL -->
-    <section id="travel" class="travel">
-      <div class="section-tag">Getting here</div>
-      <div class="section-title">Travel &amp; <em>Accommodations</em></div>
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <div class="section-tag">Need to know</div>
+      <div class="section-title">Frequently <em>Asked Questions</em></div>
       <div class="section-divider"><span>❦</span></div>
-      <div class="travel-grid">
-        <div class="travel-card">
-          <div class="travel-card-head">
-            <div class="travel-icon">✈</div>
-            <div class="travel-card-title">Getting Here</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            What time should I arrive?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Doors will be open at 4 pm. Ceremony begins at 5:30pm promptly. We encourage arriving early to sit in the ceremony area and relax without causing disruption.</p>
           </div>
-          <p>
-            Nearest airport is <strong>Savannah/Hilton Head International (SAV)</strong>, about 15 minutes from the
-            venue.
-          </p>
-          <p>We recommend flying in the day before. Ubers are readily available from the airport.</p>
         </div>
-        <div class="travel-card">
-          <div class="travel-card-head">
-            <div class="travel-icon">🏨</div>
-            <div class="travel-card-title">Hotel Block</div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            Where should I park?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>The area is mostly residential. We encourage you to arrive early to look for parking. There are also two parking garages on Bond Street and 1st Street.</p>
           </div>
-          <p>Room block reserved at <strong>The Kehoe House</strong>, just 5 minutes from the venue.</p>
-          <p>Use code <strong>KRISSIECORY25</strong> when booking. Block expires July 1.</p>
         </div>
-        <div class="travel-card">
-          <div class="travel-card-head">
-            <div class="travel-icon">🚗</div>
-            <div class="travel-card-title">Transportation</div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            Wedding Registry
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We would love if our guests contribute to our honeymoon fund via Venmo or Zelle.</p>
           </div>
-          <p>
-            A shuttle runs between The Kehoe House and The Mackey House, departing at <strong>2:45 PM</strong> and
-            returning after midnight.
-          </p>
-          <p>Valet parking is also available at the venue.</p>
         </div>
-        <div class="travel-card">
-          <div class="travel-card-head">
-            <div class="travel-icon">🌆</div>
-            <div class="travel-card-title">Things To Do</div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            Will there be open bar?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, there is open bar from 6:30–10:30pm. Full bar with signature drinks, beer and wine are all included.</p>
           </div>
-          <p>
-            Arrive early and explore! <strong>Forsyth Park</strong>, the riverfront, and Bonaventure Cemetery are
-            must-sees.
-          </p>
-          <p>Ask us for our personal restaurant recommendations.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            Are children allowed?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>While we would love to include everyone, we are holding an adults only event. Use this night as a date night.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            Can I take photos during the event?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we will have a special QR code with our hashtag, no app download needed. The videos and photos will be uploaded and played as a slideshow throughout the event.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1894,15 +1842,15 @@
           '.masthead-headline',
           '.section-tag', '.section-title', '.section-divider',
           '.story-cols', '.story-quote-center', '.story-feature', '.story-ps',
-          '.detail-item', '.style-card', '.agenda-item',
+          '.detail-item', '.style-card',
           '.party-card', '.timeline-item',
-          '.rsvp-sub', '.rsvp-form', '.reg-card', '.travel-card',
+          '.rsvp-sub', '.rsvp-form', '.reg-card', '.faq-item',
           '.party-hint', '.image-band', '.footer-names', '.footer-date'
         ];
         var els = document.querySelectorAll(selectors.join(','));
         var directions = ['from-up', 'from-left', 'from-right', 'from-scale'];
 
-        ['.detail-item', '.agenda-item', '.party-card', '.timeline-item', '.travel-card'].forEach(function (sel) {
+        ['.detail-item', '.party-card', '.timeline-item', '.faq-item'].forEach(function (sel) {
           document.querySelectorAll(sel).forEach(function (el, i) {
             el.style.transitionDelay = (i * 0.1) + 's';
           });
@@ -1924,6 +1872,27 @@
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         els.forEach(function (el) { observer.observe(el); });
+      })();
+
+      // ── FAQ accordion ──
+      (function () {
+        var items = document.querySelectorAll('.faq-item');
+        items.forEach(function (item) {
+          var btn = item.querySelector('.faq-question');
+          if (!btn) return;
+          btn.addEventListener('click', function () {
+            var isOpen = item.classList.contains('open');
+            items.forEach(function (other) {
+              if (other !== item) {
+                other.classList.remove('open');
+                var otherBtn = other.querySelector('.faq-question');
+                if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+              }
+            });
+            item.classList.toggle('open', !isOpen);
+            btn.setAttribute('aria-expanded', String(!isOpen));
+          });
+        });
       })();
 
       // ── Mobile menu ──
