@@ -1,23 +1,29 @@
-Update the Day-of Schedule timeline in `public/wedding.html` with the new times and event labels provided.
+## Plan
+
+Remove the **The Details** section from `public/wedding.html` and reposition the **Day-of Schedule** section to where Details currently sits, so the page flow is continuous and no empty gap is left.
 
 ## Changes
 
-Replace the existing 5 timeline items in `<section id="schedule" class="timeline">` with 6 new items:
+1. **Remove the Details section**
+   - Delete the entire `<section id="details" class="details">` block (currently after the gallery strip, before The Style Edit).
 
-| Time | Event |
-|------|-------|
-| 5:00 PM | Guest Arrival |
-| 5:30 PM | Ceremony |
-| 6:30 PM | Cocktail Hour |
-| 7:30 PM | Reception |
-| 8:30 PM | Dinner |
-| 11:00 PM | Guest Departure |
+2. **Remove the Details nav link**
+   - Delete the `<a href="#details" onclick="closeMenu()">Details</a>` item from the sticky nav menu.
 
-## Implementation notes
-- Keep the existing `.timeline-list` structure, `.t-time`, `.t-line`/`.t-dot`, `.t-title`, and `.t-desc` classes.
-- Update or remove the `.t-badge` labels to match the new events (e.g., remove location badges that no longer apply, or simplify them).
-- Keep the section heading and divider styling unchanged so it remains consistent with the rest of the page.
+3. **Move Day-of Schedule up**
+   - Cut the entire `<section id="schedule" class="timeline">` block from its current location (after Wedding Party).
+   - Paste it in the spot vacated by Details: after the gallery strip and before The Style Edit section.
+
+4. **Verify flow**
+   - Confirm the new section order reads: Gallery → Day-of Schedule → Style Edit → Wedding Party → FAQ → RSVP → Honeymoon Fund.
+   - Confirm no orphaned `#details` anchors remain in the nav or elsewhere.
+
+## File affected
+
+- `public/wedding.html`
 
 ## Verification
-- Open `/wedding.html` in the preview and scroll to the Day-of Schedule section.
-- Confirm all six new times and labels appear in order and the layout is intact on desktop and mobile.
+
+- Open `/wedding.html` in the preview.
+- Scroll from the hero down through the sections and confirm Details is gone and Day-of Schedule appears right after the gallery.
+- Test the nav menu on desktop and mobile to confirm the removed Details link is no longer present and Schedule still jumps to the correct section.
