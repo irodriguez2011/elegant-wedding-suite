@@ -1255,7 +1255,6 @@
       </button>
       <div class="nav-links" id="navLinks">
         <a href="#story" onclick="closeMenu()">Our Story</a>
-        <a href="#details" onclick="closeMenu()">Details</a>
         <a href="#style" onclick="closeMenu()">Style</a>
         <a href="#party" onclick="closeMenu()">Party</a>
         <a href="#schedule" onclick="closeMenu()">Schedule</a>
@@ -1347,80 +1346,59 @@
     </div>
 
 
-    <!-- DETAILS -->
-    <section id="details" class="details">
-      <div class="section-tag">The essentials</div>
-      <div class="section-title">The <em>Details</em></div>
+    <!-- SCHEDULE -->
+    <section id="schedule" class="timeline">
+      <div class="section-tag">The day's events</div>
+      <div class="section-title">Day-of <em>Schedule</em></div>
       <div class="section-divider"><span>❦</span></div>
-      <div class="details-grid">
-        <div class="detail-item">
-          <div class="detail-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 56 H58" />
-              <path d="M8 28 L32 11 L56 28" />
-              <path d="M12 56 V29" />
-              <path d="M52 56 V29" />
-              <path d="M21 56 V31" />
-              <path d="M32 56 V31" />
-              <path d="M43 56 V31" />
-              <path d="M27 56 V45 H37 V56" />
-            </svg>
+      <div class="timeline-list">
+        <div class="timeline-item">
+          <div class="t-time">5:00 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Guest Arrival</div>
+            <div class="t-desc">Doors open and guests are welcomed to the venue.</div>
           </div>
-          <div class="detail-name">The Venue</div>
-          <div class="detail-title">The Mackey House</div>
-          <div class="detail-text">Brooklyn, New York</div>
         </div>
-        <div class="detail-item">
-          <div class="detail-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="26" cy="40" r="13" />
-              <circle cx="40" cy="40" r="13" />
-              <path d="M34 9 l6 7 l6 -7 l-6 -4 z" />
-              <path d="M34 9 l6 7 l6 -7" />
-            </svg>
+        <div class="timeline-item">
+          <div class="t-time">5:30 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Ceremony</div>
+            <div class="t-desc">The ceremony begins promptly.</div>
           </div>
-          <div class="detail-name">The Ceremony</div>
-          <div class="detail-title">3:30 PM</div>
-          <div class="detail-text">June 19, 2027 · The Rose Garden</div>
         </div>
-        <div class="detail-item">
-          <div class="detail-icon">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M23 12 L27 31 Q28 36 24 39 L24 50" />
-              <path d="M41 12 L37 31 Q36 36 40 39 L40 50" />
-              <path d="M18 50 H30" />
-              <path d="M34 50 H46" />
-              <path d="M21 12 H29" />
-              <path d="M35 12 H43" />
-              <circle cx="30" cy="9" r="1" />
-              <circle cx="35" cy="6" r="1" />
-              <circle cx="33" cy="11" r="1" />
-            </svg>
+        <div class="timeline-item">
+          <div class="t-time">6:30 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Cocktail Hour</div>
+            <div class="t-desc">Cocktails and canapés while the couple prepares for the reception.</div>
           </div>
-          <div class="detail-name">The Reception</div>
-          <div class="detail-title">Dinner &amp; Dancing</div>
-          <div class="detail-text">Cocktails at 4:15 · Celebrate till midnight</div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-time">7:30 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Reception</div>
+            <div class="t-desc">Celebrate the newlyweds with drinks, music, and dancing.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-time">8:30 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Dinner</div>
+            <div class="t-desc">Seated dinner is served.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-time">11:00 PM</div>
+          <div class="t-line"><div class="t-dot"></div></div>
+          <div>
+            <div class="t-title">Guest Departure</div>
+            <div class="t-desc">Thank you for celebrating with us!</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1509,62 +1487,6 @@
     </section>
 
 
-    <!-- SCHEDULE -->
-    <section id="schedule" class="timeline">
-      <div class="section-tag">The day's events</div>
-      <div class="section-title">Day-of <em>Schedule</em></div>
-      <div class="section-divider"><span>❦</span></div>
-      <div class="timeline-list">
-        <div class="timeline-item">
-          <div class="t-time">5:00 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Guest Arrival</div>
-            <div class="t-desc">Doors open and guests are welcomed to the venue.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">5:30 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Ceremony</div>
-            <div class="t-desc">The ceremony begins promptly.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">6:30 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Cocktail Hour</div>
-            <div class="t-desc">Cocktails and canapés while the couple prepares for the reception.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">7:30 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Reception</div>
-            <div class="t-desc">Celebrate the newlyweds with drinks, music, and dancing.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">8:30 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Dinner</div>
-            <div class="t-desc">Seated dinner is served.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">11:00 PM</div>
-          <div class="t-line"><div class="t-dot"></div></div>
-          <div>
-            <div class="t-title">Guest Departure</div>
-            <div class="t-desc">Thank you for celebrating with us!</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- COUNTDOWN + STAIRS SPLIT -->
     <section class="countdown-split">
