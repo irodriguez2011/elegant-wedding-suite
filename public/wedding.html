@@ -1840,15 +1840,15 @@
           '.masthead-headline',
           '.section-tag', '.section-title', '.section-divider',
           '.story-cols', '.story-quote-center', '.story-feature', '.story-ps',
-          '.detail-item', '.style-card', '.agenda-item',
+          '.detail-item', '.style-card',
           '.party-card', '.timeline-item',
-          '.rsvp-sub', '.rsvp-form', '.reg-card', '.travel-card',
+          '.rsvp-sub', '.rsvp-form', '.reg-card', '.faq-item',
           '.party-hint', '.image-band', '.footer-names', '.footer-date'
         ];
         var els = document.querySelectorAll(selectors.join(','));
         var directions = ['from-up', 'from-left', 'from-right', 'from-scale'];
 
-        ['.detail-item', '.agenda-item', '.party-card', '.timeline-item', '.travel-card'].forEach(function (sel) {
+        ['.detail-item', '.party-card', '.timeline-item', '.faq-item'].forEach(function (sel) {
           document.querySelectorAll(sel).forEach(function (el, i) {
             el.style.transitionDelay = (i * 0.1) + 's';
           });
