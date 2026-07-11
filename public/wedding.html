@@ -748,26 +748,24 @@
       }
       .honeymoon-inner { position: relative; z-index: 1; }
       .honeymoon .section-tag {
-        display: inline-flex; align-items: center; gap: 0.75rem;
+        display: block;
         color: #b48a3c; font-family: 'Cinzel', serif;
         font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
         margin: 0;
+        text-align: center;
       }
-      .honeymoon .section-tag::before {
-        content: ""; display: inline-block; width: 32px; height: 1px;
-        background: #b48a3c;
-      }
-      .honeymoon .section-tag::after { display: none; }
+      .honeymoon .section-tag::before,
+      .honeymoon .section-tag::after { display: none; content: none; }
 
       .honeymoon .olive {
-        display: block; width: 28px; height: auto; color: #b48a3c; margin: 0;
+        display: block; width: 28px; height: auto; color: #b48a3c; margin: 0 auto;
       }
       .honeymoon .tag-divider {
         display: block; width: 250px; max-width: 100%; height: auto;
-        color: #b48a3c; margin: 0;
+        color: #b48a3c; margin: 0 auto;
       }
       .honeymoon .heart-orn {
-        display: block; width: 24px; height: auto; color: #b48a3c; margin: 0;
+        display: block; width: 24px; height: auto; color: #b48a3c; margin: 0 auto;
       }
 
       .honeymoon .section-title,
@@ -778,17 +776,16 @@
         font-size: clamp(3rem, 6vw, 4.5rem);
         line-height: 0.98;
         margin: 0;
-        white-space: nowrap;
-        text-align: left;
+        text-align: center;
       }
 
       .honeymoon .reg-desc {
         color: var(--walnut-soft);
         font-size: 1.125rem;
         line-height: 1.8;
-        max-width: 620px;
-        margin: 0;
-        text-align: left;
+        max-width: 560px;
+        margin: 0 auto;
+        text-align: center;
       }
 
       .honeymoon-inner {
@@ -796,8 +793,8 @@
         display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem; align-items: center;
       }
       .honeymoon-text {
-        display: flex; flex-direction: column; align-items: flex-start;
-        max-width: 620px; text-align: left;
+        display: flex; flex-direction: column; align-items: center;
+        max-width: 620px; margin: 0 auto; text-align: center;
       }
       /* Spec spacing: sprig →20→ eyebrow →28→ divider →42→ title →28→ heart →32→ paragraph →36→ button */
       .honeymoon-text > .section-tag { margin-top: 20px; }
@@ -805,7 +802,8 @@
       .honeymoon-text > .section-title { margin-top: 42px; }
       .honeymoon-text > .heart-orn { margin-top: 28px; }
       .honeymoon-text > .reg-desc { margin-top: 32px; }
-      .honeymoon-text > .reg-link { margin-top: 36px; }
+      .honeymoon-text > .reg-link { margin-top: 36px; align-self: center; }
+
 
       .honeymoon .reg-link {
         display: inline-block;
