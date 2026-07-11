@@ -1,16 +1,11 @@
-Update only the left text column of the Honeymoon Fund section in `public/wedding.html` to match the reference image (centered layout).
+Replace the current `.olive` sprig SVG above "IN LIEU OF GIFTS" in the Honeymoon Fund section with a new SVG that matches the reference image: a single upright leafy branch with a central stem and multiple paired oval leaves (roughly 5–6 leaf pairs plus a top leaf), rendered in the existing muted gold (`#b48a3c`) as a filled silhouette.
 
-**CSS changes (`.honeymoon` block):**
-- `.honeymoon-text`: `align-items: center; text-align: center; max-width: 620px; margin: 0 auto;` (remove the left-aligned flex-start).
-- `.honeymoon .section-tag`: remove the flex-row + `::before` gold line; render as plain centered eyebrow text (letter-spacing 0.28em, no side lines).
-- `.olive` (sprig above eyebrow): `display: block; margin: 0 auto;` centered.
-- `.tag-divider`: `display: block; margin: 0 auto;` centered directly under "IN LIEU OF GIFTS" — keep the equal-length hairlines + center diamond SVG.
-- `.honeymoon .section-title`: keep large clamp size, `text-align: center`, remove `white-space: nowrap` so "Honeymoon" and "Fund" stack naturally via `<br/>`.
-- `.heart-orn`: `display: block; margin: 0 auto;` centered directly beneath the heading.
-- `.honeymoon .reg-desc`: `text-align: center; max-width: 560px; margin-left: auto; margin-right: auto;`.
-- Contribute button: centered (wrap in a centered container or `margin: 0 auto; display: inline-block;`).
-- Mobile (`@media max-width: 900px`): heading ~48px, paragraph width 100%, everything remains centered.
+Scope
+- File: `public/wedding.html`
+- Only the inline SVG markup inside the `.olive` element in the Honeymoon Fund left column changes.
+- Keep existing size (~28px wide), placement, spacing, and all surrounding elements (eyebrow, divider, heading, heart, paragraph, button) untouched.
+- Color stays `#b48a3c` (gold) via `fill` to match other ornaments; no CSS changes needed.
 
-**Markup order (unchanged):** sprig → "IN LIEU OF GIFTS" eyebrow → divider (with center diamond) → "Honeymoon<br/>Fund" title → heart → paragraph → Contribute button.
-
-No changes to the photo, background color, two-column grid, button colors, or any other section.
+Out of scope
+- No layout, spacing, typography, or color-token changes.
+- No changes to the divider, heart, heading, or button.
