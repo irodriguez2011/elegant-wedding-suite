@@ -1,14 +1,16 @@
-Rework only the left text column of the Honeymoon Fund section in `public/wedding.html`. Photo, colors, button styling, and two-column grid remain untouched.
+Update only the left text column of the Honeymoon Fund section in `public/wedding.html` to match the reference image (centered layout).
 
-**CSS (`.honeymoon` block, ~lines 740-830):**
-- `.honeymoon-text`: flex column, `align-items: flex-start`, `max-width: 620px`, remove any centering.
-- Remove the `margin` from `.olive`, `.tag-divider`, `.heart-orn` and drop their `text-align: center`. Use explicit `margin-top` per spec (20/28/42/28/32/36 px) directly on the following element for consistent rhythm. Set `display: block` on all three SVGs; sprig ~28px wide, heart ~24px wide, divider 250px wide, all colored `#b48a3c`.
-- `.honeymoon .section-tag`: convert to a flex row `align-items: center; gap: .75rem;` with a `::before` short gold line (~32px), remove the `::after` line on the right. Letter-spacing `0.28em`.
-- `.honeymoon .section-title`: `font-size: clamp(3rem, 6vw, 4.5rem)` (~72px desktop), `line-height: 0.98`, `font-weight: 400`, `white-space: nowrap` so "Honeymoon" stays on one line, no extra margin between the two lines (the `<br>` provides the break). Remove existing `margin-top`.
-- `.honeymoon .reg-desc`: `max-width: 620px`, `font-size: 1.125rem` (18px), `line-height: 1.8`, left-aligned, no manual breaks.
-- Mobile (`@media max-width: 900px`): heading `~48px`, paragraph `width: 100%`, keep the same spacing order; stack above the image (already handled by existing grid override).
+**CSS changes (`.honeymoon` block):**
+- `.honeymoon-text`: `align-items: center; text-align: center; max-width: 620px; margin: 0 auto;` (remove the left-aligned flex-start).
+- `.honeymoon .section-tag`: remove the flex-row + `::before` gold line; render as plain centered eyebrow text (letter-spacing 0.28em, no side lines).
+- `.olive` (sprig above eyebrow): `display: block; margin: 0 auto;` centered.
+- `.tag-divider`: `display: block; margin: 0 auto;` centered directly under "IN LIEU OF GIFTS" — keep the equal-length hairlines + center diamond SVG.
+- `.honeymoon .section-title`: keep large clamp size, `text-align: center`, remove `white-space: nowrap` so "Honeymoon" and "Fund" stack naturally via `<br/>`.
+- `.heart-orn`: `display: block; margin: 0 auto;` centered directly beneath the heading.
+- `.honeymoon .reg-desc`: `text-align: center; max-width: 560px; margin-left: auto; margin-right: auto;`.
+- Contribute button: centered (wrap in a centered container or `margin: 0 auto; display: inline-block;`).
+- Mobile (`@media max-width: 900px`): heading ~48px, paragraph width 100%, everything remains centered.
 
-**Markup (~lines 1641-1656):**
-Keep the current element order (sprig → eyebrow → divider → title `Honeymoon<br/>Fund` → heart → paragraph → button). Adjust the divider SVG viewBox so the diamond sits at true center and the two gold lines are equal length across ~250px width.
+**Markup order (unchanged):** sprig → "IN LIEU OF GIFTS" eyebrow → divider (with center diamond) → "Honeymoon<br/>Fund" title → heart → paragraph → Contribute button.
 
-No changes outside `.honeymoon`.
+No changes to the photo, background color, two-column grid, button colors, or any other section.
