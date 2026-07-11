@@ -738,12 +738,53 @@
 
       /* ── HONEYMOON ── */
       .honeymoon {
-        background: rgba(249,246,240,0.6);
+        position: relative;
+        background: linear-gradient(180deg, #eaf0f7 0%, #dfe8f2 60%, #d4e0ed 100%);
         padding: 5rem 0 !important;
         max-width: none !important;
         width: 100%;
+        overflow: hidden;
         box-shadow: 0 -12px 40px rgba(58,16,21,0.06), 0 12px 40px rgba(58,16,21,0.06);
       }
+      .honeymoon::before {
+        content: "";
+        position: absolute; left: -120px; bottom: -140px;
+        width: 520px; height: 520px;
+        background:
+          radial-gradient(circle at 35% 65%, rgba(140,170,200,0.55) 0%, rgba(140,170,200,0.30) 30%, rgba(140,170,200,0) 65%),
+          radial-gradient(circle at 55% 45%, rgba(167,188,212,0.45) 0%, rgba(167,188,212,0) 55%);
+        filter: blur(6px);
+        pointer-events: none;
+      }
+      .honeymoon::after {
+        content: "";
+        position: absolute; right: -160px; top: -120px;
+        width: 380px; height: 380px;
+        background: radial-gradient(circle, rgba(167,188,212,0.28) 0%, rgba(167,188,212,0) 70%);
+        filter: blur(4px);
+        pointer-events: none;
+      }
+      .honeymoon-inner { position: relative; z-index: 1; }
+      .honeymoon .section-tag {
+        display: inline-flex; align-items: center; gap: 0.9rem;
+        color: #b48a3c; font-family: 'Cinzel', serif;
+        font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase;
+      }
+      .honeymoon .section-tag::before,
+      .honeymoon .section-tag::after {
+        content: ""; display: inline-block; width: 44px; height: 1px;
+        background: linear-gradient(90deg, rgba(180,138,60,0) 0%, #b48a3c 100%);
+      }
+      .honeymoon .section-tag::after {
+        background: linear-gradient(90deg, #b48a3c 0%, rgba(180,138,60,0) 100%);
+      }
+      .honeymoon .sprig {
+        display: block; margin-bottom: 0.9rem;
+        width: 34px; height: auto; color: #b48a3c;
+      }
+      .honeymoon .section-title { color: #1c2a44; }
+      .honeymoon .section-divider span { color: #b48a3c; font-size: 0.9rem; }
+      .honeymoon .reg-desc { color: #2f3a54; }
       .honeymoon-inner {
         max-width: 1180px; margin: 0 auto; padding: 0 2rem;
         display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem; align-items: center;
@@ -1595,9 +1636,15 @@
     <section id="honeymoon" class="honeymoon">
       <div class="honeymoon-inner">
         <div class="honeymoon-text">
+          <svg class="sprig" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 20 C 12 18, 20 12, 20 4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <path d="M8 17 c 2 -2, 5 -3, 7 -2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+            <path d="M13 13 c 2 -2, 5 -3, 7 -2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+            <path d="M17 8 c 2 -2, 4 -3, 6 -2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+          </svg>
           <div class="section-tag">In lieu of gifts</div>
           <div class="section-title"><em>Honeymoon Fund</em></div>
-          <div class="section-divider"><span>❦</span></div>
+          <div class="section-divider"><span>✦</span></div>
           <div class="reg-name">A Little Something for the Journey</div>
           <div class="reg-desc">
             Your generosity means the world to us. In lieu of gifts, we'd love your help creating memories on our
