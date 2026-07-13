@@ -1,13 +1,22 @@
-The wedding party card structure has broken nesting: Ashley's (Matron of Honor) `.party-card` div is never closed, so Tori and Sophie's cards are nested inside it instead of being siblings in the grid. That's why the circles look disorganized.
+## Add Rasheeda + rebalance the wedding party grid
 
-## Fix
+### 1. Save the new photo
+- Copy the uploaded image to `public/party-rasheeda.jpg` so it lives alongside `party-sophie.jpg`.
 
-In `public/wedding.html` (lines ~1531–1551), restructure so each `.party-card` is a direct child of `.party-grid`. Keep the current order (Maid of Honor first, Matron of Honor second, then Bridesmaids, then Groomsmen):
+### 2. Add Rasheeda's card
+- In `public/wedding.html` (~line 1551), insert a new `.party-card` for **Rasheeda — Bridesmaid** right after Sophie, keeping bridal party grouped before the groomsmen. Result: 5 bridal-side + 4 groom-side = 9 cards.
 
-1. Isamar — Maid of Honor
-2. Ashley — Matron of Honor
-3. Tori — Bridesmaid
-4. Sophie — Bridesmaid
-5. Groomsman 1–4
+### 3. Rebalance the grid so 9 looks intentional
+Switch the desktop layout from 4 columns to a symmetric **3 × 3 grid** — nine circles fit perfectly with no orphan card.
 
-Specifically: close Ashley's `.party-card` right after her `.party-info` block, then remove the extra wrapping `</div>` that currently sits after Sophie's card. No CSS or content changes — just fixing the div nesting so all 8 cards sit as siblings inside `.party-grid`.
+In `.party-grid` (line 567):
+- Desktop: `grid-template-columns: repeat(3, 1fr);` with a slightly tighter `max-width` (~720px) so circles stay elegant, not oversized.
+- Tablet (`@media max-width: 860px`): keep `repeat(3, 1fr)` down to ~700px, then drop to 2 columns with the 9th card centered using `.party-card:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }`.
+- Small phones (`@media max-width: 480px`): stay at 2 columns with the last card centered — circles shrink via existing `max-width: 170px` on `.party-photo`, so no overflow.
+
+### 4. Verify
+- Check the wedding-party section renders 3×3 on desktop, 2-col + centered final card on tablet/mobile, and Rasheeda's photo loads.
+
+### Technical notes
+- Only `public/wedding.html` is touched plus the new image in `public/`.
+- No JS changes needed — the reveal animation loop already iterates every `.party-card`.
