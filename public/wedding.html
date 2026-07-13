@@ -565,8 +565,8 @@
 
       /* ── WEDDING PARTY ── */
       .party-grid {
-        max-width: 880px; margin: 0 auto;
-        display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem;
+        max-width: 780px; margin: 0 auto;
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2rem;
       }
       .party-card { background: transparent; border: none; cursor: pointer; }
       .party-photo {
@@ -639,7 +639,12 @@
         opacity: 0.9;
       }
       @media (max-width: 860px) {
-        .party-grid { grid-template-columns: 1fr 1fr; }
+        .party-grid { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+        .party-grid .party-card:last-child {
+          grid-column: 1 / -1;
+          max-width: 50%;
+          margin: 0 auto;
+        }
         .party-panel { padding: 3.2rem 1.2rem 2.4rem; }
         .floral-corner { width: 110px; }
         .floral-corner.top-left { top: -1.4rem; left: -1.2rem; }
@@ -1546,6 +1551,13 @@
             <div class="party-photo"><img src="/party-sophie.jpg" alt="Sophie" /></div>
             <div class="party-info">
               <div class="party-name">Sophie</div>
+              <div class="party-role">Bridesmaid</div>
+            </div>
+          </div>
+          <div class="party-card">
+            <div class="party-photo"><img src="/party-rasheeda.jpg" alt="Rasheeda" /></div>
+            <div class="party-info">
+              <div class="party-name">Rasheeda</div>
               <div class="party-role">Bridesmaid</div>
             </div>
           </div>
