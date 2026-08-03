@@ -1918,6 +1918,7 @@
         function closeIntro() {
           intro.classList.add('gone');
           document.body.style.overflow = '';
+          startHeroVideo();
           setTimeout(function () { intro.style.display = 'none'; }, 1100);
         }
         function toInvite() {
