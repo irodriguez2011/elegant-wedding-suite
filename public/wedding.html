@@ -1414,12 +1414,12 @@
       <video
         id="heroVideo"
         class="hero-full-video"
-        src="/__l5e/assets-v1/760d0177-8d4e-4ff1-b8f8-0a916aed3eb0/hero-video.mp4"
+        data-src="hero-video.mp4"
         poster="hero.png"
         muted
         playsinline
         webkit-playsinline
-        preload="auto"
+        preload="none"
       ></video>
 
       <div class="hero-full-overlay">
@@ -1912,6 +1912,10 @@
         v.addEventListener('ended', finish);
         v.addEventListener('error', finish);
         v.muted = true;
+        if (!v.getAttribute('src')) {
+          v.setAttribute('src', v.getAttribute('data-src') || 'hero-video.mp4');
+          v.load();
+        }
         var p = v.play();
         if (p && typeof p.catch === 'function') p.catch(finish);
       }
