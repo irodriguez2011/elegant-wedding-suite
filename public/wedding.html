@@ -1894,12 +1894,27 @@
         }
       })();
 
+      // ── Hero video: plays once, then cross-fades into the hero photo ──
+      var heroVideoStarted = false;
+      function startHeroVideo() {
+        var v = document.getElementById('heroVideo');
+        if (!v || heroVideoStarted) return;
+        heroVideoStarted = true;
+        function finish() { v.classList.add('is-done'); }
+        v.addEventListener('ended', finish);
+        v.addEventListener('error', finish);
+        v.muted = true;
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(finish);
+      }
+
       // ── Envelope intro flow ──
       (function () {
         var intro = document.getElementById('invite-intro');
-        if (!intro) return;
+        if (!intro) { startHeroVideo(); return; }
         var stageEnv = document.getElementById('stageEnv');
         document.body.style.overflow = 'hidden';
+
         function closeIntro() {
           intro.classList.add('gone');
           document.body.style.overflow = '';
