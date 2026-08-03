@@ -348,8 +348,24 @@
         height: auto;
         display: block;
       }
+      .hero-full-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        opacity: 1;
+        transition: opacity 1.2s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .hero-full-video.is-done { opacity: 0; }
+
       .hero-full-overlay {
         position: absolute; inset: 0;
+        z-index: 2;
         display: flex; flex-direction: column;
         align-items: center; justify-content: flex-start;
         text-align: center; padding: clamp(2.6rem, 7vh, 4.5rem) 1.5rem 2rem;
@@ -1395,6 +1411,17 @@
         alt="Krissie and Cory"
         onerror="this.onerror=null;this.src='krissie-and-corey.jpeg';"
       />
+      <video
+        id="heroVideo"
+        class="hero-full-video"
+        src="/__l5e/assets-v1/760d0177-8d4e-4ff1-b8f8-0a916aed3eb0/hero-video.mp4"
+        poster="hero.png"
+        muted
+        playsinline
+        webkit-playsinline
+        preload="auto"
+      ></video>
+
       <div class="hero-full-overlay">
         <h1 class="hero-full-title">Krissie &amp; Cory</h1>
         <p class="hero-full-sub">are getting married</p>
@@ -1867,15 +1894,31 @@
         }
       })();
 
+      // ── Hero video: plays once, then cross-fades into the hero photo ──
+      var heroVideoStarted = false;
+      function startHeroVideo() {
+        var v = document.getElementById('heroVideo');
+        if (!v || heroVideoStarted) return;
+        heroVideoStarted = true;
+        function finish() { v.classList.add('is-done'); }
+        v.addEventListener('ended', finish);
+        v.addEventListener('error', finish);
+        v.muted = true;
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(finish);
+      }
+
       // ── Envelope intro flow ──
       (function () {
         var intro = document.getElementById('invite-intro');
-        if (!intro) return;
+        if (!intro) { startHeroVideo(); return; }
         var stageEnv = document.getElementById('stageEnv');
         document.body.style.overflow = 'hidden';
+
         function closeIntro() {
           intro.classList.add('gone');
           document.body.style.overflow = '';
+          startHeroVideo();
           setTimeout(function () { intro.style.display = 'none'; }, 1100);
         }
         function toInvite() {
