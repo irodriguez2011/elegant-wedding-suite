@@ -1912,6 +1912,10 @@
         v.addEventListener('ended', finish);
         v.addEventListener('error', finish);
         v.muted = true;
+        if (!v.getAttribute('src')) {
+          v.setAttribute('src', v.getAttribute('data-src') || 'hero-video.mp4');
+          v.load();
+        }
         var p = v.play();
         if (p && typeof p.catch === 'function') p.catch(finish);
       }
