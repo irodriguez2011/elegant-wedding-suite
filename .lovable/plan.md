@@ -1,23 +1,19 @@
-## Problem
-The body gradient uses `160deg` with `background-attachment: fixed` on desktop, which spreads ivory → blue → lilac visibly across the viewport. On mobile/tablet, `background-attachment` switches to `scroll` and the diagonal compresses on the narrower/taller layout, pushing the lilac stop into the very bottom (behind the FAQ section only).
+# Hero video that fades into the hero photo
 
-## Fix
-Add a mobile/tablet override for the body gradient in `public/wedding.html` (inside the existing `@media (max-width: 860px)` block near line 72) that uses a vertical (`180deg`) gradient with the lilac introduced earlier and repeated so pink is visible mid-scroll — not only at the very bottom — while blue remains dominant.
+Play your engagement clip in the hero area at the top of the page. When it finishes (about 10 seconds), it cross-fades softly into the current `hero.png` image, which then stays for the rest of the visit. The "Krissie & Cory / are getting married / June 19, 2027 / 501 Union" overlay text stays on top the whole time, so nothing disappears during the swap.
 
-New mobile/tablet gradient stops:
-```
-linear-gradient(
-  180deg,
-  #f9f7f1 0%,
-  #dfeaf3 10%,
-  #a8c3dd 22%,
-  #729cc4 38%,
-  #a6b9d8 52%,
-  #d5b6e2 66%,
-  #729cc4 80%,
-  #e4bbed 100%
-)
-```
-Also reposition the pink radial bloom higher (from `85% 85%` → `50% 55%`) so a soft lilac glow appears in the middle of the page on narrow viewports.
+## Behavior
 
-Desktop styles (>860px) stay untouched.
+- Video autoplays muted and inline the moment the envelope opens and the page is revealed (browsers block autoplay with sound, so it plays silently).
+- Plays once, no loop, no controls.
+- On `ended`, video fades out over ~1.2s while the photo fades in underneath — no flash or jump.
+- Fallback: if the browser blocks autoplay or can't load the video, the photo shows immediately and nothing looks broken.
+- Mobile/tablet: same behavior, video is cropped with `object-fit: cover` to match how the hero photo currently fills the band.
+
+## Technical notes
+
+- Upload `cory_engagement.mov` as a Lovable asset and reference its CDN URL (the file is 2.7 MB, H.264 1280x720, 9.9s). Since `public/wedding.html` is a static file, the URL is hardcoded into the markup.
+- Add a `<video class="hero-full-video" autoplay muted playsinline preload="auto">` layered above `.hero-full-img` inside `.hero-full`, both absolutely positioned and `object-fit: cover`.
+- Video starts at `opacity: 1`; an `ended` listener adds a class that transitions opacity to 0 over 1.2s. Also attach `error` and a play-promise catch that trigger the same fade so the photo always ends up visible.
+- Poster set to `hero.png` so the very first frame matches the photo instead of showing black.
+- Uses only `public/wedding.html`; no other files change.
