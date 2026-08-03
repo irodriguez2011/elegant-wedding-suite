@@ -1,11 +1,12 @@
-# Rename Krissie to Shornakay site-wide
+# Rebalance the wedding party circles
 
-Replace every visible "Krissie" with "Shornakay" across the wedding page, leaving the P.S. paragraph in the Our Story section untouched (it explains the two names and must keep saying "Krissie").
+There are 10 people: 5 on the bridal side (Ashley, Isamar, Tori, Sophie, Rasheeda) and 5 groomsmen (Greg, Kyle, Derrick, Jamie, Reggie). The current 3-across desktop grid leaves Reggie stranded alone on a fourth row, and a mobile rule forces the last card full-width so Jamie and Reggie each sit alone.
 
 ## What changes
-- Page title, envelope names, invitation card, hero headline, footer names, RSVP note label, and gallery/photo alt text all read "Shornakay & Cory".
-- The P.S. excerpt stays exactly as written.
-- Image filenames (e.g. `krissie-and-corey.jpeg`) stay as-is — they're not visible to guests and renaming them risks broken images.
+- **Desktop:** switch to 5 across, so the layout becomes two clean, symmetric rows — the bridal party on top, the groomsmen underneath. No orphan row, no dead space. Circles shrink slightly (about 130-140px) and the section widens to fit comfortably.
+- **Tablet (medium widths):** keep a comfortable middle step so circles don't get too small.
+- **Mobile:** stay 2 across and remove the rule that stretches the last card full-width, so the pairs read Ashley/Isamar, Tori/Sophie, Rasheeda/Greg, Kyle/Derrick, Jamie/Reggie — Jamie and Reggie side by side as requested.
+- Names, roles, order, gold rings, and hover lift all stay exactly as they are.
 
 ## Technical notes
-- Single file: `public/wedding.html`, lines 6, 1367, 1379, 1411, 1426, 1458, 1484, 1486–1488, 1729, 1764, 1848. Lines 1476–1477 are deliberately skipped.
+- Only `public/wedding.html`: `.party-grid` column counts and `max-width`, `.party-photo` `max-width` at each breakpoint, and removal of the `.party-grid .party-card:last-child` full-width override in the 860px media query.
