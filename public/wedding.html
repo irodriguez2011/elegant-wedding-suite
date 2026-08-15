@@ -2138,6 +2138,25 @@
           alert('Sorry, something went wrong sending your RSVP. Please try again.');
         }
       });
+
+      // ── Question form ──
+      var askForm = document.getElementById('askForm');
+      askForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var data = new FormData(askForm);
+        try {
+          var res = await fetch(askForm.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+          if (res.ok) {
+            askForm.style.display = 'none';
+            document.getElementById('askSuccess').style.display = 'block';
+          } else {
+            alert('Sorry, something went wrong sending your question. Please try again.');
+          }
+        } catch (err) {
+          alert('Sorry, something went wrong sending your question. Please try again.');
+        }
+      });
     </script>
+
   </body>
 </html>
