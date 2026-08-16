@@ -2,6 +2,8 @@
 
 A wedding invitation website created for a friend to celebrate the marriage of **Krissie (Shornakay) & Cory**. The site is designed to feel elegant, romantic, and personal — with a soft blue, lilac, and ivory color palette, velvet envelope intro, and smooth scroll animations.
 
+https://shornakayandcoryallen.netlify.app/wedding.html 
+
 - **Date:** June 19, 2027
 - **Location:** Queens, New York
 
