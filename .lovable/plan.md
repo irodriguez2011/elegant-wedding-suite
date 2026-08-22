@@ -1,29 +1,44 @@
-# Root-level file audit
+# Revert asset reorganization — restore flat `public/` layout
 
-## What the audit found
+## Goal
+Undo the asset subfolder reorganization done earlier today. Move all 23 files back to flat `public/` and restore the original flat paths inside `public/wedding.html`. No other changes.
 
-The suggestion to move `wedding.html` to the project root as a Vite entry does not apply to this project. This is a TanStack Start app: there is no `index.html` at the root and `vite.config.ts` has no `input` map — routing comes from `src/routes/*`, and Vite never treats HTML files as entry points here. `public/wedding.html` is a plain static file that gets copied to `dist/` verbatim; moving it to the root or into `src/pages/` would make it stop being served and break the live Netlify URL (`/wedding.html`).
+## What gets moved back (flat `public/`)
 
-The `src/` side is already clean and matches the second point: `src/routes`, `src/components/ui`, `src/hooks`, `src/lib`, `src/styles.css` — no static media in `src/`, and all media now lives under `public/assets/` and `public/gallery/`.
+From `public/assets/images/decorative/` → `public/`:
+- floral-corner.png, floral-divider.png, floral-masthead.png, wedding-arch.png
 
-So: keep `wedding.html` in `public/`. The genuinely worthwhile cleanups are below.
+From `public/assets/images/party/` → `public/`:
+- party-ashley.jpg, party-derrick.jpg, party-greg.jpg, party-isamar.jpg,
+  party-jamie.jpg, party-kyle.jpg, party-rasheeda.jpg, party-reggie.jpg,
+  party-sophie.jpg, party-tori.jpg
 
-## Changes
+From `public/assets/images/sections/` → `public/`:
+- countdown-bg.jpg, countdown-photo.jpg, countdown-venue.jpg, hero.png,
+  honeymoon-photo.jpg, krissie-and-corey.jpeg, story-holding-hands.jpeg, venue-bg.jpg
 
-1. Replace the client-side redirect with a real one.
-   `src/routes/index.tsx` currently renders a placeholder and calls `window.location.replace("/wedding.html")` after hydration — a visible flash, and crawlers/social cards see the placeholder. Change it to a server-side `redirect()` thrown from the route's `beforeLoad`, so `/` sends a proper 302 to `/wedding.html` with no flash and no stale meta tags.
+From `public/assets/videos/` → `public/`:
+- hero-video.mp4
 
-2. Remove the orphaned asset pointer.
-   `src/assets/hero-video.mp4.asset.json` points at a CDN copy of the hero video that nothing imports; the video is served from `public/assets/videos/hero-video.mp4`. Delete the pointer (via the assets CLI so the CDN object is removed too), leaving `src/assets/` empty of stale references.
+Then delete the now-empty `public/assets/` tree.
 
-3. Refresh `README.md`.
-   Document the new `public/assets/...` layout and correct the wording around how `/` reaches the invitation.
+## Path updates in `public/wedding.html`
 
-## Not doing (and why)
+Reverse every path change made during the reorganization, so references point at the flat root again:
+- `/assets/images/decorative/<file>` → `/<file>`
+- `/assets/images/party/<file>` → `/<file>`
+- `/assets/images/sections/<file>` → `/<file>`
+- `/assets/videos/hero-video.mp4` → `/hero-video.mp4`
+- (CSS `url(...)` background images get the same treatment)
 
-- Not moving `wedding.html` to the root or `src/pages/` — it is not a build entry, and the move would 404 the published URL.
-- Not deleting the unused shadcn components in `src/components/ui` — harmless, and they're there if the site is ever ported to React.
+`gallery/` references are unchanged — that folder was never moved.
 
-## Optional, larger follow-up
+## Verification
+- `ls public/*.png public/*.jpg public/*.jpeg public/*.mp4` lists all 23 files flat at root.
+- `public/assets/` no longer exists.
+- `rg "/assets/" public/wedding.html` returns no matches.
+- Load the page in the browser and confirm hero image, hero video, party photos, and florals all render with no 404s.
 
-If you ever want `/` to serve the invitation directly (no separate `.html` URL, real route metadata, and access to Lovable Cloud for RSVPs), the site would be ported from one static HTML file into React components under `src/routes` and `src/components`. That is a substantial rewrite and is not part of this plan — worth doing only when you want a database-backed RSVP or admin view.
+## Not changing
+- No content, styling, copy, or behavior changes — this is a pure file-move + path-rename revert.
+- `src/` untouched. `public/gallery/` untouched.
