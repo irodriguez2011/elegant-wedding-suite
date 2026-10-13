@@ -255,10 +255,26 @@
       }
       .cd-footer {
         margin-top: 1.6rem; padding-top: 1.2rem;
-        border-top: 1px solid rgba(228,187,237,0.55);
+        border-top: 1px solid rgba(184,149,78,0.35);
         font-family: 'Cinzel', serif;
-        font-size: 0.62rem; letter-spacing: 0.3em;
-        text-transform: uppercase; color: #8a7a8d;
+        display: flex; flex-direction: column; gap: 0.55rem;
+        text-align: center;
+      }
+      .cd-line {
+        display: flex; align-items: baseline; justify-content: center;
+        gap: 0.15rem 0.6rem; flex-wrap: wrap;
+      }
+      .cd-key {
+        font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--gold); font-weight: 600;
+      }
+      .cd-val {
+        font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+        color: #2d3a52;
+      }
+      @media (max-width: 540px) {
+        .cd-line { flex-direction: column; gap: 0.1rem; }
+        .cd-val { font-size: 0.62rem; letter-spacing: 0.1em; }
       }
       .hero-cta {
         margin-top: 1.4rem; display: inline-block; padding: 0.75rem 2.2rem;
@@ -1718,7 +1734,11 @@
             <span class="cd-num" id="cd-secs">—</span>
           </div>
           <div class="cd-labels"><span>DAYS</span><span>HOURS</span><span>MINS</span><span>SECS</span></div>
-          <div class="cd-footer">June 19, 2027 · 499 Union St, Brooklyn, NY</div>
+          <div class="cd-footer">
+            <div class="cd-line"><span class="cd-key">Date</span><span class="cd-val">June 19, 2027</span></div>
+            <div class="cd-line"><span class="cd-key">Venue</span><span class="cd-val">501 Union</span></div>
+            <div class="cd-line"><span class="cd-key">Address</span><span class="cd-val">499 Union St, Brooklyn, NY 11231</span></div>
+          </div>
           <button class="hero-cta" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
             RSVP Now
           </button>
