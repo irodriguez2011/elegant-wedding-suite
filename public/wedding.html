@@ -31,6 +31,7 @@
         --gold:         #B8954E;
         --gold-light:   #f5ecd4;
         --gold-deep:    #B8954E;
+        --gold-dark:    #8f7132;
         --sage:         #729cc4;
         --sage-deep:    #4a78a0;
         --walnut:       #1a1a2a;
@@ -639,15 +640,17 @@
       .faq-ask-number {
         display: inline-flex; align-items: baseline; gap: 0.6rem;
         background: none; border: 0; padding: 0.2rem 0.1rem; cursor: pointer;
-        font-family: 'Cinzel', serif; font-size: 0.72rem;
-        letter-spacing: 0.22em; text-transform: uppercase;
-        color: var(--gold); transition: color 0.35s ease;
+        font-family: 'Cinzel', serif; font-size: 0.78rem;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--gold-dark); transition: color 0.35s ease;
       }
-      .faq-ask-number:hover { color: var(--gold-deep); }
+      .faq-ask-number:hover {
+        color: var(--gold); text-decoration: underline; text-underline-offset: 5px;
+      }
       .faq-ask-copy {
-        font-size: 0.58rem; letter-spacing: 0.18em;
-        color: rgba(184,149,78,0.72);
-        border-bottom: 1px solid rgba(184,149,78,0.45); padding-bottom: 1px;
+        font-size: 0.6rem; letter-spacing: 0.18em;
+        color: rgba(143,113,50,0.82);
+        border-bottom: 1px solid rgba(143,113,50,0.5); padding-bottom: 1px;
       }
       .faq-ask-number.is-copied .faq-ask-copy {
         color: var(--gold-deep); border-bottom-color: var(--gold-deep);
