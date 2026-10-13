@@ -633,28 +633,55 @@
       .faq-ask-btn:hover {
         background: var(--gold-deep); box-shadow: 0 8px 22px rgba(184,149,78,0.28);
       }
-      .faq-ask-alt {
+      /* ── Contact modal (laptop) ── */
+      .contact-modal {
+        position: fixed; inset: 0; z-index: 1200;
+        display: none; align-items: center; justify-content: center;
+        padding: 1.5rem;
+      }
+      .contact-modal.open { display: flex; }
+      .contact-modal-backdrop {
+        position: absolute; inset: 0;
+        background: rgba(26,26,42,0.55); backdrop-filter: blur(3px);
+      }
+      .contact-modal-card {
+        position: relative; max-width: 380px; width: 100%;
+        background: var(--ivory-2);
+        border: 1px solid rgba(184,149,78,0.45);
+        box-shadow: 0 24px 60px rgba(26,26,42,0.35);
+        padding: 2.6rem 2.2rem 2.4rem; text-align: center;
+        animation: contactIn 0.35s ease both;
+      }
+      @keyframes contactIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+      }
+      .contact-modal-close {
+        position: absolute; top: 0.8rem; right: 0.9rem;
+        background: none; border: 0; cursor: pointer; padding: 0.2rem;
+        font-size: 1.35rem; line-height: 1; color: var(--gold);
+        transition: color 0.3s ease;
+      }
+      .contact-modal-close:hover { color: var(--gold-dark); }
+      .contact-modal-card .faq-ask-orn { margin-bottom: 0.4rem; font-size: 0.75rem; }
+      .contact-modal-card .faq-ask-orn::before,
+      .contact-modal-card .faq-ask-orn::after { width: 44px; }
+      .contact-modal-card h3 {
+        font-family: 'Cormorant Garamond', serif; font-weight: 600;
+        font-size: 1.9rem; color: #1a1a2a; margin: 0 0 0.45rem; letter-spacing: 0.01em;
+      }
+      .contact-modal-sub {
         font-family: 'Cormorant Garamond', serif; font-style: italic;
-        font-size: 0.95rem; color: rgba(61,67,84,0.7); margin: 1.2rem 0 0.3rem;
+        font-size: 1.05rem; color: rgba(61,67,84,0.85); margin: 0 0 1.2rem;
       }
-      .faq-ask-number {
-        display: inline-flex; align-items: baseline; gap: 0.6rem;
-        background: none; border: 0; padding: 0.2rem 0.1rem; cursor: pointer;
-        font-family: 'Cinzel', serif; font-size: 0.78rem;
-        letter-spacing: 0.2em; text-transform: uppercase;
-        color: var(--gold-dark); transition: color 0.35s ease;
+      .contact-modal-number {
+        display: inline-block; text-decoration: none;
+        font-family: 'Cormorant Garamond', serif; font-weight: 600;
+        font-size: 1.65rem; letter-spacing: 0.05em; color: #2d3a52;
+        border-bottom: 1px solid rgba(184,149,78,0.5); padding-bottom: 2px;
+        transition: color 0.35s ease;
       }
-      .faq-ask-number:hover {
-        color: var(--gold); text-decoration: underline; text-underline-offset: 5px;
-      }
-      .faq-ask-copy {
-        font-size: 0.6rem; letter-spacing: 0.18em;
-        color: rgba(143,113,50,0.82);
-        border-bottom: 1px solid rgba(143,113,50,0.5); padding-bottom: 1px;
-      }
-      .faq-ask-number.is-copied .faq-ask-copy {
-        color: var(--gold-deep); border-bottom-color: var(--gold-deep);
-      }
+      .contact-modal-number:hover { color: var(--gold-dark); }
       @media (max-width: 860px) {
         .faq-question { font-size: 0.72rem; letter-spacing: 0.14em; padding: 1.2rem 0; }
         .faq-answer p { font-size: 0.86rem; padding: 0 0 1.2rem; }
@@ -662,9 +689,8 @@
         .faq-ask h3 { font-size: 1.7rem; }
         .faq-ask-sub { font-size: 0.98rem; }
         .faq-ask-orn::before, .faq-ask-orn::after { width: 42px; }
-        .faq-ask-alt { font-size: 0.88rem; margin-top: 1rem; }
-        .faq-ask-number { font-size: 0.7rem; letter-spacing: 0.16em; gap: 0.45rem; }
-        .faq-ask-copy { font-size: 0.56rem; letter-spacing: 0.14em; }
+        .contact-modal-card { padding: 2rem 1.5rem 1.9rem; }
+        .contact-modal-number { font-size: 1.4rem; }
       }
 
 
@@ -1914,9 +1940,18 @@
         <div class="faq-ask-orn"><span>❦</span></div>
         <h3>Have a question?</h3>
         <p class="faq-ask-sub">If there's anything you'd like to know, feel free to send us a text.</p>
-        <a class="faq-ask-btn" href="sms:+15162749104">Send a Text</a>
-        <p class="faq-ask-alt">or text us directly</p>
-        <button type="button" class="faq-ask-number" id="copyNumber" aria-label="Copy phone number 516 274 9104">516-274-9104<span class="faq-ask-copy">copy</span></button>
+        <button type="button" class="faq-ask-btn" id="contactBtn">Contact Us</button>
+
+      <div class="contact-modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle" aria-hidden="true">
+        <div class="contact-modal-backdrop" data-close-contact></div>
+        <div class="contact-modal-card">
+          <button type="button" class="contact-modal-close" data-close-contact aria-label="Close">&times;</button>
+          <div class="faq-ask-orn"><span>❦</span></div>
+          <h3 id="contactModalTitle">Get in Touch</h3>
+          <p class="contact-modal-sub">To send us a message, text us at:</p>
+          <a class="contact-modal-number" href="sms:+15162749104">516-274-9104</a>
+        </div>
+      </div>
       </div>
 
     </section>
@@ -2179,47 +2214,34 @@
         }
       });
 
-      // ── Copy the contact number for guests on a laptop ──
+      // ── Contact: text message on phones, modal on laptops ──
       (function () {
-        var btn = document.getElementById('copyNumber');
-        if (!btn) return;
-        var hint = btn.querySelector('.faq-ask-copy');
-        var timer = null;
+        var btn = document.getElementById('contactBtn');
+        var modal = document.getElementById('contactModal');
+        if (!btn || !modal) return;
 
-        function done() {
-          btn.classList.add('is-copied');
-          if (hint) hint.textContent = 'copied';
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(function () {
-            btn.classList.remove('is-copied');
-            if (hint) hint.textContent = 'copy';
-          }, 2000);
+        function openModal() {
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
         }
-
-        function fallbackCopy(text) {
-          var ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly', '');
-          ta.style.position = 'fixed';
-          ta.style.top = '-1000px';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.select();
-          var ok = false;
-          try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-          document.body.removeChild(ta);
-          return ok;
+        function closeModal() {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
         }
 
         btn.addEventListener('click', function () {
-          var text = '+15162749104';
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done, function () {
-              if (fallbackCopy(text)) done();
-            });
-          } else if (fallbackCopy(text)) {
-            done();
+          if (window.matchMedia('(max-width: 860px)').matches) {
+            window.location.href = 'sms:+15162749104';
+          } else {
+            openModal();
           }
+        });
+
+        modal.querySelectorAll('[data-close-contact]').forEach(function (el) {
+          el.addEventListener('click', closeModal);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
         });
       })();
 
