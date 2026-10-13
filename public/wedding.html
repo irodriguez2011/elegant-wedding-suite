@@ -273,7 +273,7 @@
         color: #2d3a52;
       }
       @media (max-width: 540px) {
-        .cd-line { flex-direction: column; gap: 0.1rem; }
+        .cd-line { flex-direction: column; align-items: center; gap: 0.1rem; }
         .cd-val { font-size: 0.62rem; letter-spacing: 0.1em; }
       }
       .hero-cta {
@@ -632,6 +632,26 @@
       .faq-ask-btn:hover {
         background: var(--gold-deep); box-shadow: 0 8px 22px rgba(184,149,78,0.28);
       }
+      .faq-ask-alt {
+        font-family: 'Cormorant Garamond', serif; font-style: italic;
+        font-size: 0.95rem; color: rgba(61,67,84,0.7); margin: 1.2rem 0 0.3rem;
+      }
+      .faq-ask-number {
+        display: inline-flex; align-items: baseline; gap: 0.6rem;
+        background: none; border: 0; padding: 0.2rem 0.1rem; cursor: pointer;
+        font-family: 'Cinzel', serif; font-size: 0.72rem;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: var(--gold); transition: color 0.35s ease;
+      }
+      .faq-ask-number:hover { color: var(--gold-deep); }
+      .faq-ask-copy {
+        font-size: 0.58rem; letter-spacing: 0.18em;
+        color: rgba(184,149,78,0.72);
+        border-bottom: 1px solid rgba(184,149,78,0.45); padding-bottom: 1px;
+      }
+      .faq-ask-number.is-copied .faq-ask-copy {
+        color: var(--gold-deep); border-bottom-color: var(--gold-deep);
+      }
       @media (max-width: 860px) {
         .faq-question { font-size: 0.72rem; letter-spacing: 0.14em; padding: 1.2rem 0; }
         .faq-answer p { font-size: 0.86rem; padding: 0 0 1.2rem; }
@@ -639,6 +659,9 @@
         .faq-ask h3 { font-size: 1.7rem; }
         .faq-ask-sub { font-size: 0.98rem; }
         .faq-ask-orn::before, .faq-ask-orn::after { width: 42px; }
+        .faq-ask-alt { font-size: 0.88rem; margin-top: 1rem; }
+        .faq-ask-number { font-size: 0.64rem; letter-spacing: 0.16em; gap: 0.45rem; }
+        .faq-ask-copy { font-size: 0.52rem; letter-spacing: 0.14em; }
       }
 
 
@@ -1889,6 +1912,8 @@
         <h3>Have a question?</h3>
         <p class="faq-ask-sub">If there's anything you'd like to know, feel free to send us a text.</p>
         <a class="faq-ask-btn" href="sms:+15162749104">Send a Text</a>
+        <p class="faq-ask-alt">or text us directly</p>
+        <button type="button" class="faq-ask-number" id="copyNumber" aria-label="Copy phone number 516 274 9104">516-274-9104<span class="faq-ask-copy">copy</span></button>
       </div>
 
     </section>
@@ -2150,6 +2175,50 @@
           alert('Sorry, something went wrong sending your RSVP. Please try again.');
         }
       });
+
+      // ── Copy the contact number for guests on a laptop ──
+      (function () {
+        var btn = document.getElementById('copyNumber');
+        if (!btn) return;
+        var hint = btn.querySelector('.faq-ask-copy');
+        var timer = null;
+
+        function done() {
+          btn.classList.add('is-copied');
+          if (hint) hint.textContent = 'copied';
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () {
+            btn.classList.remove('is-copied');
+            if (hint) hint.textContent = 'copy';
+          }, 2000);
+        }
+
+        function fallbackCopy(text) {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.top = '-1000px';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          var ok = false;
+          try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+          document.body.removeChild(ta);
+          return ok;
+        }
+
+        btn.addEventListener('click', function () {
+          var text = '+15162749104';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, function () {
+              if (fallbackCopy(text)) done();
+            });
+          } else if (fallbackCopy(text)) {
+            done();
+          }
+        });
+      })();
 
     </script>
 
