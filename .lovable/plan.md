@@ -1,8 +1,8 @@
-# Make "Have a question?" reachable from a laptop
+# Two fixes: a laptop-friendly contact line and centered countdown details
 
 ## What we're adding
 
-Under the gold **Send a Text** button, the phone number becomes visible text that a laptop guest can read and copy with one click. Phone guests keep the button exactly as it is — it still opens Messages with the number filled in.
+Two changes, both in the one page file. First, the contact fix: under the gold **Send a Text** button, the phone number becomes visible text that a laptop guest can read and copy with one click. Phone guests keep the button exactly as it is — it still opens Messages with the number filled in. Second, the countdown details (Date, Venue, Address) get centered on every screen, the way they already are on a laptop.
 
 ```text
         ❦  ───────────────────────────────  ❦
@@ -47,9 +47,24 @@ Under the gold **Send a Text** button, the phone number becomes visible text tha
 
 **The `sms:` button stays** — it is the fastest path on a phone, and the new line only adds a desktop route.
 
+## Centering the countdown details
+
+On a phone, the three lines under the countdown sit flush left:
+
+```text
+  DATE                     DATE
+  JUNE 19, 2027      ->    JUNE 19, 2027
+  VENUE                    VENUE
+  501 UNION        ->      501 UNION
+```
+
+Why it happens: below 540px wide, each label stacks above its value, and the stacked row stretches every piece across the full card width, so the text falls to the left edge.
+
+**Fix** — `public/wedding.html`, inside the `@media (max-width: 540px)` block at line 276: add `align-items: center;` to the `.cd-line` rule, so the stacked label and value both center. Same gold labels, same sizes, same wording, same order — only the alignment changes, and the wide-screen layout is untouched.
+
 ## Verification
 
-Playwright run against `http://localhost:8080`: dismiss the envelope intro, scroll to the FAQ, click the number, then confirm the clipboard holds `+15162749104`, the hint reads `copied`, and it reverts. Repeat at 1280px and 390px wide, checking for zero failed requests, no console errors, and no sideways swipe. Build log at `/tmp/observability/build-errors.log` stays clean.
+Playwright run against `http://localhost:8080`: dismiss the envelope intro, scroll to the FAQ, click the number, then confirm the clipboard holds `+15162749104`, the hint reads `copied`, and it reverts. Then screenshot the countdown card at 390px and 1280px wide and confirm the Date, Venue and Address lines are centered in both. Both runs check for zero failed requests, no console errors, and no sideways swipe. Build log at `/tmp/observability/build-errors.log` stays clean.
 
 ## Note
 
