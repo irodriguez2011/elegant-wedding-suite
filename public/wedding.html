@@ -799,7 +799,13 @@
         font-size: 0.72rem; letter-spacing: 0.18em; color: var(--wine);
         text-align: right; padding-top: 0.2rem;
       }
-      .t-line { background: linear-gradient(180deg, var(--gold), rgba(185,146,74,0.2)); position: relative; }
+      .t-line {
+        background: linear-gradient(180deg, var(--gold) 0%, color-mix(in srgb, var(--gold) 72%, transparent) 100%);
+        position: relative;
+        margin-bottom: -2.2rem;
+      }
+      .timeline-item:last-child .t-line { background: none; margin-bottom: 0; }
+
       .t-dot {
         width: 12px; height: 12px; border-radius: 50%;
         background: var(--wine); border: 2px solid var(--gold);
