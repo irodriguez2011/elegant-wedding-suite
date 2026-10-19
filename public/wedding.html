@@ -874,6 +874,9 @@
       .rsvp-error.show { display: block; animation: rsvpFade 0.6s ease both; }
       .rsvp-error-label { font-family: 'Jost', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold-light); margin-bottom: 0.35rem; }
       .rsvp-error-msg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ivory); margin: 0; line-height: 1.45; }
+      .rsvp-field-error { display: none; margin-top: 0.3rem; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gold-light); letter-spacing: 0; text-transform: none; }
+      .rsvp-field-error.show { display: block; animation: rsvpFade 0.4s ease both; }
+      .rsvp-form .invalid { border-color: var(--gold-light) !important; }
       @keyframes rsvpFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
       /* ── HONEYMOON ── */
@@ -1787,20 +1790,20 @@
       <div class="section-title">RSVP</div>
       <div class="section-divider"><span>❦</span></div>
       <p class="rsvp-sub">Please let us know if you can join us on our special day.</p>
-      <form class="rsvp-form" id="rsvpForm">
+      <form class="rsvp-form" id="rsvpForm" novalidate>
         <div class="form-row">
           <div class="form-group">
-            <label>First Name</label><input type="text" name="firstName" placeholder="Grace" required />
+            <label>First Name</label><input type="text" name="firstName" placeholder="Grace" required /><small class="rsvp-field-error" data-for="firstName">First name is required</small>
           </div>
           <div class="form-group">
-            <label>Last Name</label><input type="text" name="lastName" placeholder="Kelly" required />
+            <label>Last Name</label><input type="text" name="lastName" placeholder="Kelly" required /><small class="rsvp-field-error" data-for="lastName">Last name is required</small>
           </div>
         </div>
         <div class="form-group">
           <label>Your Phone Number</label><input type="tel" name="phone" placeholder="(555) 123-4567" />
         </div>
         <div class="form-group">
-          <label>Email</label><input type="email" name="email" placeholder="grace@example.com" />
+          <label>Email</label><input type="email" name="email" placeholder="grace@example.com" /><small class="rsvp-field-error" data-for="email"></small>
         </div>
         <div class="form-group">
           <label>Number of Guests</label>
@@ -1817,6 +1820,7 @@
             <label><input type="radio" name="attend" value="Joyfully accepts" required /> Joyfully accepts</label>
             <label><input type="radio" name="attend" value="Regretfully declines" /> Regretfully declines</label>
           </div>
+          <small class="rsvp-field-error" data-for="attend">Please let us know if you'll attend</small>
         </div>
         <div class="form-group">
           <label>Dietary Requirements</label
@@ -2209,8 +2213,38 @@
       // ── RSVP form → Google Apps Script ──
       var RSVP_URL = 'https://script.google.com/macros/s/AKfycbzbhytX17jR33U3NXuJkVjNoZZxCYYyEG8nT5cv5lJwf0M3M2Xz8iqdkBi1mzGIXm9eBA/exec';
       var rsvpForm = document.getElementById('rsvpForm');
+      function rsvpHint(name, msg) {
+        var el = rsvpForm.querySelector('.rsvp-field-error[data-for="' + name + '"]');
+        var input = rsvpForm.elements[name];
+        if (msg) { el.textContent = msg; el.classList.add('show'); } else { el.classList.remove('show'); }
+        if (input && input.classList) input.classList.toggle('invalid', !!msg);
+      }
+      function validateRsvp() {
+        var f = rsvpForm.elements, first = null;
+        function check(name, msg, focusEl) { rsvpHint(name, msg); if (msg && !first) first = focusEl || f[name]; }
+        check('firstName', f.firstName.value.trim() ? '' : 'First name is required');
+        check('lastName', f.lastName.value.trim() ? '' : 'Last name is required');
+        var ph = f.phone.value.trim(), em = f.email.value.trim();
+        var emMsg = '';
+        if (!ph && !em) emMsg = 'Please add a phone number or email so we can reach you';
+        else if (em && !/^\S+@\S+\.\S+$/.test(em)) emMsg = 'Please enter a valid email';
+        check('email', emMsg, !ph && !em ? f.phone : f.email);
+        f.phone.classList.toggle('invalid', !ph && !em);
+        var att = rsvpForm.querySelector('input[name="attend"]:checked');
+        check('attend', att ? '' : "Please let us know if you'll attend", rsvpForm.querySelector('input[name="attend"]'));
+        if (first) first.focus();
+        return !first;
+      }
+      ['firstName','lastName','email'].forEach(function (n) {
+        rsvpForm.elements[n].addEventListener('input', function () { rsvpHint(n, ''); if (n === 'email') rsvpForm.elements.phone.classList.remove('invalid'); });
+      });
+      rsvpForm.elements.phone.addEventListener('input', function () { rsvpHint('email', ''); rsvpForm.elements.phone.classList.remove('invalid'); });
+      rsvpForm.querySelectorAll('input[name="attend"]').forEach(function (r) { r.addEventListener('change', function () { rsvpHint('attend', ''); }); });
+      // TEMP PREVIEW: ?rsvpPreview=error shows the error box — remove once design is approved
+      if (new URLSearchParams(location.search).get('rsvpPreview') === 'error') document.getElementById('rsvpError').classList.add('show');
       rsvpForm.addEventListener('submit', async function (e) {
         e.preventDefault();
+        if (!validateRsvp()) return;
         var btn = rsvpForm.querySelector('.rsvp-submit');
         var errEl = document.getElementById('rsvpError');
         errEl.classList.remove('show');
