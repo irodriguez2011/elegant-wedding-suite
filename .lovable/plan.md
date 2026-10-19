@@ -1,15 +1,15 @@
-# Match the phone menu to the top banner
+# Match the phone menu to the top banner, and use "C & S"
 
 ## Answer
-The banner is not a gradient. It is a single warm ivory color that is slightly see-through (85%) with a soft blur, so the blue page behind it tints it a little. The opened menu sits on top with its own solid ivory, which is why it looks a touch different.
+The banner is not a gradient. It is one warm ivory color that is slightly see-through (85%) with a soft blur, so the blue page behind it tints it a little. The opened menu paints its own solid ivory on top, which is why it looks a touch different.
 
-## Change
-- Make the opened phone menu see-through so it shows the banner's exact color and blur underneath, instead of painting its own ivory. The two will read as one continuous panel.
-- Keep the thin lines between each menu item and the line above the list.
-- Nothing changes on laptop.
-
-## Also noticed
-The banner logo still reads "K & C". Since the seal was changed to S & C, I'll update it to "S & C" too.
+## Changes
+- Make the opened phone menu see-through so it shows the banner's exact color and blur, reading as one continuous panel. Thin lines between items stay. Laptop unchanged.
+- Banner logo: "K & C" becomes "C & S".
+- Envelope wax seal: re-make the seal picture so the pressed monogram reads "C & S" instead of "S & C", keeping the same gold wax look, shape and size.
 
 ## Technical details
-In `public/wedding.html` mobile media query: `.nav-links` background `var(--ivory-2)` -> `transparent`. Logo text line ~1260 `K &amp; C` -> `S &amp; C`. Verify at 390px with menu open.
+- `public/wedding.html` mobile media query: `.nav-links` background `var(--ivory-2)` -> `transparent`.
+- Logo line ~1260: `K &amp; C` -> `C &amp; S`.
+- Edit `public/wax-seal.png` with the image edit tool (monogram "C&S" in Great Vibes style), keep transparent background; clean any baked checkerboard as before.
+- Verify at 390px (menu open) and 1280px (seal), zero failed requests.
