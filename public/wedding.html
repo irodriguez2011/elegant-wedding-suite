@@ -1993,8 +1993,6 @@
       });
       rsvpForm.elements.phone.addEventListener('input', function () { rsvpHint('email', ''); rsvpForm.elements.phone.classList.remove('invalid'); });
       rsvpForm.querySelectorAll('input[name="attend"]').forEach(function (r) { r.addEventListener('change', function () { rsvpHint('attend', ''); }); });
-      // TEMP PREVIEW: ?rsvpPreview=error shows the error box — remove once design is approved
-      if (new URLSearchParams(location.search).get('rsvpPreview') === 'error') document.getElementById('rsvpError').classList.add('show');
       rsvpForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         if (!validateRsvp()) return;
