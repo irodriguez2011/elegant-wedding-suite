@@ -1129,7 +1129,7 @@
       #invite-intro .intro-stage { z-index: 2; }
       #invite-intro.gone #introLeaves span { animation-play-state: paused; }
       .intro-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .6s ease; }
-      .intro-floral { position: absolute; top: 0; width: min(35%, 340px); opacity: .65; pointer-events: none; }
+      .intro-floral { position: absolute; top: 0; width: min(39%, 390px); opacity: .9; pointer-events: none; }
       .intro-floral.left { left: 0; }
       .intro-floral.right { right: 0; transform: scaleX(-1); }
       .stage-env { cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
@@ -1182,7 +1182,7 @@
         .envelope-back { top: 105px; }
         .envelope-pocket { top: 145px; }
         .seal-big { top: 233px; width: 68px; height: 68px; }
-        .intro-floral { width: 41%; opacity: .48; }
+        .intro-floral { width: 46%; opacity: .85; }
         .card-l2 { font-size: 3.7rem; }
       }
       @media (max-height: 680px) {
@@ -1778,9 +1778,9 @@
         for (var i = 0; i < count; i++) {
           var fleck = document.createElement('span');
           fleck.style.left = ((i + Math.random()) / count * 100) + '%';
-          fleck.style.animationDuration = (16 + Math.random() * 8) + 's';
-          fleck.style.animationDelay = -(Math.random() * 22) + 's';
-          var size = 3 + Math.random() * 3;
+          fleck.style.animationDuration = (10 + Math.random() * 5) + 's';
+          fleck.style.animationDelay = -(Math.random() * 15) + 's';
+          var size = 4 + Math.random() * 3;
           fleck.style.width = size + 'px';
           fleck.style.height = size + 'px';
           wrap.appendChild(fleck);
