@@ -1119,9 +1119,15 @@
         --invite-edge: color-mix(in srgb, var(--gold) 45%, var(--ivory));
         --invite-shadow: 0 22px 55px color-mix(in srgb, var(--blue-deep) 22%, transparent);
         --invite-velvet: linear-gradient(140deg, var(--wine-glow), var(--blue) 45%, var(--blue-deep));
+        --invite-background: url('invitation-limewash.jpg');
+        --invite-fleck: color-mix(in srgb, var(--gold) 70%, var(--gold-light));
       }
-      #invite-intro { position: fixed; inset: 0; z-index: 9999; overflow: hidden; background: var(--invite-paper); transition: opacity 1s ease; }
+      #invite-intro { position: fixed; inset: 0; z-index: 9999; overflow: hidden; background: var(--invite-paper) var(--invite-background) center / cover no-repeat; transition: opacity 1s ease; }
       #invite-intro.gone { opacity: 0; pointer-events: none; }
+      #introLeaves { position: absolute; z-index: 1; }
+      #introLeaves span { background: var(--invite-fleck); filter: none; }
+      #invite-intro .intro-stage { z-index: 2; }
+      #invite-intro.gone #introLeaves span { animation-play-state: paused; }
       .intro-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .6s ease; }
       .intro-floral { position: absolute; top: 0; width: min(35%, 340px); opacity: .65; pointer-events: none; }
       .intro-floral.left { left: 0; }
@@ -1208,6 +1214,7 @@
 
     <!-- ENVELOPE INTRO -->
     <div id="invite-intro" role="dialog" aria-label="Wedding invitation">
+      <div class="ambient-leaves" id="introLeaves" aria-hidden="true"></div>
       <img class="intro-floral left" src="floral-corner.png" alt="" aria-hidden="true" />
       <img class="intro-floral right" src="floral-corner.png" alt="" aria-hidden="true" />
       <div class="intro-stage stage-env" id="stageEnv" tabindex="0" role="button" aria-label="Open the invitation">
@@ -1760,6 +1767,23 @@
           s.style.height = size + 'px';
           s.style.background = (Math.random() > 0.5 ? 'var(--gold-light)' : 'rgba(107,125,92,0.55)');
           wrap.appendChild(s);
+        }
+      })();
+
+      // Restore the floating gold flecks above the opaque invitation background.
+      (function () {
+        var wrap = document.getElementById('introLeaves');
+        if (!wrap || __reduceMo) return;
+        var count = __isSmall ? 12 : 24;
+        for (var i = 0; i < count; i++) {
+          var fleck = document.createElement('span');
+          fleck.style.left = ((i + Math.random()) / count * 100) + '%';
+          fleck.style.animationDuration = (16 + Math.random() * 8) + 's';
+          fleck.style.animationDelay = -(Math.random() * 22) + 's';
+          var size = 3 + Math.random() * 3;
+          fleck.style.width = size + 'px';
+          fleck.style.height = size + 'px';
+          wrap.appendChild(fleck);
         }
       })();
 
