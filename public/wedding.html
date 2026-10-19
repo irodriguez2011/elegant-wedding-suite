@@ -1783,49 +1783,49 @@
       <div class="section-title">RSVP</div>
       <div class="section-divider"><span>❦</span></div>
       <p class="rsvp-sub">Please let us know if you can join us on our special day.</p>
-      <form class="rsvp-form" id="rsvpForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="rsvp-form" id="rsvpForm" novalidate="false">
         <div class="form-row">
           <div class="form-group">
-            <label>First Name</label><input type="text" name="First Name" placeholder="Grace" required />
+            <label>First Name</label><input type="text" name="firstName" placeholder="Grace" required />
           </div>
           <div class="form-group">
-            <label>Last Name</label><input type="text" name="Last Name" placeholder="Kelly" required />
+            <label>Last Name</label><input type="text" name="lastName" placeholder="Kelly" required />
           </div>
         </div>
         <div class="form-group">
-          <label>Your Phone Number</label><input type="tel" name="Phone" placeholder="(555) 123-4567" required />
+          <label>Your Phone Number</label><input type="tel" name="phone" placeholder="(555) 123-4567" />
         </div>
         <div class="form-group">
-          <label>Email</label><input type="email" name="Email" placeholder="grace@example.com" required />
+          <label>Email</label><input type="email" name="email" placeholder="grace@example.com" />
         </div>
         <div class="form-group">
           <label>Number of Guests</label>
-          <select name="Number of Guests">
-            <option>1 guest</option>
-            <option>2 guests</option>
-            <option>3 guests</option>
-            <option>4 guests</option>
+          <select name="guests">
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
           </select>
         </div>
         <div class="form-group">
           <label>Will you attend?</label>
           <div class="rsvp-radio">
-            <label><input type="radio" name="Attending" value="Joyfully accepts" checked /> Joyfully accepts</label>
-            <label><input type="radio" name="Attending" value="Regretfully declines" /> Regretfully declines</label>
+            <label><input type="radio" name="attend" value="Joyfully accepts" required /> Joyfully accepts</label>
+            <label><input type="radio" name="attend" value="Regretfully declines" /> Regretfully declines</label>
           </div>
         </div>
         <div class="form-group">
           <label>Dietary Requirements</label
-          ><input type="text" name="Dietary Requirements" placeholder="Any allergies or preferences..." />
+          ><input type="text" name="dietary" placeholder="Any allergies or preferences..." />
         </div>
         <div class="form-group">
           <label>A Question or Note for Cory &amp; Shornakay (optional)</label
-          ><textarea name="Question or Note" rows="3" placeholder="Ask us anything..."></textarea>
+          ><textarea name="note" rows="3" placeholder="Ask us anything..."></textarea>
         </div>
-        <input type="hidden" name="_subject" value="New wedding RSVP / question!" />
         <button type="submit" class="rsvp-submit">Send RSVP</button>
+        <p class="rsvp-sub" id="rsvpError" style="display:none; margin:0;">Something went wrong. Please try again or text us.</p>
       </form>
-      <div class="rsvp-success" id="rsvpSuccess">Thank you — we can't wait to celebrate with you! ✦</div>
+      <div class="rsvp-success" id="rsvpSuccess">Thank you! Your RSVP has been received.</div>
     </section>
 
     <!-- HONEYMOON -->
@@ -2195,21 +2195,35 @@
         document.getElementById('navLinks').classList.remove('open');
       }
 
-      // ── RSVP form ──
+      // ── RSVP form → Google Apps Script ──
+      var RSVP_URL = 'https://script.google.com/macros/s/AKfycbzbhytX17jR33U3NXuJkVjNoZZxCYYyEG8nT5cv5lJwf0M3M2Xz8iqdkBi1mzGIXm9eBA/exec';
       var rsvpForm = document.getElementById('rsvpForm');
       rsvpForm.addEventListener('submit', async function (e) {
         e.preventDefault();
-        var data = new FormData(rsvpForm);
+        var btn = rsvpForm.querySelector('.rsvp-submit');
+        var errEl = document.getElementById('rsvpError');
+        errEl.style.display = 'none';
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        var f = rsvpForm.elements;
+        var attendEl = rsvpForm.querySelector('input[name="attend"]:checked');
+        var body = new URLSearchParams();
+        body.append('firstName', f.firstName.value.trim());
+        body.append('lastName', f.lastName.value.trim());
+        body.append('phone', f.phone.value.trim());
+        body.append('email', f.email.value.trim());
+        body.append('guests', f.guests.value);
+        body.append('attend', attendEl ? attendEl.value : '');
+        body.append('dietary', f.dietary.value.trim());
+        body.append('note', f.note.value.trim());
         try {
-          var res = await fetch(rsvpForm.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-          if (res.ok) {
-            rsvpForm.style.display = 'none';
-            document.getElementById('rsvpSuccess').style.display = 'block';
-          } else {
-            alert('Sorry, something went wrong sending your RSVP. Please try again.');
-          }
+          await fetch(RSVP_URL, { method: 'POST', mode: 'no-cors', body: body });
+          rsvpForm.style.display = 'none';
+          document.getElementById('rsvpSuccess').style.display = 'block';
         } catch (err) {
-          alert('Sorry, something went wrong sending your RSVP. Please try again.');
+          btn.disabled = false;
+          btn.textContent = 'Send RSVP';
+          errEl.style.display = 'block';
         }
       });
 
