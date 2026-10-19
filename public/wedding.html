@@ -866,11 +866,15 @@
         font-weight: 500;
       }
       .rsvp-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); }
-      .rsvp-success {
-        display: none; text-align: center; padding: 2rem;
-        font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
-        font-style: italic; color: var(--gold-light);
-      }
+      .rsvp-success { display: none; text-align: center; padding: 1rem 2rem 2rem; position: relative; z-index: 2; max-width: 500px; margin: 0 auto; }
+      .rsvp-success.show { display: block; animation: rsvpFade 0.8s ease both; }
+      .rsvp-thanks-title { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 2.6rem; color: var(--ivory); margin: 0.6rem 0 0.4rem; letter-spacing: 0.02em; }
+      .rsvp-thanks-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: var(--gold-light); margin: 0; line-height: 1.5; }
+      .rsvp-error { display: none; background: rgba(114,156,196,0.18); border: 1px solid var(--gold); border-radius: 4px; padding: 0.9rem 1.1rem; text-align: center; }
+      .rsvp-error.show { display: block; animation: rsvpFade 0.6s ease both; }
+      .rsvp-error-label { font-family: 'Jost', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold-light); margin-bottom: 0.35rem; }
+      .rsvp-error-msg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ivory); margin: 0; line-height: 1.45; }
+      @keyframes rsvpFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
       /* ── HONEYMOON ── */
       .honeymoon {
@@ -1822,10 +1826,17 @@
           <label>A Question or Note for Cory &amp; Shornakay (optional)</label
           ><textarea name="note" rows="3" placeholder="Ask us anything..."></textarea>
         </div>
+        <div class="rsvp-error" id="rsvpError" role="alert">
+          <div class="rsvp-error-label">Something went wrong</div>
+          <p class="rsvp-error-msg">We weren't able to save your RSVP. Please try again, or text us and we'll make sure you're on the list.</p>
+        </div>
         <button type="submit" class="rsvp-submit">Send RSVP</button>
-        <p class="rsvp-sub" id="rsvpError" style="display:none; margin:0;">Something went wrong. Please try again or text us.</p>
       </form>
-      <div class="rsvp-success" id="rsvpSuccess">Thank you! Your RSVP has been received.</div>
+      <div class="rsvp-success" id="rsvpSuccess" aria-live="polite">
+        <div class="section-divider"><span>❦</span></div>
+        <h3 class="rsvp-thanks-title">Thank You</h3>
+        <p class="rsvp-thanks-sub">Your RSVP has been received. We can't wait to celebrate with you.</p>
+      </div>
     </section>
 
     <!-- HONEYMOON -->
@@ -2202,7 +2213,7 @@
         e.preventDefault();
         var btn = rsvpForm.querySelector('.rsvp-submit');
         var errEl = document.getElementById('rsvpError');
-        errEl.style.display = 'none';
+        errEl.classList.remove('show');
         btn.disabled = true;
         btn.textContent = 'Sending...';
         var f = rsvpForm.elements;
@@ -2217,13 +2228,18 @@
         body.append('dietary', f.dietary.value.trim());
         body.append('note', f.note.value.trim());
         try {
-          await fetch(RSVP_URL, { method: 'POST', mode: 'no-cors', body: body });
+          var res = await fetch(RSVP_URL, { method: 'POST', body: body });
+          var text = (await res.text()).trim();
+          if (text !== 'ok') throw new Error('bad response');
           rsvpForm.style.display = 'none';
-          document.getElementById('rsvpSuccess').style.display = 'block';
+          var intro = document.querySelector('#rsvp .rsvp-sub');
+          if (intro) intro.style.display = 'none';
+          document.getElementById('rsvpSuccess').classList.add('show');
         } catch (err) {
           btn.disabled = false;
           btn.textContent = 'Send RSVP';
-          errEl.style.display = 'block';
+          void errEl.offsetWidth;
+          errEl.classList.add('show');
         }
       });
 
