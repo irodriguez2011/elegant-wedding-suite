@@ -1142,7 +1142,7 @@
       .envelope-pocket::after { content: ''; position: absolute; inset: 0; background: linear-gradient(145deg, transparent 49.7%, color-mix(in srgb, var(--wine-deep) 18%, transparent) 50%, transparent 50.5%), linear-gradient(35deg, transparent 49.7%, color-mix(in srgb, var(--ivory) 22%, transparent) 50%, transparent 50.5%); }
       .seal-big { position: absolute; top: 269px; left: 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border-radius: 46% 51% 45% 49%; z-index: 4; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 30% 25%, var(--gold-light), var(--gold)); box-shadow: 0 5px 12px color-mix(in srgb, var(--wine-deep) 25%, transparent), inset 0 2px 4px var(--ivory); transition: transform .5s, opacity .4s; }
       .seal-big::before { content: ''; position: absolute; inset: 7px; border: 1px solid var(--gold-dark); border-radius: 50%; opacity: .6; }
-      .seal-mono { font-family: 'Great Vibes', cursive; color: var(--gold-dark); font-size: 1.9rem; padding-top: 5px; }
+      .seal-mono { font-family: 'Great Vibes', cursive; color: var(--gold-dark); font-size: 1.45rem; padding-top: 5px; }
       .env-hint { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--wine); font-size: 1rem; margin-top: 22px; }
       .stage-env.opening .seal-big { opacity: 0; transform: translate(-50%, -50%) scale(1.2) rotate(15deg); }
       .stage-env.opening .invitation-letter { transform: translateY(-65px); }
@@ -1171,7 +1171,8 @@
         .envelope-scene { height: 365px; }
         .invitation-letter { height: 310px; padding-top: 30px; }
         .env-names { font-size: 3.2rem; }
-        .env-label { margin-bottom: 20px; }
+        .env-label { margin-bottom: 12px; }
+        .env-names span { margin: 2px 0; }
         .envelope-back { top: 105px; }
         .envelope-pocket { top: 145px; }
         .seal-big { top: 233px; width: 68px; height: 68px; }
