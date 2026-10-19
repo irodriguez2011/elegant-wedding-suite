@@ -1153,13 +1153,14 @@
       .stage-env.opening .seal-big { opacity: 0; transform: translate(-50%, -50%) scale(1.2) rotate(15deg); }
       .stage-env.opening .invitation-letter { transform: translateY(-65px); }
       .stage-env.opening .envelope-pocket, .stage-env.opening .envelope-back { transition: transform .9s; transform: translateY(24px); }
-      #invite-intro.step2 .stage-env { opacity: 0; pointer-events: none; }
+      .stage-env, .stage-card { transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
+      #invite-intro.step2 .stage-env { opacity: 0; transform: translateY(18px) scale(.96); pointer-events: none; }
       .stage-card { opacity: 0; pointer-events: none; text-align: center; }
       #invite-intro.step2 .stage-card { opacity: 1; pointer-events: auto; }
       .card-inner { position: relative; width: min(440px, calc(100% - 48px)); padding: 48px 24px; border: 1px solid var(--invite-edge); background: var(--ivory); box-shadow: var(--invite-shadow); opacity: 0; }
       .card-inner::before { content: ''; position: absolute; inset: 10px; border: 1px solid var(--invite-edge); pointer-events: none; }
-      #invite-intro.step2 .card-inner { animation: cardRise .8s ease both; }
-      @keyframes cardRise { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
+      #invite-intro.step2 .card-inner { animation: cardRise .7s cubic-bezier(.22,.61,.36,1) both; }
+      @keyframes cardRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
       .card-ornament { width: 170px; margin: 0 auto 22px; display: flex; align-items: center; gap: 12px; color: var(--gold); }
       .card-ornament::before, .card-ornament::after { content: ''; flex: 1; height: 1px; background: var(--invite-edge); }
       .card-l1, .card-l3, .card-date { font-family: 'Cinzel', serif; color: var(--gold-dark); letter-spacing: 0; text-transform: uppercase; }
@@ -1840,7 +1841,7 @@
         function openEnvelope() {
           if (stageEnv.classList.contains('opening')) return;
           stageEnv.classList.add('opening');
-          setTimeout(toInvite, __reduceMo ? 0 : 1100);
+          setTimeout(toInvite, __reduceMo ? 0 : 600);
         }
         stageEnv.addEventListener('click', openEnvelope);
         stageEnv.addEventListener('keydown', function (e) {
