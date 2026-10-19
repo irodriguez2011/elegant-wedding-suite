@@ -1146,9 +1146,7 @@
       .envelope-pocket { position: absolute; inset: 170px 0 0; z-index: 3; background: var(--invite-velvet); clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%); }
       .envelope-pocket::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(105deg, color-mix(in srgb, var(--ivory) 8%, transparent) 0 1px, transparent 1px 4px); opacity: .55; }
       .envelope-pocket::after { content: ''; position: absolute; inset: 0; background: linear-gradient(145deg, transparent 49.7%, color-mix(in srgb, var(--wine-deep) 18%, transparent) 50%, transparent 50.5%), linear-gradient(35deg, transparent 49.7%, color-mix(in srgb, var(--ivory) 22%, transparent) 50%, transparent 50.5%); }
-      .seal-big { position: absolute; top: 269px; left: 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border-radius: 46% 51% 45% 49%; z-index: 4; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 30% 25%, var(--gold-light), var(--gold)); box-shadow: 0 5px 12px color-mix(in srgb, var(--wine-deep) 25%, transparent), inset 0 2px 4px var(--ivory); transition: transform .5s, opacity .4s; }
-      .seal-big::before { content: ''; position: absolute; inset: 7px; border: 1px solid var(--gold-dark); border-radius: 50%; opacity: .6; }
-      .seal-mono { font-family: 'Great Vibes', cursive; color: var(--gold-dark); font-size: 1.45rem; padding-top: 5px; }
+      .seal-big { position: absolute; top: 269px; left: 50%; transform: translate(-50%, -50%); width: 84px; height: 84px; z-index: 4; display: flex; align-items: center; justify-content: center; background: url('/wax-seal.png') center / 108% no-repeat; filter: drop-shadow(0 5px 10px color-mix(in srgb, var(--wine-deep) 30%, transparent)); transition: transform .5s, opacity .4s; }
       .env-hint { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--wine); font-size: 1rem; margin-top: 22px; }
       .stage-env.opening .seal-big { opacity: 0; transform: translate(-50%, -50%) scale(1.2) rotate(15deg); }
       .stage-env.opening .invitation-letter { transform: translateY(-65px); }
@@ -1228,7 +1226,7 @@
             <div class="letter-date">June 19, 2027</div>
           </div>
           <div class="envelope-pocket" aria-hidden="true"></div>
-          <div class="seal-big"><span class="seal-mono">S&amp;C</span></div>
+          <div class="seal-big" role="button" aria-label="Open the invitation"></div>
         </div>
         <div class="env-hint">Click to Open</div>
       </div>
