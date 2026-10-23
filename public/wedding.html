@@ -601,6 +601,18 @@
         font-size: 0.9rem; line-height: 1.8; color: var(--muted);
         padding: 0 0.2rem 1.4rem;
       }
+      .faq-honeymoon-link {
+        color: var(--gold);
+        font-style: italic;
+        text-decoration: underline;
+        text-decoration-color: color-mix(in srgb, var(--gold) 45%, transparent);
+        text-underline-offset: 3px;
+        transition: color 0.25s ease;
+      }
+      .faq-honeymoon-link:hover {
+        color: var(--gold-dark);
+        text-decoration-color: var(--gold-dark);
+      }
       .faq-item.open .faq-answer { max-height: 220px; }
 
       /* ── FAQ ask box ── */
@@ -1673,7 +1685,7 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>We would love if our guests contribute to our honeymoon fund via Venmo or Zelle.</p>
+            <p>We would love if our guests contribute to our honeymoon fund. <a class="faq-honeymoon-link" href="#honeymoon">Go to the Honeymoon Fund</a> and press Contribute to give.</p>
           </div>
         </div>
         <div class="faq-item">
