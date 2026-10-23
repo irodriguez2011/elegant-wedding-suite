@@ -603,16 +603,16 @@
         text-wrap: pretty;
       }
       .faq-honeymoon-link {
-        color: var(--gold);
+        color: var(--gold-dark);
         font-style: italic;
         text-decoration: underline;
-        text-decoration-color: color-mix(in srgb, var(--gold) 45%, transparent);
+        text-decoration-color: color-mix(in srgb, var(--gold-dark) 55%, transparent);
         text-underline-offset: 3px;
         transition: color 0.25s ease;
       }
       .faq-honeymoon-link:hover {
-        color: var(--gold-dark);
-        text-decoration-color: var(--gold-dark);
+        color: color-mix(in srgb, var(--gold-dark) 70%, var(--charcoal));
+        text-decoration-color: color-mix(in srgb, var(--gold-dark) 70%, var(--charcoal));
       }
       .faq-item.open .faq-answer { max-height: 220px; }
 
